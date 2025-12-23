@@ -4,35 +4,42 @@
 
 class Dividend {
 public:
+  struct CashFlow {
+    double time;
+    double amount;
+  };
+  virtual bool hasCashSchedule() const = 0;
   virtual ~Dividend() = default;
   virtual double yieldRate() const = 0;
-  virtual double discountFactor(double t_) const = 0;
-  virtual double acumCashFlow(double t_) const = 0;
+  virtual double discountFactor(double t) const = 0;
+  virtual double acumCashFlow(double t) const = 0;
+  virtual const std::vector<CashFlow>&
+    cashSchedule() const = 0;
 private:
 };
 
 class ContinuousDividend : public Dividend {
 public:
   explicit ContinuousDividend(
-      double q_
-      ) : q{q_} {}
+      double q
+      ) : q_{q} {}
+  bool hasCashSchedule() const override;
   double yieldRate() const override;
-  double discountFactor(double t_) const override;
-  double acumCashFlow(double t_) const override;
+  double discountFactor(double t) const override;
+  double acumCashFlow(double t) const override;
+  const std::vector<CashFlow>& cashSchedule() const override;
 private:
-  double q;
+  double q_;
 };
 
 class DiscreteDividend: public Dividend {
 public:
-  struct Dividend {
-    double time;
-    double amount;
-  };
-  DiscreteDividend(std::vector<Dividend> divs_) :
-    divs{divs_} {}
-  double discountFactor(double t_) const override;
-  double acumCashFlow(double t_) const override;
+  DiscreteDividend(std::vector<CashFlow> divs) :
+    divs_{std::move(divs)} {}
+  bool hasCashSchedule() const override;
+  double discountFactor(double t) const override;
+  double acumCashFlow(double t) const override;
+  const std::vector<CashFlow>& cashSchedule() const override;
 private:
-  std::vector<Dividend> divs;
+  std::vector<CashFlow> divs_;
 };
