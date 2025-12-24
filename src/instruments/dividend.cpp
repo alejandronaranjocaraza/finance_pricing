@@ -2,6 +2,10 @@
 #include <cmath>
 
 bool ContinuousDividend::hasCashSchedule() const {
+  return false;
+}
+
+bool ContinuousDividend::hasContinuousYield() const {
   return true;
 }
 
@@ -19,6 +23,10 @@ const std::vector<Dividend::CashFlow>& ContinuousDividend::cashSchedule() const 
 }
 
 bool DiscreteDividend::hasCashSchedule() const {
+  return true;
+}
+
+bool DiscreteDividend::hasContinuousYield() const {
   return false;
 }
 

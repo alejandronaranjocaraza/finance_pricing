@@ -9,6 +9,7 @@ public:
     double amount;
   };
   virtual bool hasCashSchedule() const = 0;
+  virtual bool hasContinuousYield() const = 0;
   virtual ~Dividend() = default;
   virtual double yieldRate() const = 0;
   virtual double discountFactor(double t) const = 0;
@@ -24,6 +25,7 @@ public:
       double q
       ) : q_{q} {}
   bool hasCashSchedule() const override;
+  bool hasContinuousYield() const override;
   double yieldRate() const override;
   double discountFactor(double t) const override;
   double acumCashFlow(double t) const override;
@@ -36,6 +38,7 @@ class DiscreteDividend: public Dividend {
 public:
   DiscreteDividend(std::vector<CashFlow> divs) :
     divs_{std::move(divs)} {}
+  bool hasContinuousYield() const override;
   bool hasCashSchedule() const override;
   double discountFactor(double t) const override;
   double acumCashFlow(double t) const override;
