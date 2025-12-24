@@ -11,6 +11,10 @@
 #include <algorithm>
 #include <utility>
 
+// For personal IDE-related reasons, .h and .tpp are included in
+// same file (single .h). This can easily be refractored into
+// seperate files.
+
 // .H
 
 template <typename Param = CRR>
