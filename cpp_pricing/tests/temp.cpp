@@ -6,41 +6,23 @@
 #include <iostream>
 
 int main() {
-  double K = 30; // Strike price
-  double T = 2; // Maturity
-  double S0 = 100;
-  double r = 0.02;
-  auto exercise = std::make_shared<AmericanExercise>(1.0); // T = 1 year
-  auto payoff   = std::make_shared<CallPayoff>(100.0);     // K = 100
+  double K = 50; // Strike price
+  double T = 0.41666666666; // Maturity
+  double S0 = 52;
+  double r = 0.1;
+  double sigma = 0.4;
+  double divVal = 2.06;
+  double divTime = 0.29166666666;
+  char optType = 'p';
 
-  Option ameCall(exercise, payoff);
-  double pay = ameCall.payoff().getPayoff(200);
-  std::cout << pay << std::endl;
+  auto amerOpt = std::make_shared<AmericanOption>(optType,K,T);
+  Dividend::CashFlow cash1{divTime,divVal};
 
-  auto amerOpt = std::make_shared<AmericanOption>('c',40.0, 2.0);
-  std::cout << amerOpt->canExercise(3.0) << std::endl;
-  std::cout << amerOpt->canExercise(1.5) << std::endl;
-  std::cout << amerOpt->getPayoff(50) << std::endl;
-
-  Dividend::CashFlow cash1{0.2,20};
-  Dividend::CashFlow cash2{0.4,20};
-  Dividend::CashFlow cash3{0.6,20};
-
-  std::vector<Dividend::CashFlow> cashVec = {cash1, cash2, cash3};
+  std::vector<Dividend::CashFlow> cashVec = {cash1};
   auto dividends = std::make_shared<DiscreteDividend>(cashVec);
-  auto stock = std::make_shared<Stock>(100,dividends);
+  auto stock = std::make_shared<Stock>(S0,dividends);
 
-  BinomialModel binom(amerOpt, stock, 0.2, 0.09);
+  BinomialModel binom(amerOpt, stock, r, sigma, 100);
   double price = binom.getPrice();
   std::cout << price << std::endl;
-
-
-
-
-
-
-
-
-
-
 }

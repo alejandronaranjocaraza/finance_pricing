@@ -102,6 +102,7 @@ double BinomialModel<Param>::getPriceDS() const {
 
   // Get S* present value
   double SAdj0=stockPtr_->spot();
+
   for(const auto& div : divSchedule) {
     SAdj0 -= div.amount * std::exp(-params_.r*(div.time));
   }
@@ -112,8 +113,8 @@ double BinomialModel<Param>::getPriceDS() const {
     for(int j=0; j<=i; j++) {
       double SAdj = (SAdj0) * (std::pow(params_.u,j)) * (std::pow(params_.d, i-j));
       double St = SAdj;
-      for(const auto& div : divSchedule) {
 
+      for(const auto& div : divSchedule) {
         // Consider Dividend payments are before div.time(ex-dividend dates)
         if(tau< div.time) {
           St += div.amount*std::exp(-params_.r*(div.time-i*params_.dt));
@@ -122,7 +123,7 @@ double BinomialModel<Param>::getPriceDS() const {
       S[i][j] = St;
     }
   }
-  
+
   // Set terminal values
   for(int j=0; j<=params_.n; j++)
     nodes[j] = optionPtr_->getPayoff(S[params_.n][j]);
