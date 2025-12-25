@@ -2,6 +2,7 @@
 #include <memory>
 #include "instrument.h"
 #include "../exercise/exercise.h"
+
 class Payoff;
 
 class Option : public Instrument {

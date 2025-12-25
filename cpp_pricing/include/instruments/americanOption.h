@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-#include <stdexcept>
 #include "option.h"
 #include "../exercise/americanExercise.h"
 #include "../payoffs/callPayoff.h"
@@ -18,12 +17,5 @@ public:
         ) {}
   
 private:
-  static std::shared_ptr<Payoff> buildPayoff(char type_, double K_) {
-    switch (type_) {
-      case 'c': return std::make_shared<CallPayoff>(K_);
-      case 'p': return std::make_shared<PutPayoff>(K_);
-      default: throw std::invalid_argument("Unknown type");
-    }
-
-  }
+  static std::shared_ptr<Payoff> buildPayoff(char type_, double K_);
 };

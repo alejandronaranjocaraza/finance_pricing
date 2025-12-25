@@ -17,6 +17,10 @@ double ContinuousDividend::discountFactor(double t) const {
   return std::exp(-t * q_);
 }
 
+double ContinuousDividend::acumCashFlow(double t) const {
+  return 0.0;
+}
+
 const std::vector<Dividend::CashFlow>& ContinuousDividend::cashSchedule() const {
   static const std::vector<Dividend::CashFlow> empty{};
   return empty;
@@ -28,6 +32,14 @@ bool DiscreteDividend::hasCashSchedule() const {
 
 bool DiscreteDividend::hasContinuousYield() const {
   return false;
+}
+
+double DiscreteDividend::yieldRate() const {
+  return 0.0;
+}
+
+double DiscreteDividend::discountFactor(double t) const {
+  return 0.0;
 }
 
 double DiscreteDividend::acumCashFlow(double t) const {
