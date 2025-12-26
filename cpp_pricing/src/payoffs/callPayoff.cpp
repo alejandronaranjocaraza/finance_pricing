@@ -2,5 +2,5 @@
 #include <algorithm>
 
 double CallPayoff::getPayoff(double spot) const {
-  return std::max(spot - K, 0.0);
+  return std::max(spot - K_, 0.0);
 }

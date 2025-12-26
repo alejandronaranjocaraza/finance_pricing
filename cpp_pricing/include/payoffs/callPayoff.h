@@ -3,8 +3,8 @@
 
 class CallPayoff : public Payoff {
 public:
-  explicit CallPayoff(double K_) : K(K_) {}
+  explicit CallPayoff(double K) : K_(K) {}
   double getPayoff(double spot) const;
 private:
-  double K;
+  double K_;
 };

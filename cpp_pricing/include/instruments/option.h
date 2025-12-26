@@ -8,16 +8,26 @@ class Payoff;
 class Option : public Instrument {
 public:
   Option(
-      std::shared_ptr<Exercise> exercisePtr_,
-      std::shared_ptr<Payoff> payoffPtr_
-      ) : exercisePtr{exercisePtr_}, payoffPtr{payoffPtr_} {}
+      double K,
+      double T,
+      std::shared_ptr<Exercise> exercisePtr,
+      std::shared_ptr<Payoff> payoffPtr
+      ) :
+    K_{K},
+    T_{T},
+    exercisePtr_{exercisePtr}, payoffPtr_{payoffPtr} 
+  {}
   
   const Payoff& payoff() const;
   const Exercise& exercise() const;
-  double getPayoff(double K_) const;
-  bool canExercise(double T_) const;
+  double strikePrice() const;
+  double maturity() const;
+  double getPayoff(double spot) const;
+  bool canExercise(double T) const;
  
 private:
-    std::shared_ptr<Exercise> exercisePtr;
-    std::shared_ptr<Payoff> payoffPtr;
+  double K_;
+  double T_;
+  std::shared_ptr<Exercise> exercisePtr_;
+  std::shared_ptr<Payoff> payoffPtr_;
 };

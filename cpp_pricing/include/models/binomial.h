@@ -28,6 +28,9 @@ public:
       int n = 100
       );
 
+  // Binomial Pricing Model
+  // Calls getPriceDS() if underlying stock has discrete dividend cash schedule
+  // Calls getPriceCY() if underlying stock has continuous dividend yield
   double getPrice() const;
  
   // Get Option Price where unerlying stock has discrete dividend cash schedule
