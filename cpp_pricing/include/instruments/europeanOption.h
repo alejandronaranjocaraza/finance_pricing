@@ -8,14 +8,16 @@
 class EuropeanOption : public Option {
 public:
   EuropeanOption(
-      char type_,
-      double K_,
-      double T_
+      char type,
+      double K,
+      double T
       ) : Option(
-        std::make_shared<EuropeanExercise>(T_),
-        buildPayoff(type_, K_)
+        K,
+        T,
+        std::make_shared<EuropeanExercise>(),
+        buildPayoff(type)
         ) {}
   
 private:
-  static std::shared_ptr<Payoff> buildPayoff(char type_, double K_);
+  static std::shared_ptr<Payoff> buildPayoff(char type);
 };

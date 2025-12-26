@@ -1,12 +1,13 @@
 #pragma once
 
 #include "exercise.h"
+#include "../instruments/option.h"
 
 class AmericanExercise : public Exercise {
 public:
-  AmericanExercise(double T) : maturity_{T} {}
-  bool canExercise(double t) const override;
-  double maturity() const override;
-private:
-  double maturity_;
+  AmericanExercise()=default;
+  bool canExercise(
+      const Option& option,
+      double t
+      ) const override;
 };

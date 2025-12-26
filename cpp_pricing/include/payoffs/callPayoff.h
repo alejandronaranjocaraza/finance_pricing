@@ -1,10 +1,11 @@
 #pragma once
 #include "payoff.h"
+#include "../instruments/option.h"
 
 class CallPayoff : public Payoff {
 public:
-  explicit CallPayoff(double K) : K_(K) {}
-  double getPayoff(double spot) const;
-private:
-  double K_;
+  CallPayoff() = default;
+  double getPayoff(
+      const Option& option, double spot
+    ) const override;
 };

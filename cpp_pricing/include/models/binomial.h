@@ -74,7 +74,7 @@ BinomialModel<Param>::BinomialModel(
     optionPtr_{std::move(optionPtr)},
     stockPtr_{std::move(stockPtr)},
     params_{makeParams(
-        optionPtr_->exercise().maturity(),
+        optionPtr_->maturity(),
         stockPtr_->dividends().yieldRate(),
         r,
         sigma,

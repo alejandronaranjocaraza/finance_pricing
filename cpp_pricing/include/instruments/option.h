@@ -15,15 +15,15 @@ public:
       ) :
     K_{K},
     T_{T},
-    exercisePtr_{exercisePtr}, payoffPtr_{payoffPtr} 
-  {}
+    exercisePtr_{exercisePtr},
+    payoffPtr_{payoffPtr} {}
   
   const Payoff& payoff() const;
   const Exercise& exercise() const;
   double strikePrice() const;
   double maturity() const;
   double getPayoff(double spot) const;
-  bool canExercise(double T) const;
+  bool canExercise(double t) const;
  
 private:
   double K_;

@@ -19,9 +19,9 @@ double Option::maturity() const {
 }
 
 double Option::getPayoff(double spot) const {
-  return payoffPtr_->getPayoff(spot);
+  return payoffPtr_->getPayoff(*this, spot);
 }
 
-bool Option::canExercise(double T) const {
-  return exercisePtr_->canExercise(T);
+bool Option::canExercise(double t) const {
+  return exercisePtr_->canExercise(*this,t);
 }

@@ -1,10 +1,9 @@
 #include "../../include/exercise/americanExercise.h"
 #include <cmath>
 
-double AmericanExercise::maturity() const {
-  return maturity_;
-}
-
-bool AmericanExercise::canExercise(double t) const {
-  return (t > 0.0 && t < maturity_) ? true : false;
+bool AmericanExercise::canExercise(
+    const Option& option,
+    double t
+    ) const {
+  return (t > 0.0 && t < option.maturity()) ? true : false;
 }

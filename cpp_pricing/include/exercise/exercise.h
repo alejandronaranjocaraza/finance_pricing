@@ -1,8 +1,12 @@
 #pragma once
 
+class Option;
+
 class Exercise {
 public:
   virtual ~Exercise() = default;
-  virtual bool canExercise(double t) const = 0;
-  virtual double maturity() const = 0;
+  virtual bool canExercise(
+      const Option& option,
+      double t
+      ) const = 0;
 };
