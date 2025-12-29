@@ -1,6 +1,6 @@
 #include "option.h"
 
-class VanillaOption : public Option{
+class VanillaOption : public Option {
 public:
   enum struct OptionType {
     call,

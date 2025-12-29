@@ -12,7 +12,7 @@
 #include <numbers>
 
 static double normalCDF(double x) {
-  return std::erfc(0.5 * std::erfc(-x / std::sqrt(2.0)));
+  return 0.5 * std::erfc(-x / std::sqrt(2.0));
 }
 
 static double normalPDF(double x) {
@@ -26,8 +26,8 @@ class BSM;
 //  - Finite Dffference (FD) Greeks
 //  - Monte Carlo (MC) Greeks
 struct Greeks {
-  explicit Greeks(const BSM& owner) : bsm(owner) {}
-  const BSM& bsm;
+  explicit Greeks(const BSM* owner) : bsm{owner} {}
+  const BSM* bsm;
   double delta(double sigma) const;
   double theta(double sigma) const;
   double gamma(double sigma) const;
@@ -47,10 +47,10 @@ public:
     stockPtr_{std::move(stockPtr)},
     r_{r},
     sigma_{sigma},
-    T_{optionPtr->maturity()},
-    K_{optionPtr->strikePrice()},
-    S0_{stockPtr->spot()},
-    optionType_{optionPtr->type()}
+    T_{optionPtr_->maturity()},
+    K_{optionPtr_->strikePrice()},
+    S0_{stockPtr_->spot()},
+    optionType_{optionPtr_->type()}
   {}
 
   double getD1(double sigma) const {
@@ -112,7 +112,7 @@ public:
   }
 
   Greeks greeks() {
-    return Greeks(*this);
+    return Greeks(this);
   }
 
   double impliedVol(double targetPrice) {
@@ -129,7 +129,7 @@ public:
   }
 
 private:
-    std::shared_ptr<const Option> optionPtr_;
+    std::shared_ptr<const VanillaOption> optionPtr_;
     std::shared_ptr<const Stock> stockPtr_;
     double r_;
     double sigma_;
@@ -141,8 +141,8 @@ private:
 
 double Greeks::delta(double sigma) const {
   double Delta;
-  double d1 = bsm.getD1(sigma);
-  if(bsm.optionType_ == VanillaOption::OptionType::call) {
+  double d1 = bsm->getD1(sigma);
+  if(bsm->optionType_ == VanillaOption::OptionType::call) {
     Delta = normalCDF(d1);
   }
   else {
@@ -152,11 +152,11 @@ double Greeks::delta(double sigma) const {
 }
 double Greeks::theta(double sigma) const {
   double Theta;
-  double d1 = bsm.getD1(sigma);
-  double d2 = bsm.getD2(sigma);
-  double left = (bsm.S0_ * normalPDF(d1) * bsm.sigma_) / (2 * std::sqrt(bsm.T_));
-  double right = bsm.r_ * bsm.K_ * std::exp(-bsm.r_ * bsm.T_);
-  if(bsm.optionType_ == VanillaOption::OptionType::call) {
+  double d1 = bsm->getD1(sigma);
+  double d2 = bsm->getD2(sigma);
+  double left = (bsm->S0_ * normalPDF(d1) * bsm->sigma_) / (2 * std::sqrt(bsm->T_));
+  double right = bsm->r_ * bsm->K_ * std::exp(-bsm->r_ * bsm->T_);
+  if(bsm->optionType_ == VanillaOption::OptionType::call) {
     Theta = -left - right * normalPDF(d2);
   }
   else {
@@ -165,10 +165,10 @@ double Greeks::theta(double sigma) const {
   return Theta;
 }
 double Greeks::gamma(double sigma) const {
-  double d1 = bsm.getD1(sigma);
-  return normalPDF(d1) / (bsm.S0_ * sigma * std::sqrt(bsm.T_));
+  double d1 = bsm->getD1(sigma);
+  return normalPDF(d1) / (bsm->S0_ * sigma * std::sqrt(bsm->T_));
 }
 double Greeks::vega(double sigma) const {
-  double d1 = bsm.getD1(sigma);
-  return bsm.S0_ * std::sqrt(bsm.T_) * normalPDF(d1);
+  double d1 = bsm->getD1(sigma);
+  return bsm->S0_ * std::sqrt(bsm->T_) * normalPDF(d1);
 }
