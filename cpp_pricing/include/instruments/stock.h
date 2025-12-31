@@ -1,9 +1,10 @@
 #pragma once
 
-#include "instrument.h"
-#include "dividend.h"
 #include <memory>
 #include <iostream>
+#include "instrument.h"
+
+class Dividend;
 
 class Stock : public Instrument {
 public:

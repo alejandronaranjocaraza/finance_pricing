@@ -1,5 +1,5 @@
 #pragma once
-#include "instrument.h"
+
 #include <vector>
 
 class Dividend {

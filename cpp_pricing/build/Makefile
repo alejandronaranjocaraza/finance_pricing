@@ -142,6 +142,78 @@ pyext/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pyext.dir/build.make CMakeFiles/pyext.dir/build
 .PHONY : pyext/fast
 
+bindings/buildBSM.o: bindings/buildBSM.cpp.o
+.PHONY : bindings/buildBSM.o
+
+# target to build an object file
+bindings/buildBSM.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/buildBSM.cpp.o
+.PHONY : bindings/buildBSM.cpp.o
+
+bindings/buildBSM.i: bindings/buildBSM.cpp.i
+.PHONY : bindings/buildBSM.i
+
+# target to preprocess a source file
+bindings/buildBSM.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/buildBSM.cpp.i
+.PHONY : bindings/buildBSM.cpp.i
+
+bindings/buildBSM.s: bindings/buildBSM.cpp.s
+.PHONY : bindings/buildBSM.s
+
+# target to generate assembly for a file
+bindings/buildBSM.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/buildBSM.cpp.s
+.PHONY : bindings/buildBSM.cpp.s
+
+bindings/buildStock.o: bindings/buildStock.cpp.o
+.PHONY : bindings/buildStock.o
+
+# target to build an object file
+bindings/buildStock.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/buildStock.cpp.o
+.PHONY : bindings/buildStock.cpp.o
+
+bindings/buildStock.i: bindings/buildStock.cpp.i
+.PHONY : bindings/buildStock.i
+
+# target to preprocess a source file
+bindings/buildStock.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/buildStock.cpp.i
+.PHONY : bindings/buildStock.cpp.i
+
+bindings/buildStock.s: bindings/buildStock.cpp.s
+.PHONY : bindings/buildStock.s
+
+# target to generate assembly for a file
+bindings/buildStock.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/buildStock.cpp.s
+.PHONY : bindings/buildStock.cpp.s
+
+bindings/buildVanillaOption.o: bindings/buildVanillaOption.cpp.o
+.PHONY : bindings/buildVanillaOption.o
+
+# target to build an object file
+bindings/buildVanillaOption.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/buildVanillaOption.cpp.o
+.PHONY : bindings/buildVanillaOption.cpp.o
+
+bindings/buildVanillaOption.i: bindings/buildVanillaOption.cpp.i
+.PHONY : bindings/buildVanillaOption.i
+
+# target to preprocess a source file
+bindings/buildVanillaOption.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/buildVanillaOption.cpp.i
+.PHONY : bindings/buildVanillaOption.cpp.i
+
+bindings/buildVanillaOption.s: bindings/buildVanillaOption.cpp.s
+.PHONY : bindings/buildVanillaOption.s
+
+# target to generate assembly for a file
+bindings/buildVanillaOption.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/buildVanillaOption.cpp.s
+.PHONY : bindings/buildVanillaOption.cpp.s
+
 bindings/module.o: bindings/module.cpp.o
 .PHONY : bindings/module.o
 
@@ -165,30 +237,6 @@ bindings/module.s: bindings/module.cpp.s
 bindings/module.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pyext.dir/build.make CMakeFiles/pyext.dir/bindings/module.cpp.s
 .PHONY : bindings/module.cpp.s
-
-bindings/optionBuilder.o: bindings/optionBuilder.cpp.o
-.PHONY : bindings/optionBuilder.o
-
-# target to build an object file
-bindings/optionBuilder.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/optionBuilder.cpp.o
-.PHONY : bindings/optionBuilder.cpp.o
-
-bindings/optionBuilder.i: bindings/optionBuilder.cpp.i
-.PHONY : bindings/optionBuilder.i
-
-# target to preprocess a source file
-bindings/optionBuilder.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/optionBuilder.cpp.i
-.PHONY : bindings/optionBuilder.cpp.i
-
-bindings/optionBuilder.s: bindings/optionBuilder.cpp.s
-.PHONY : bindings/optionBuilder.s
-
-# target to generate assembly for a file
-bindings/optionBuilder.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/optionBuilder.cpp.s
-.PHONY : bindings/optionBuilder.cpp.s
 
 src/exercise/americanExercise.o: src/exercise/americanExercise.cpp.o
 .PHONY : src/exercise/americanExercise.o
@@ -238,6 +286,30 @@ src/exercise/europeanExercise.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/src/exercise/europeanExercise.cpp.s
 .PHONY : src/exercise/europeanExercise.cpp.s
 
+src/instruments/dividend.o: src/instruments/dividend.cpp.o
+.PHONY : src/instruments/dividend.o
+
+# target to build an object file
+src/instruments/dividend.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/src/instruments/dividend.cpp.o
+.PHONY : src/instruments/dividend.cpp.o
+
+src/instruments/dividend.i: src/instruments/dividend.cpp.i
+.PHONY : src/instruments/dividend.i
+
+# target to preprocess a source file
+src/instruments/dividend.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/src/instruments/dividend.cpp.i
+.PHONY : src/instruments/dividend.cpp.i
+
+src/instruments/dividend.s: src/instruments/dividend.cpp.s
+.PHONY : src/instruments/dividend.s
+
+# target to generate assembly for a file
+src/instruments/dividend.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/src/instruments/dividend.cpp.s
+.PHONY : src/instruments/dividend.cpp.s
+
 src/instruments/option.o: src/instruments/option.cpp.o
 .PHONY : src/instruments/option.o
 
@@ -262,6 +334,30 @@ src/instruments/option.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/src/instruments/option.cpp.s
 .PHONY : src/instruments/option.cpp.s
 
+src/instruments/stock.o: src/instruments/stock.cpp.o
+.PHONY : src/instruments/stock.o
+
+# target to build an object file
+src/instruments/stock.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/src/instruments/stock.cpp.o
+.PHONY : src/instruments/stock.cpp.o
+
+src/instruments/stock.i: src/instruments/stock.cpp.i
+.PHONY : src/instruments/stock.i
+
+# target to preprocess a source file
+src/instruments/stock.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/src/instruments/stock.cpp.i
+.PHONY : src/instruments/stock.cpp.i
+
+src/instruments/stock.s: src/instruments/stock.cpp.s
+.PHONY : src/instruments/stock.s
+
+# target to generate assembly for a file
+src/instruments/stock.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/src/instruments/stock.cpp.s
+.PHONY : src/instruments/stock.cpp.s
+
 src/instruments/vanillaOption.o: src/instruments/vanillaOption.cpp.o
 .PHONY : src/instruments/vanillaOption.o
 
@@ -285,6 +381,30 @@ src/instruments/vanillaOption.s: src/instruments/vanillaOption.cpp.s
 src/instruments/vanillaOption.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/src/instruments/vanillaOption.cpp.s
 .PHONY : src/instruments/vanillaOption.cpp.s
+
+src/models/bsm.o: src/models/bsm.cpp.o
+.PHONY : src/models/bsm.o
+
+# target to build an object file
+src/models/bsm.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/src/models/bsm.cpp.o
+.PHONY : src/models/bsm.cpp.o
+
+src/models/bsm.i: src/models/bsm.cpp.i
+.PHONY : src/models/bsm.i
+
+# target to preprocess a source file
+src/models/bsm.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/src/models/bsm.cpp.i
+.PHONY : src/models/bsm.cpp.i
+
+src/models/bsm.s: src/models/bsm.cpp.s
+.PHONY : src/models/bsm.s
+
+# target to generate assembly for a file
+src/models/bsm.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/src/models/bsm.cpp.s
+.PHONY : src/models/bsm.cpp.s
 
 src/payoffs/callPayoff.o: src/payoffs/callPayoff.cpp.o
 .PHONY : src/payoffs/callPayoff.o
@@ -344,24 +464,39 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... core"
 	@echo "... pyext"
+	@echo "... bindings/buildBSM.o"
+	@echo "... bindings/buildBSM.i"
+	@echo "... bindings/buildBSM.s"
+	@echo "... bindings/buildStock.o"
+	@echo "... bindings/buildStock.i"
+	@echo "... bindings/buildStock.s"
+	@echo "... bindings/buildVanillaOption.o"
+	@echo "... bindings/buildVanillaOption.i"
+	@echo "... bindings/buildVanillaOption.s"
 	@echo "... bindings/module.o"
 	@echo "... bindings/module.i"
 	@echo "... bindings/module.s"
-	@echo "... bindings/optionBuilder.o"
-	@echo "... bindings/optionBuilder.i"
-	@echo "... bindings/optionBuilder.s"
 	@echo "... src/exercise/americanExercise.o"
 	@echo "... src/exercise/americanExercise.i"
 	@echo "... src/exercise/americanExercise.s"
 	@echo "... src/exercise/europeanExercise.o"
 	@echo "... src/exercise/europeanExercise.i"
 	@echo "... src/exercise/europeanExercise.s"
+	@echo "... src/instruments/dividend.o"
+	@echo "... src/instruments/dividend.i"
+	@echo "... src/instruments/dividend.s"
 	@echo "... src/instruments/option.o"
 	@echo "... src/instruments/option.i"
 	@echo "... src/instruments/option.s"
+	@echo "... src/instruments/stock.o"
+	@echo "... src/instruments/stock.i"
+	@echo "... src/instruments/stock.s"
 	@echo "... src/instruments/vanillaOption.o"
 	@echo "... src/instruments/vanillaOption.i"
 	@echo "... src/instruments/vanillaOption.s"
+	@echo "... src/models/bsm.o"
+	@echo "... src/models/bsm.i"
+	@echo "... src/models/bsm.s"
 	@echo "... src/payoffs/callPayoff.o"
 	@echo "... src/payoffs/callPayoff.i"
 	@echo "... src/payoffs/callPayoff.s"

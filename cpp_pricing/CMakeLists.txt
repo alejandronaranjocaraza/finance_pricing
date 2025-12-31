@@ -6,13 +6,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Core C++ library (TARGET: core)
 add_library(core
-    bindings/optionBuilder.cpp
+    bindings/buildVanillaOption.cpp
+    bindings/buildStock.cpp
+    bindings/buildBSM.cpp
     src/instruments/option.cpp
     src/instruments/vanillaOption.cpp
+    src/instruments/dividend.cpp
+    src/instruments/stock.cpp
     src/exercise/americanExercise.cpp
     src/exercise/europeanExercise.cpp
     src/payoffs/callPayoff.cpp
     src/payoffs/putPayoff.cpp
+    src/models/bsm.cpp
 )
 
 set_target_properties(core PROPERTIES POSITION_INDEPENDENT_CODE ON)

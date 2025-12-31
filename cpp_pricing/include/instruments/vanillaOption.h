@@ -1,3 +1,5 @@
+#pragma once
+
 #include "option.h"
 
 class VanillaOption : public Option {

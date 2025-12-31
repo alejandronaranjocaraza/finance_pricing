@@ -1,5 +1,5 @@
 #include "../../include/exercise/americanExercise.h"
-#include <cmath>
+#include "../../include/instruments/option.h"
 
 bool AmericanExercise::canExercise(
     const Option& option,

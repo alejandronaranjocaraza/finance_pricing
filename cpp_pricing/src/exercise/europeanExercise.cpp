@@ -1,5 +1,6 @@
-#include "../../include/exercise/europeanExercise.h"
 #include <cmath>
+#include "../../include/exercise/europeanExercise.h"
+#include "../../include/instruments/option.h"
 
 bool EuropeanExercise::canExercise(
     const Option& option,

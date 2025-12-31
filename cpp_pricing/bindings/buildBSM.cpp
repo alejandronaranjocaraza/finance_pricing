@@ -1,5 +1,5 @@
 #include <memory>
-
+#include "buildBSM.h"
 #include "../include/models/bsm.h"
 
 std::shared_ptr<BSM> makeBSM(

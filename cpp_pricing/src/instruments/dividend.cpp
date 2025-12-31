@@ -1,5 +1,5 @@
-#include "../../include/instruments/dividend.h"
 #include <cmath>
+#include "../../include/instruments/dividend.h"
 
 bool ContinuousDividend::hasCashSchedule() const {
   return false;

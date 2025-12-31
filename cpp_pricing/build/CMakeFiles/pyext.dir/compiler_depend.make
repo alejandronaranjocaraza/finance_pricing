@@ -154,11 +154,15 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o: /home/zapatinb/pers_repos/finance_pr
   /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/unicodeobject.h \
   /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/warnings.h \
   /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/weakrefobject.h \
-  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/exercise/exercise.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/instrument.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/option.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/stock.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/vanillaOption.h \
-  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/optionBuilder.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/newtonRaphson.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/bsm.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBSM.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildStock.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildVanillaOption.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/errno-base.h \
@@ -314,6 +318,7 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o: /home/zapatinb/pers_repos/finance_pr
   /usr/include/c++/14/initializer_list \
   /usr/include/c++/14/ios \
   /usr/include/c++/14/iosfwd \
+  /usr/include/c++/14/iostream \
   /usr/include/c++/14/istream \
   /usr/include/c++/14/iterator \
   /usr/include/c++/14/limits \
@@ -607,8 +612,6 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/types/error_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
@@ -887,9 +890,15 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o:
 
 /usr/include/c++/14/bits/stl_raw_storage_iter.h:
 
+/usr/include/c++/14/bits/stl_numeric.h:
+
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/pybuffer.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/osmodule.h:
+
+/usr/include/c++/14/bits/stl_iterator_base_types.h:
+
+/home/zapatinb/miniconda3/envs/cpp-python/include/pybind11/gil.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/objimpl.h:
 
@@ -1265,6 +1274,14 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/complexobject.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/newtonRaphson.h:
+
+/usr/include/c++/14/iostream:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildStock.h:
+
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/ceval.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/critical_section.h:
@@ -1279,9 +1296,9 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/compile.h:
 
-/home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/setobject.h:
-
 /usr/include/c++/14/bits/stl_iterator.h:
+
+/home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/setobject.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/initconfig.h:
 
@@ -1301,6 +1318,8 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/funcobject.h:
 
+/usr/include/c++/14/bits/sstream.tcc:
+
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/floatobject.h:
 
 /usr/include/c++/14/iterator:
@@ -1310,8 +1329,6 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o:
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/abstract.h:
 
 /usr/include/c++/14/bits/stl_deque.h:
-
-/usr/include/alloca.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/pyhash.h:
 
@@ -1369,10 +1386,6 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/warnings.h:
 
-/usr/include/c++/14/bits/sstream.tcc:
-
-/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/exercise/exercise.h:
-
 /usr/include/c++/14/streambuf:
 
 /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/instrument.h:
@@ -1383,7 +1396,21 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o:
 
 /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/option.h:
 
-/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/optionBuilder.h:
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/stock.h:
+
+/usr/include/alloca.h:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/bsm.h:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBSM.h:
+
+/home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/pyatomic.h:
+
+/home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/complexobject.h:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildVanillaOption.h:
+
+/usr/include/c++/14/bits/requires_hosted.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h:
 
@@ -1400,6 +1427,10 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o:
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/unicodeobject.h:
 
 /usr/include/asm-generic/bitsperlong.h:
+
+/usr/include/c++/14/bits/stl_iterator_base_funcs.h:
+
+/usr/include/assert.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/14/libstdc++.so:
 
@@ -1535,12 +1566,6 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o:
 
 /usr/include/c++/14/bits/ranges_cmp.h:
 
-/home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/pyatomic.h:
-
-/home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/complexobject.h:
-
-/usr/include/c++/14/bits/requires_hosted.h:
-
 /usr/lib/gcc/x86_64-linux-gnu/14/libgcc_s.so:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/floatobject.h:
@@ -1598,13 +1623,3 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o:
 /usr/include/c++/14/bits/stl_stack.h:
 
 /usr/include/c++/14/bits/stl_heap.h:
-
-/usr/include/assert.h:
-
-/usr/include/c++/14/bits/stl_iterator_base_funcs.h:
-
-/home/zapatinb/miniconda3/envs/cpp-python/include/pybind11/gil.h:
-
-/usr/include/c++/14/bits/stl_iterator_base_types.h:
-
-/usr/include/c++/14/bits/stl_numeric.h:

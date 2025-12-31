@@ -1,7 +1,8 @@
 #pragma once
 
 #include "exercise.h"
-#include "../instruments/option.h"
+
+class Option;
 
 class AmericanExercise : public Exercise {
 public:

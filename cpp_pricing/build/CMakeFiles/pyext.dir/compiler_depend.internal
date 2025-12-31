@@ -155,11 +155,15 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o
  /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/unicodeobject.h
  /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/warnings.h
  /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/weakrefobject.h
- /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/exercise/exercise.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/instrument.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/option.h
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/stock.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/vanillaOption.h
- /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/optionBuilder.h
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/newtonRaphson.h
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/bsm.h
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBSM.h
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildStock.h
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildVanillaOption.h
  /usr/include/alloca.h
  /usr/include/asm-generic/bitsperlong.h
  /usr/include/asm-generic/errno-base.h
@@ -315,6 +319,7 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o
  /usr/include/c++/14/initializer_list
  /usr/include/c++/14/ios
  /usr/include/c++/14/iosfwd
+ /usr/include/c++/14/iostream
  /usr/include/c++/14/istream
  /usr/include/c++/14/iterator
  /usr/include/c++/14/limits

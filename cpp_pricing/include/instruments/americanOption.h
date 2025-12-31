@@ -2,8 +2,8 @@
 #include <memory>
 #include "option.h"
 #include "../exercise/americanExercise.h"
-#include "../payoffs/callPayoff.h"
-#include "../payoffs/putPayoff.h"
+
+class Payoff;
 
 class AmericanOption : public Option {
 public:

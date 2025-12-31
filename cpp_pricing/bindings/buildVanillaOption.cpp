@@ -1,5 +1,3 @@
-// #include <pybind11/pybind11.h>
-
 #include <memory>
 #include <stdexcept>
 
@@ -9,8 +7,6 @@
 #include "../include/exercise/americanExercise.h"
 #include "../include/payoffs/callPayoff.h"
 #include "../include/payoffs/putPayoff.h"
-
-// namespace py = pybind11;
 
 std::shared_ptr<VanillaOption> makeVanillaOption(
     double strike,

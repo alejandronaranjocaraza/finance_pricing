@@ -1,8 +1,9 @@
 #pragma once
+
 #include <memory>
 #include "instrument.h"
-#include "../exercise/exercise.h"
 
+class Exercise;
 class Payoff;
 
 class Option : public Instrument {

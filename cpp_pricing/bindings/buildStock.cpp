@@ -1,6 +1,7 @@
 #include <memory>
-
+#include "buildStock.h"
 #include "../include/instruments/stock.h"
+#include "../include/instruments/dividend.h"
 
 std::shared_ptr<Stock> makeStock(
     double spot,
