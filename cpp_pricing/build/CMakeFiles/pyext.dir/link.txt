@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -flto=auto -Wl,--dependency-file=CMakeFiles/pyext.dir/link.d -shared  -o pyext.cpython-314-x86_64-linux-gnu.so CMakeFiles/pyext.dir/bindings/module.cpp.o  libcore.a

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcore.a CMakeFiles/core.dir/bindings/optionBuilder.cpp.o CMakeFiles/core.dir/src/instruments/option.cpp.o CMakeFiles/core.dir/src/instruments/vanillaOption.cpp.o CMakeFiles/core.dir/src/exercise/americanExercise.cpp.o CMakeFiles/core.dir/src/exercise/europeanExercise.cpp.o CMakeFiles/core.dir/src/payoffs/callPayoff.cpp.o CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o
+/usr/bin/ranlib libcore.a

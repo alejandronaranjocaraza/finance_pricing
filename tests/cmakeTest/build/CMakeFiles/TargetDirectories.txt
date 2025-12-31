@@ -1,0 +1,3 @@
+/home/zapatinb/pers_repos/finance_pricing/tests/cmakeTest/build/CMakeFiles/test.dir
+/home/zapatinb/pers_repos/finance_pricing/tests/cmakeTest/build/CMakeFiles/edit_cache.dir
+/home/zapatinb/pers_repos/finance_pricing/tests/cmakeTest/build/CMakeFiles/rebuild_cache.dir
