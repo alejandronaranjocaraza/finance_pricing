@@ -303,6 +303,7 @@ CMakeFiles/core.dir/bindings/buildStock.cpp.o: /home/zapatinb/pers_repos/finance
   /usr/include/asm-generic/int-ll64.h \
   /usr/include/asm-generic/posix_types.h \
   /usr/include/asm-generic/types.h \
+  /usr/include/c++/14/array \
   /usr/include/c++/14/backward/auto_ptr.h \
   /usr/include/c++/14/backward/binders.h \
   /usr/include/c++/14/bit \
@@ -3144,6 +3145,8 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/exercise/europeanExercise.h:
 
 /usr/include/c++/14/vector:
+
+/usr/include/c++/14/array:
 
 /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/dividend.h:
 

@@ -434,6 +434,22 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o: \
  /usr/include/c++/14/span /usr/include/c++/14/stack \
  /usr/include/c++/14/deque /usr/include/c++/14/bits/stl_deque.h \
  /usr/include/c++/14/bits/deque.tcc /usr/include/c++/14/bits/stl_stack.h \
+ /home/zapatinb/miniconda3/envs/cpp-python/include/pybind11/stl.h \
+ /usr/include/c++/14/list /usr/include/c++/14/bits/stl_list.h \
+ /usr/include/c++/14/bits/list.tcc /usr/include/c++/14/map \
+ /usr/include/c++/14/bits/stl_tree.h /usr/include/c++/14/bits/stl_map.h \
+ /usr/include/c++/14/bits/stl_multimap.h /usr/include/c++/14/set \
+ /usr/include/c++/14/bits/stl_set.h \
+ /usr/include/c++/14/bits/stl_multiset.h /usr/include/c++/14/valarray \
+ /usr/include/c++/14/bits/valarray_array.h \
+ /usr/include/c++/14/bits/valarray_array.tcc \
+ /usr/include/c++/14/bits/valarray_before.h \
+ /usr/include/c++/14/bits/slice_array.h \
+ /usr/include/c++/14/bits/valarray_after.h \
+ /usr/include/c++/14/bits/gslice.h \
+ /usr/include/c++/14/bits/gslice_array.h \
+ /usr/include/c++/14/bits/mask_array.h \
+ /usr/include/c++/14/bits/indirect_array.h /usr/include/c++/14/variant \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/models/bsm.h \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/models/../../include/instruments/option.h \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/models/../../include/instruments/instrument.h \
@@ -441,6 +457,7 @@ CMakeFiles/pyext.dir/bindings/module.cpp.o: \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/models/../../include/instruments/stock.h \
  /usr/include/c++/14/iostream \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/models/../algorithms/rootFind/newtonRaphson.h \
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/instruments/dividend.h \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBSM.h \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildVanillaOption.h \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildStock.h
