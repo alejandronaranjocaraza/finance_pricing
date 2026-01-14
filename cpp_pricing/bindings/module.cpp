@@ -1,17 +1,24 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
+// MODELS
 #include "../include/models/bsm.h"
+#include "../include/models/binomial.h"
+
+// INSTRUMENTS
 #include "../include/instruments/vanillaOption.h"
 #include "../include/instruments/stock.h"
 #include "../include/instruments/dividend.h"
+
+// PYBIND SPECIFIC FACTORIES
 #include "buildBSM.h"
+#include "buildBinomial.h"
 #include "buildVanillaOption.h"
 #include "buildStock.h"
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(pyext, m) {
+PYBIND11_MODULE(pricer, m) {
     m.doc() = "Quant options module";
 
     py::class_<VanillaOption, std::shared_ptr<VanillaOption>>(m, "VanillaOption")
@@ -62,6 +69,17 @@ PYBIND11_MODULE(pyext, m) {
     m.def(
         "make_bsm",
         &makeBSM,
+        py::arg("option"),
+        py::arg("stock"),
+        py::arg("r"),
+        py::arg("sigma")
+    );
+
+    py::class_<BinomialModel<>, std::shared_ptr<BinomialModel<>>>(m,"Binomial");
+
+    m.def(
+        "make_binomial",
+        &makeBinomial,
         py::arg("option"),
         py::arg("stock"),
         py::arg("r"),

@@ -114,10 +114,24 @@ CMakeFiles/core.dir/bindings/buildBSM.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/core.dir/bindings/buildBSM.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBSM.cpp -o CMakeFiles/core.dir/bindings/buildBSM.cpp.s
 
+CMakeFiles/core.dir/bindings/buildBinomial.cpp.o: CMakeFiles/core.dir/flags.make
+CMakeFiles/core.dir/bindings/buildBinomial.cpp.o: /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBinomial.cpp
+CMakeFiles/core.dir/bindings/buildBinomial.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/core.dir/bindings/buildBinomial.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/bindings/buildBinomial.cpp.o -MF CMakeFiles/core.dir/bindings/buildBinomial.cpp.o.d -o CMakeFiles/core.dir/bindings/buildBinomial.cpp.o -c /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBinomial.cpp
+
+CMakeFiles/core.dir/bindings/buildBinomial.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/core.dir/bindings/buildBinomial.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBinomial.cpp > CMakeFiles/core.dir/bindings/buildBinomial.cpp.i
+
+CMakeFiles/core.dir/bindings/buildBinomial.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/core.dir/bindings/buildBinomial.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBinomial.cpp -o CMakeFiles/core.dir/bindings/buildBinomial.cpp.s
+
 CMakeFiles/core.dir/src/instruments/option.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/src/instruments/option.cpp.o: /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/instruments/option.cpp
 CMakeFiles/core.dir/src/instruments/option.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/core.dir/src/instruments/option.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/core.dir/src/instruments/option.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/src/instruments/option.cpp.o -MF CMakeFiles/core.dir/src/instruments/option.cpp.o.d -o CMakeFiles/core.dir/src/instruments/option.cpp.o -c /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/instruments/option.cpp
 
 CMakeFiles/core.dir/src/instruments/option.cpp.i: cmake_force
@@ -131,7 +145,7 @@ CMakeFiles/core.dir/src/instruments/option.cpp.s: cmake_force
 CMakeFiles/core.dir/src/instruments/vanillaOption.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/src/instruments/vanillaOption.cpp.o: /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/instruments/vanillaOption.cpp
 CMakeFiles/core.dir/src/instruments/vanillaOption.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/core.dir/src/instruments/vanillaOption.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/core.dir/src/instruments/vanillaOption.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/src/instruments/vanillaOption.cpp.o -MF CMakeFiles/core.dir/src/instruments/vanillaOption.cpp.o.d -o CMakeFiles/core.dir/src/instruments/vanillaOption.cpp.o -c /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/instruments/vanillaOption.cpp
 
 CMakeFiles/core.dir/src/instruments/vanillaOption.cpp.i: cmake_force
@@ -145,7 +159,7 @@ CMakeFiles/core.dir/src/instruments/vanillaOption.cpp.s: cmake_force
 CMakeFiles/core.dir/src/instruments/dividend.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/src/instruments/dividend.cpp.o: /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/instruments/dividend.cpp
 CMakeFiles/core.dir/src/instruments/dividend.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/core.dir/src/instruments/dividend.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/core.dir/src/instruments/dividend.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/src/instruments/dividend.cpp.o -MF CMakeFiles/core.dir/src/instruments/dividend.cpp.o.d -o CMakeFiles/core.dir/src/instruments/dividend.cpp.o -c /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/instruments/dividend.cpp
 
 CMakeFiles/core.dir/src/instruments/dividend.cpp.i: cmake_force
@@ -159,7 +173,7 @@ CMakeFiles/core.dir/src/instruments/dividend.cpp.s: cmake_force
 CMakeFiles/core.dir/src/instruments/stock.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/src/instruments/stock.cpp.o: /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/instruments/stock.cpp
 CMakeFiles/core.dir/src/instruments/stock.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/core.dir/src/instruments/stock.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/core.dir/src/instruments/stock.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/src/instruments/stock.cpp.o -MF CMakeFiles/core.dir/src/instruments/stock.cpp.o.d -o CMakeFiles/core.dir/src/instruments/stock.cpp.o -c /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/instruments/stock.cpp
 
 CMakeFiles/core.dir/src/instruments/stock.cpp.i: cmake_force
@@ -173,7 +187,7 @@ CMakeFiles/core.dir/src/instruments/stock.cpp.s: cmake_force
 CMakeFiles/core.dir/src/exercise/americanExercise.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/src/exercise/americanExercise.cpp.o: /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/exercise/americanExercise.cpp
 CMakeFiles/core.dir/src/exercise/americanExercise.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/core.dir/src/exercise/americanExercise.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/core.dir/src/exercise/americanExercise.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/src/exercise/americanExercise.cpp.o -MF CMakeFiles/core.dir/src/exercise/americanExercise.cpp.o.d -o CMakeFiles/core.dir/src/exercise/americanExercise.cpp.o -c /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/exercise/americanExercise.cpp
 
 CMakeFiles/core.dir/src/exercise/americanExercise.cpp.i: cmake_force
@@ -187,7 +201,7 @@ CMakeFiles/core.dir/src/exercise/americanExercise.cpp.s: cmake_force
 CMakeFiles/core.dir/src/exercise/europeanExercise.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/src/exercise/europeanExercise.cpp.o: /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/exercise/europeanExercise.cpp
 CMakeFiles/core.dir/src/exercise/europeanExercise.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/core.dir/src/exercise/europeanExercise.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/core.dir/src/exercise/europeanExercise.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/src/exercise/europeanExercise.cpp.o -MF CMakeFiles/core.dir/src/exercise/europeanExercise.cpp.o.d -o CMakeFiles/core.dir/src/exercise/europeanExercise.cpp.o -c /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/exercise/europeanExercise.cpp
 
 CMakeFiles/core.dir/src/exercise/europeanExercise.cpp.i: cmake_force
@@ -201,7 +215,7 @@ CMakeFiles/core.dir/src/exercise/europeanExercise.cpp.s: cmake_force
 CMakeFiles/core.dir/src/payoffs/callPayoff.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/src/payoffs/callPayoff.cpp.o: /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/payoffs/callPayoff.cpp
 CMakeFiles/core.dir/src/payoffs/callPayoff.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/core.dir/src/payoffs/callPayoff.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/core.dir/src/payoffs/callPayoff.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/src/payoffs/callPayoff.cpp.o -MF CMakeFiles/core.dir/src/payoffs/callPayoff.cpp.o.d -o CMakeFiles/core.dir/src/payoffs/callPayoff.cpp.o -c /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/payoffs/callPayoff.cpp
 
 CMakeFiles/core.dir/src/payoffs/callPayoff.cpp.i: cmake_force
@@ -215,7 +229,7 @@ CMakeFiles/core.dir/src/payoffs/callPayoff.cpp.s: cmake_force
 CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/payoffs/putPayoff.cpp
 CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o -MF CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o.d -o CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o -c /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/payoffs/putPayoff.cpp
 
 CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.i: cmake_force
@@ -229,7 +243,7 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.s: cmake_force
 CMakeFiles/core.dir/src/models/bsm.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/src/models/bsm.cpp.o: /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/models/bsm.cpp
 CMakeFiles/core.dir/src/models/bsm.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/core.dir/src/models/bsm.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/core.dir/src/models/bsm.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/src/models/bsm.cpp.o -MF CMakeFiles/core.dir/src/models/bsm.cpp.o.d -o CMakeFiles/core.dir/src/models/bsm.cpp.o -c /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/models/bsm.cpp
 
 CMakeFiles/core.dir/src/models/bsm.cpp.i: cmake_force
@@ -245,6 +259,7 @@ core_OBJECTS = \
 "CMakeFiles/core.dir/bindings/buildVanillaOption.cpp.o" \
 "CMakeFiles/core.dir/bindings/buildStock.cpp.o" \
 "CMakeFiles/core.dir/bindings/buildBSM.cpp.o" \
+"CMakeFiles/core.dir/bindings/buildBinomial.cpp.o" \
 "CMakeFiles/core.dir/src/instruments/option.cpp.o" \
 "CMakeFiles/core.dir/src/instruments/vanillaOption.cpp.o" \
 "CMakeFiles/core.dir/src/instruments/dividend.cpp.o" \
@@ -261,6 +276,7 @@ core_EXTERNAL_OBJECTS =
 libcore.a: CMakeFiles/core.dir/bindings/buildVanillaOption.cpp.o
 libcore.a: CMakeFiles/core.dir/bindings/buildStock.cpp.o
 libcore.a: CMakeFiles/core.dir/bindings/buildBSM.cpp.o
+libcore.a: CMakeFiles/core.dir/bindings/buildBinomial.cpp.o
 libcore.a: CMakeFiles/core.dir/src/instruments/option.cpp.o
 libcore.a: CMakeFiles/core.dir/src/instruments/vanillaOption.cpp.o
 libcore.a: CMakeFiles/core.dir/src/instruments/dividend.cpp.o
@@ -272,7 +288,7 @@ libcore.a: CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o
 libcore.a: CMakeFiles/core.dir/src/models/bsm.cpp.o
 libcore.a: CMakeFiles/core.dir/build.make
 libcore.a: CMakeFiles/core.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX static library libcore.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX static library libcore.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/core.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/core.dir/link.txt --verbose=$(VERBOSE)
 

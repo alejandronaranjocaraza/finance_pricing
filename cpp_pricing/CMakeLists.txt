@@ -9,6 +9,7 @@ add_library(core
     bindings/buildVanillaOption.cpp
     bindings/buildStock.cpp
     bindings/buildBSM.cpp
+    bindings/buildBinomial.cpp
     src/instruments/option.cpp
     src/instruments/vanillaOption.cpp
     src/instruments/dividend.cpp
@@ -31,10 +32,10 @@ target_include_directories(core
 set(PYBIND11_FINDPYTHON ON)
 find_package(pybind11 REQUIRED)
 
-pybind11_add_module(pyext
+pybind11_add_module(pricer
     bindings/module.cpp
 )
 
-target_link_libraries(pyext
+target_link_libraries(pricer
     PRIVATE core
 )

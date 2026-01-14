@@ -14,12 +14,6 @@ static double normalPDF(double x) {
   return (1/std::sqrt(M_PI * 2))*std::exp(-x*x/2);
 }
 
-
-// Analytical Greeks
-// Still missing:
-//  - Finite Dffference (FD) Greeks
-//  - Monte Carlo (MC) Greeks
-
 double BSM::getD1(double sigma) const {
   double d1Num = std::log(S0_ / K_) + (r_ + std::pow(sigma_,2)/2) * T_;
   double d1Denom = sigma * T_;
@@ -126,6 +120,7 @@ double Greeks::gamma(double sigma) const {
   double d1 = bsm->getD1(sigma);
   return normalPDF(d1) / (bsm->S0_ * sigma * std::sqrt(bsm->T_));
 }
+
 double Greeks::vega(double sigma) const {
   double d1 = bsm->getD1(sigma);
   return bsm->S0_ * std::sqrt(bsm->T_) * normalPDF(d1);

@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -flto=auto -Wl,--dependency-file=CMakeFiles/pricer.dir/link.d -shared  -o pricer.cpython-314-x86_64-linux-gnu.so CMakeFiles/pricer.dir/bindings/module.cpp.o  libcore.a

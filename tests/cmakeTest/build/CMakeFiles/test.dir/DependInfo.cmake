@@ -9,7 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/zapatinb/pers_repos/finance_pricing/tests/cmakeTest/test.cpp" "CMakeFiles/test.dir/test.cpp.o" "gcc" "CMakeFiles/test.dir/test.cpp.o.d"
-  "" "test.cpython-314-x86_64-linux-gnu.so" "gcc" "CMakeFiles/test.dir/link.d"
+  "" "test.cpython-313-x86_64-linux-gnu.so" "gcc" "CMakeFiles/test.dir/link.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

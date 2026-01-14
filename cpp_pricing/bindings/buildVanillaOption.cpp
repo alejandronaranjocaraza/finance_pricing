@@ -17,7 +17,8 @@ std::shared_ptr<VanillaOption> makeVanillaOption(
   
   std::shared_ptr<Exercise> exercisePtr;
   std::shared_ptr<Payoff> payoffPtr;
-  
+  VanillaOption::OptionType tp;
+
   switch(exerciseType) {
     case 'a':
       exercisePtr  = std::make_shared<AmericanExercise>();
@@ -32,9 +33,11 @@ std::shared_ptr<VanillaOption> makeVanillaOption(
   switch(optionType) {
     case 'c':
       payoffPtr  = std::make_shared<CallPayoff>();
+      tp = VanillaOption::OptionType::call;
       break;
     case 'p':
       payoffPtr  = std::make_shared<PutPayoff>();
+      tp = VanillaOption::OptionType::put;
       break;
     default:
       throw std::invalid_argument("Invalid optionType input.");
@@ -45,7 +48,8 @@ std::shared_ptr<VanillaOption> makeVanillaOption(
       strike,
       maturity,
       exercisePtr,
-      payoffPtr
+      payoffPtr,
+      tp
       );
 
   return vanillaOptPtr;

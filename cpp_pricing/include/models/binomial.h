@@ -2,6 +2,7 @@
 
 #include "../../include/instruments/option.h"
 #include "../../include/instruments/stock.h"
+#include "../../include/instruments/dividend.h"
 #include "parameterization.h"
 
 #include <cmath>

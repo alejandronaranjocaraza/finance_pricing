@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -Dtest_EXPORTS
 
-CXX_INCLUDES = -isystem /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14 -isystem /home/zapatinb/miniconda3/envs/cpp-python/include
+CXX_INCLUDES = -isystem /home/zapatinb/miniconda3/include/python3.13 -isystem /home/zapatinb/miniconda3/envs/cpp-python/include
 
 CXX_FLAGS = -std=gnu++17 -fPIC -fvisibility=hidden -flto=auto -fno-fat-lto-objects
 

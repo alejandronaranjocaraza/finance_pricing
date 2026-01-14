@@ -130,17 +130,17 @@ core/fast:
 .PHONY : core/fast
 
 #=============================================================================
-# Target rules for targets named pyext
+# Target rules for targets named pricer
 
 # Build rule for target.
-pyext: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pyext
-.PHONY : pyext
+pricer: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pricer
+.PHONY : pricer
 
 # fast build rule for target.
-pyext/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pyext.dir/build.make CMakeFiles/pyext.dir/build
-.PHONY : pyext/fast
+pricer/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/build
+.PHONY : pricer/fast
 
 bindings/buildBSM.o: bindings/buildBSM.cpp.o
 .PHONY : bindings/buildBSM.o
@@ -165,6 +165,30 @@ bindings/buildBSM.s: bindings/buildBSM.cpp.s
 bindings/buildBSM.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/buildBSM.cpp.s
 .PHONY : bindings/buildBSM.cpp.s
+
+bindings/buildBinomial.o: bindings/buildBinomial.cpp.o
+.PHONY : bindings/buildBinomial.o
+
+# target to build an object file
+bindings/buildBinomial.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/buildBinomial.cpp.o
+.PHONY : bindings/buildBinomial.cpp.o
+
+bindings/buildBinomial.i: bindings/buildBinomial.cpp.i
+.PHONY : bindings/buildBinomial.i
+
+# target to preprocess a source file
+bindings/buildBinomial.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/buildBinomial.cpp.i
+.PHONY : bindings/buildBinomial.cpp.i
+
+bindings/buildBinomial.s: bindings/buildBinomial.cpp.s
+.PHONY : bindings/buildBinomial.s
+
+# target to generate assembly for a file
+bindings/buildBinomial.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/bindings/buildBinomial.cpp.s
+.PHONY : bindings/buildBinomial.cpp.s
 
 bindings/buildStock.o: bindings/buildStock.cpp.o
 .PHONY : bindings/buildStock.o
@@ -219,7 +243,7 @@ bindings/module.o: bindings/module.cpp.o
 
 # target to build an object file
 bindings/module.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pyext.dir/build.make CMakeFiles/pyext.dir/bindings/module.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/bindings/module.cpp.o
 .PHONY : bindings/module.cpp.o
 
 bindings/module.i: bindings/module.cpp.i
@@ -227,7 +251,7 @@ bindings/module.i: bindings/module.cpp.i
 
 # target to preprocess a source file
 bindings/module.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pyext.dir/build.make CMakeFiles/pyext.dir/bindings/module.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/bindings/module.cpp.i
 .PHONY : bindings/module.cpp.i
 
 bindings/module.s: bindings/module.cpp.s
@@ -235,7 +259,7 @@ bindings/module.s: bindings/module.cpp.s
 
 # target to generate assembly for a file
 bindings/module.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pyext.dir/build.make CMakeFiles/pyext.dir/bindings/module.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/bindings/module.cpp.s
 .PHONY : bindings/module.cpp.s
 
 src/exercise/americanExercise.o: src/exercise/americanExercise.cpp.o
@@ -463,10 +487,13 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... core"
-	@echo "... pyext"
+	@echo "... pricer"
 	@echo "... bindings/buildBSM.o"
 	@echo "... bindings/buildBSM.i"
 	@echo "... bindings/buildBSM.s"
+	@echo "... bindings/buildBinomial.o"
+	@echo "... bindings/buildBinomial.i"
+	@echo "... bindings/buildBinomial.s"
 	@echo "... bindings/buildStock.o"
 	@echo "... bindings/buildStock.i"
 	@echo "... bindings/buildStock.s"
