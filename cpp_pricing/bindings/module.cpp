@@ -24,16 +24,16 @@ PYBIND11_MODULE(pricer, m) {
     py::class_<VanillaOption, std::shared_ptr<VanillaOption>>(m, "VanillaOption")
         .def("maturity", &VanillaOption::maturity)
         .def("payoff", &VanillaOption::getPayoff, py::arg("spot"))
-        .def("can_exercise", &VanillaOption::canExercise, py::arg("t"));
+        .def("canExercise", &VanillaOption::canExercise, py::arg("t"));
 
     m.def(
-        "make_vanilla_option",
+        "makeVanillaOption",
         &makeVanillaOption,
         py::arg("strike"),
         py::arg("maturity"),
-        py::arg("exercise_type"),
-        py::arg("option_type"),
-        "Factory function for VanillaOption"
+        py::arg("exerciseType")="e",
+        py::arg("optionType")="p",
+        "Factory function for VanillaOption."
     );
 
     py::class_<Stock, std::shared_ptr<Stock>>(m, "Stock")
@@ -41,7 +41,7 @@ PYBIND11_MODULE(pricer, m) {
       .def("dividends",&Stock::name);
 
     m.def(
-        "make_stock",
+        "makeStock",
         [](double spot,
            double yieldRate,
            py::object divCashFlow) {
@@ -56,8 +56,8 @@ PYBIND11_MODULE(pricer, m) {
             return makeStock(spot, yieldRate, &cashFlows);
         },
         py::arg("spot"),
-        py::arg("yield_rate"),
-        py::arg("div_cash_flow") = py::none()
+        py::arg("yieldRate"),
+        py::arg("cashFlow") = py::none()
     );
 
     py::class_<BSM, std::shared_ptr<BSM>>(m, "BSM")
@@ -67,7 +67,7 @@ PYBIND11_MODULE(pricer, m) {
         // py::arg("sigma"));
 
     m.def(
-        "make_bsm",
+        "makeBSM",
         &makeBSM,
         py::arg("option"),
         py::arg("stock"),
@@ -78,7 +78,7 @@ PYBIND11_MODULE(pricer, m) {
     py::class_<BinomialModel<>, std::shared_ptr<BinomialModel<>>>(m,"Binomial");
 
     m.def(
-        "make_binomial",
+        "makeBinomial",
         &makeBinomial,
         py::arg("option"),
         py::arg("stock"),

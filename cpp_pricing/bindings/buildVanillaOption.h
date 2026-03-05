@@ -7,6 +7,6 @@ class VanillaOption;
 std::shared_ptr<VanillaOption> makeVanillaOption(
     double strike,
     double maturity,
-    char exerciseType,
-    char optionType
+    char exerciseType='e',
+    char optionType='p'
 );
