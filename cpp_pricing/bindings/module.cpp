@@ -43,21 +43,17 @@ PYBIND11_MODULE(pricer, m) {
     m.def(
         "makeStock",
         [](double spot,
-           double yieldRate,
-           py::object divCashFlow) {
-
-            if (divCashFlow.is_none()) {
-                return makeStock(spot, yieldRate, nullptr);
+           double divYieldRate,
+           std::optional<CashFlows> divCashFlow)
+        {
+            if (divCashFlow) {
+                return makeStock(spot, divYieldRate, &(*divCashFlow));
             }
-
-            CashFlows cashFlows =
-                divCashFlow.cast<CashFlows>();
-
-            return makeStock(spot, yieldRate, &cashFlows);
+            return makeStock(spot, divYieldRate, nullptr);
         },
         py::arg("spot"),
         py::arg("yieldRate"),
-        py::arg("cashFlow") = py::none()
+        py::arg("cashFlow") = std::nullopt
     );
 
     py::class_<BSM, std::shared_ptr<BSM>>(m, "BSM")
@@ -85,6 +81,4 @@ PYBIND11_MODULE(pricer, m) {
         py::arg("r"),
         py::arg("sigma")
     );
-
-
 }
