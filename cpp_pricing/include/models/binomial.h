@@ -3,6 +3,8 @@
 #include "../../include/instruments/option.h"
 #include "../../include/instruments/stock.h"
 #include "../../include/instruments/dividend.h"
+#include "../../include/payoffs/payoff.h"
+#include "../../include/exercise/exercise.h"
 #include "parameterization.h"
 
 #include <cmath>
@@ -34,20 +36,17 @@ public:
   // Calls getPriceCY() if underlying stock has continuous dividend yield
   double getPrice() const;
  
-  // Get Option Price where unerlying stock has discrete dividend cash schedule
-  double getPriceDS() const;
-
-  // Get Option Price where underlying stock has continuous dividend yield
-  double getPriceCY() const;
-
 private:
   struct PricingParams {
     double u;
     double d;
     double p;
     double r;
+    double q;
+    double sigma;
     double dt;
     int n;
+    double T;
     double discount;
   };
   static PricingParams makeParams(
@@ -60,6 +59,14 @@ private:
   std::shared_ptr<const Option> optionPtr_;
   std::shared_ptr<const Stock> stockPtr_;
   const PricingParams params_;
+  // Get Option Price where unerlying stock has discrete dividend cash schedule
+  double getPriceDS() const;
+
+  // Get Option Price where underlying stock has continuous dividend yield
+  double getPriceCY() const;
+
+  // Edge case: Get Option Price where stock is determinstic (sigma = 0)
+  double deterministicPriceCY() const;
 };
 
 // .TPP
@@ -84,12 +91,18 @@ BinomialModel<Param>::BinomialModel(
 
 template <typename Param>
 double BinomialModel<Param>::getPrice() const {
+  if (params_.sigma < 1e-8) {
+    if (stockPtr_->dividends().hasCashSchedule())
+      throw std::runtime_error("Dividend cash schedule not supported for deterministic stock.");
+    else if(stockPtr_->dividends().hasContinuousYield())
+      return deterministicPriceCY();
+  }
   if(stockPtr_->dividends().hasCashSchedule())
     return getPriceDS();
   else if(stockPtr_->dividends().hasContinuousYield())
     return getPriceCY();
   else
-    throw std::logic_error("Underlying stock dividends not supported");
+    throw std::runtime_error("Underlying stock dividends not supported.");
 }
 
 template <typename Param>
@@ -196,6 +209,37 @@ BinomialModel<Param>::makeParams(
   double d = Param::d(sigma, dt);
   double p = Param::p(a, u, d);
   double discount = std::exp(-dt*r);
-  PricingParams params{u, d, p, r, dt, n, discount};
+  PricingParams params{u, d, p, r, q, sigma, dt, n, T, discount};
   return params;
+}
+
+template <typename Param>
+double BinomialModel<Param>::deterministicPriceCY() const {
+  double r = params_.r;
+  double q = params_.q;
+  double T = params_.T;
+
+  char exerciseTag = optionPtr_->exercise().tag();
+  char payoffTag = optionPtr_->payoff().tag();
+  double S0 = stockPtr_->spot();
+
+  if (exerciseTag == 'a') {
+    if (payoffTag == 'c') {
+      if (r > q) {
+        double ST = S0 * std::exp((r-q) * T);
+        return std::exp(-r * T) * optionPtr_->getPayoff(ST);
+      }
+      else {
+        return optionPtr_->getPayoff(S0);
+      }
+    }
+    else if (payoffTag == 'p') {
+      return optionPtr_->getPayoff(S0);
+    }
+  }
+  else if (exerciseTag == 'e') {
+    double ST = S0 * std::exp((r - q) * T);
+    return std::exp(-r * T) * optionPtr_->getPayoff(ST);
+  }
+  throw std::runtime_error("Unsupported option type");
 }

@@ -6,3 +6,8 @@ double PutPayoff::getPayoff(
     double spot) const {
   return std::max(option.strikePrice() - spot, 0.0);
 }
+
+char PutPayoff::tag() const {
+  return 'p';
+}
+

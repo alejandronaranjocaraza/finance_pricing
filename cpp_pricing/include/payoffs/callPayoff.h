@@ -8,4 +8,5 @@ public:
   double getPayoff(
       const Option& option, double spot
     ) const override;
+  char tag() const override;
 };

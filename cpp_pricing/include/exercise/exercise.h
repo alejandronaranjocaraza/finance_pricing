@@ -9,4 +9,5 @@ public:
       const Option& option,
       double t
       ) const = 0;
+  virtual char tag() const = 0;
 };

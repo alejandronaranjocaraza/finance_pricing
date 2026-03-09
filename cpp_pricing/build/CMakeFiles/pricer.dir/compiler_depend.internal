@@ -156,11 +156,13 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o
  /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/unicodeobject.h
  /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/warnings.h
  /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/weakrefobject.h
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/exercise/exercise.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/dividend.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/instrument.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/option.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/stock.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/vanillaOption.h
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/payoff.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/newtonRaphson.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/binomial.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/bsm.h

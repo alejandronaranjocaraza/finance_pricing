@@ -8,3 +8,7 @@ bool EuropeanExercise::canExercise(
     ) const {
   return (std::abs(option.maturity() - t) < 1e-12) ? true : false;
 }
+
+char EuropeanExercise::tag() const {
+  return 'e';
+}

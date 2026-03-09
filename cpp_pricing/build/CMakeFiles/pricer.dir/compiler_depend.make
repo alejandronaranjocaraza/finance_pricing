@@ -155,11 +155,13 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o: /home/zapatinb/pers_repos/finance_p
   /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/unicodeobject.h \
   /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/warnings.h \
   /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/weakrefobject.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/exercise/exercise.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/dividend.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/instrument.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/option.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/stock.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/vanillaOption.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/payoff.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/newtonRaphson.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/binomial.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/bsm.h \
@@ -594,7 +596,7 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 
 /usr/lib/gcc/x86_64-linux-gnu/14/include/syslimits.h:
 
-/home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/genericaliasobject.h:
+/usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/memoryobject.h:
 
@@ -608,6 +610,8 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/floatobject.h:
 
+/home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/genericaliasobject.h:
+
 /usr/include/c++/14/bits/ranges_cmp.h:
 
 /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
@@ -619,6 +623,8 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 /usr/include/c++/14/bits/range_access.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/bltinmodule.h:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/payoff.h:
 
 /usr/include/c++/14/ostream:
 
@@ -756,6 +762,10 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 
 /usr/include/asm-generic/posix_types.h:
 
+/usr/include/c++/14/bits/sstream.tcc:
+
+/usr/include/c++/14/bits/stl_set.h:
+
 /usr/include/c++/14/bits/enable_special_members.h:
 
 /usr/include/c++/14/bits/std_function.h:
@@ -793,10 +803,6 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/pyhash.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/floatobject.h:
-
-/usr/include/c++/14/bits/sstream.tcc:
-
-/usr/include/c++/14/bits/stl_set.h:
 
 /usr/include/c++/14/tr1/ell_integral.tcc:
 
@@ -857,6 +863,10 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/boolobject.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h:
+
+/home/zapatinb/miniconda3/envs/cpp-python/include/pybind11/detail/using_smart_holder.h:
 
 /usr/include/c++/14/bits/unordered_map.h:
 
@@ -1338,8 +1348,6 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h:
-
 /usr/include/c++/14/bits/version.h:
 
 /usr/include/c++/14/cassert:
@@ -1614,6 +1622,8 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 
 /usr/include/x86_64-linux-gnu/c++/14/bits/cpu_defines.h:
 
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/exercise/exercise.h:
+
 /usr/include/x86_64-linux-gnu/bits/semaphore.h:
 
 /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
@@ -1685,10 +1695,6 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 /usr/lib/x86_64-linux-gnu/libgcc_s.so.1:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
-/home/zapatinb/miniconda3/envs/cpp-python/include/pybind11/detail/using_smart_holder.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/warnings.h:
 

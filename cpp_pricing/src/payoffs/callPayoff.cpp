@@ -7,3 +7,7 @@ double CallPayoff::getPayoff(
   ) const {
   return std::max(spot - option.strikePrice(), 0.0);
 }
+
+char CallPayoff::tag() const {
+  return 'c';
+}

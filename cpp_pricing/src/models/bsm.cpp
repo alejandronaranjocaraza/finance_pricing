@@ -16,7 +16,7 @@ static double normalPDF(double x) {
 
 double BSM::getD1(double sigma) const {
   double d1Num = std::log(S0_ / K_) + (r_ + std::pow(sigma_,2)/2) * T_;
-  double d1Denom = sigma * T_;
+  double d1Denom = sigma * std::sqrt(T_);
   
   double d1 = d1Num / d1Denom;
   return d1;
@@ -24,7 +24,7 @@ double BSM::getD1(double sigma) const {
 
 double BSM::getD2(double sigma) const {
   double d1 = getD1(sigma);
-  double d2 = d1 - sigma * T_;
+  double d2 = d1 - sigma * std::sqrt(T_);
   return d2;
 }
 

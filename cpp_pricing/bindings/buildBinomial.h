@@ -10,5 +10,6 @@ std::shared_ptr<BinomialModel<>> makeBinomial(
     std::shared_ptr<const VanillaOption> optionPtr,
     std::shared_ptr<const Stock> stockPtr,
     double r,
-    double sigma
+    double sigma,
+    int n = 100
     );

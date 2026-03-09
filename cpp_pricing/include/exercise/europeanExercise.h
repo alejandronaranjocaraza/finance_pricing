@@ -11,4 +11,5 @@ public:
       const Option& option,
       double t
       ) const override;
+  char tag() const override;
 };

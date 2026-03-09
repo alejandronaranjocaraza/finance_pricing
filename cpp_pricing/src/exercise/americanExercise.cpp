@@ -7,3 +7,7 @@ bool AmericanExercise::canExercise(
     ) const {
   return (t > 0.0 && t < option.maturity()) ? true : false;
 }
+
+char AmericanExercise::tag() const {
+  return 'a';
+}

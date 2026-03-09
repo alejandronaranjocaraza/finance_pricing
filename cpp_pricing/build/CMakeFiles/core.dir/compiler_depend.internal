@@ -295,10 +295,12 @@ CMakeFiles/core.dir/bindings/buildBSM.cpp.o
 CMakeFiles/core.dir/bindings/buildBinomial.cpp.o
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBinomial.cpp
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/vanillaOption.h
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/exercise/exercise.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/dividend.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/instrument.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/option.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/stock.h
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/payoff.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/binomial.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/parameterization.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBinomial.h

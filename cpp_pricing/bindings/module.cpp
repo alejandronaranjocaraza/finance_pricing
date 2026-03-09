@@ -71,7 +71,8 @@ PYBIND11_MODULE(pricer, m) {
         py::arg("sigma")
     );
 
-    py::class_<BinomialModel<>, std::shared_ptr<BinomialModel<>>>(m,"Binomial");
+    py::class_<BinomialModel<>, std::shared_ptr<BinomialModel<>>>(m,"Binomial")
+      .def("getPrice", static_cast<double (BinomialModel<>::*)() const>(&BinomialModel<>::getPrice));
 
     m.def(
         "makeBinomial",
@@ -79,6 +80,7 @@ PYBIND11_MODULE(pricer, m) {
         py::arg("option"),
         py::arg("stock"),
         py::arg("r"),
-        py::arg("sigma")
+        py::arg("sigma"),
+        py::arg("n") = 100
     );
 }
