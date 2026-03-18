@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../include/instruments/option.h"
+#include "../../include/instruments/vanillaOption.h"
 #include "../../include/instruments/stock.h"
 #include "../../include/instruments/dividend.h"
 #include "../../include/payoffs/payoff.h"
@@ -24,7 +25,7 @@ template <typename Param = CRR>
 class BinomialModel {
 public:
   BinomialModel(
-      std::shared_ptr<const Option> optionPtr,
+      std::shared_ptr<const VanillaOption> optionPtr,
       std::shared_ptr<const Stock> stockPtr,
       double r,
       double sigma,
@@ -56,7 +57,7 @@ private:
       double sigma,
       int n
       );
-  std::shared_ptr<const Option> optionPtr_;
+  std::shared_ptr<const VanillaOption> optionPtr_;
   std::shared_ptr<const Stock> stockPtr_;
   const PricingParams params_;
   // Get Option Price where unerlying stock has discrete dividend cash schedule
@@ -73,7 +74,7 @@ private:
 
 template <typename Param>
 BinomialModel<Param>::BinomialModel(
-      std::shared_ptr<const Option> optionPtr,
+      std::shared_ptr<const VanillaOption> optionPtr,
       std::shared_ptr<const Stock> stockPtr,
       double r,
       double sigma,
@@ -219,12 +220,13 @@ double BinomialModel<Param>::deterministicPriceCY() const {
   double q = params_.q;
   double T = params_.T;
 
-  char exerciseTag = optionPtr_->exercise().tag();
-  char payoffTag = optionPtr_->payoff().tag();
+  VanillaOption::OptionType optionType = optionPtr_->optionType();
+  VanillaOption::ExerciseType exerciseType = optionPtr_->exerciseType();
+
   double S0 = stockPtr_->spot();
 
-  if (exerciseTag == 'a') {
-    if (payoffTag == 'c') {
+  if (exerciseType == VanillaOption::ExerciseType::american) {
+    if (optionType == VanillaOption::OptionType::call) {
       if (r > q) {
         double ST = S0 * std::exp((r-q) * T);
         return std::exp(-r * T) * optionPtr_->getPayoff(ST);
@@ -233,11 +235,11 @@ double BinomialModel<Param>::deterministicPriceCY() const {
         return optionPtr_->getPayoff(S0);
       }
     }
-    else if (payoffTag == 'p') {
+    else if (optionType == VanillaOption::OptionType::put) {
       return optionPtr_->getPayoff(S0);
     }
   }
-  else if (exerciseTag == 'e') {
+  else if (exerciseType == VanillaOption::ExerciseType::european) {
     double ST = S0 * std::exp((r - q) * T);
     return std::exp(-r * T) * optionPtr_->getPayoff(ST);
   }

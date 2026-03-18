@@ -30,16 +30,7 @@ public:
       std::shared_ptr<const Stock> stockPtr,
       double r,
       double sigma
-      ) :
-    optionPtr_{std::move(optionPtr)},
-    stockPtr_{std::move(stockPtr)},
-    r_{r},
-    sigma_{sigma},
-    T_{optionPtr_->maturity()},
-    K_{optionPtr_->strikePrice()},
-    S0_{stockPtr_->spot()},
-    optionType_{optionPtr_->type()}
-  {}
+      );
 
   double getD1(double sigma) const;
 
@@ -47,13 +38,13 @@ public:
 
   double getPrice() const;
   
-  double getPrice(double sigma);
+  double getPrice(double sigma) const;
 
   double getPutPrice(double sigma) const;
 
   double getCallPrice(double sigma) const;
 
-  Greeks greeks();
+  Greeks greeks() const;
 
   double impliedVol(double targetPrice);
 

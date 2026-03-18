@@ -155,13 +155,17 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o: /home/zapatinb/pers_repos/finance_p
   /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/unicodeobject.h \
   /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/warnings.h \
   /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/weakrefobject.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/exercise/americanExercise.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/exercise/europeanExercise.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/exercise/exercise.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/callPayoff.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/payoff.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/putPayoff.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/dividend.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/instrument.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/option.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/stock.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/vanillaOption.h \
-  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/payoff.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/newtonRaphson.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/binomial.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/bsm.h \
@@ -598,11 +602,11 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 
 /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h:
 
-/home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/memoryobject.h:
+/usr/lib/gcc/x86_64-linux-gnu/14/include/limits.h:
 
-/usr/include/c++/14/bits/shared_ptr_atomic.h:
+/usr/include/x86_64-linux-gnu/sys/types.h:
 
-/usr/include/c++/14/bits/shared_ptr.h:
+/usr/include/x86_64-linux-gnu/sys/time.h:
 
 /usr/include/c++/14/bits/semaphore_base.h:
 
@@ -766,6 +770,8 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 
 /usr/include/c++/14/bits/stl_set.h:
 
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/exercise/europeanExercise.h:
+
 /usr/include/c++/14/bits/enable_special_members.h:
 
 /usr/include/c++/14/bits/std_function.h:
@@ -782,8 +788,6 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/pyerrors.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/14/include/limits.h:
-
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/setobject.h:
 
 /usr/include/c++/14/map:
@@ -793,6 +797,8 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/pythonrun.h:
 
 /usr/include/c++/14/bits/move.h:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/putPayoff.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/pyport.h:
 
@@ -844,8 +850,6 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/longobject.h:
 
-/usr/include/x86_64-linux-gnu/c++/14/bits/gthr-default.h:
-
 /home/zapatinb/miniconda3/envs/cpp-python/include/pybind11/cast.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/weakrefobject.h:
@@ -857,10 +861,6 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 /usr/include/c++/14/bits/exception_defines.h:
 
 /usr/include/c++/14/bits/deque.tcc:
-
-/usr/include/c++/14/bits/shared_ptr_base.h:
-
-/usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/boolobject.h:
 
@@ -923,6 +923,10 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 /usr/include/c++/14/bits/functexcept.h:
 
 /usr/include/c++/14/set:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/callPayoff.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
 /usr/include/c++/14/bits/cxxabi_init_exception.h:
 
@@ -989,6 +993,10 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/typeslots.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/pymem.h:
+
+/usr/include/x86_64-linux-gnu/c++/14/bits/gthr-default.h:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/exercise/americanExercise.h:
 
 /usr/include/c++/14/compare:
 
@@ -1079,6 +1087,12 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 /usr/include/c++/14/thread:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/pybind11/stl.h:
+
+/home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/memoryobject.h:
+
+/usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
+
+/usr/include/c++/14/bits/shared_ptr_base.h:
 
 /usr/include/c++/14/bits/list.tcc:
 
@@ -1262,6 +1276,10 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/pybuffer.h:
 
+/usr/include/c++/14/bits/shared_ptr.h:
+
+/usr/include/c++/14/bits/shared_ptr_atomic.h:
+
 /usr/include/c++/14/bits/std_abs.h:
 
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
@@ -1388,9 +1406,9 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 
 /usr/include/c++/14/debug/assertions.h:
 
-/usr/include/c++/14/bits/slice_array.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+
+/usr/include/c++/14/bits/slice_array.h:
 
 /usr/include/c++/14/debug/debug.h:
 
@@ -1690,8 +1708,6 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 
 /usr/include/x86_64-linux-gnu/c++/14/bits/os_defines.h:
 
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
-
 /usr/lib/x86_64-linux-gnu/libgcc_s.so.1:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
@@ -1703,7 +1719,3 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 /usr/include/x86_64-linux-gnu/sys/single_threaded.h:
 
 /usr/include/x86_64-linux-gnu/sys/stat.h:
-
-/usr/include/x86_64-linux-gnu/sys/time.h:
-
-/usr/include/x86_64-linux-gnu/sys/types.h:

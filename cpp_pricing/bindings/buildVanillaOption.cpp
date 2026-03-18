@@ -11,46 +11,43 @@
 std::shared_ptr<VanillaOption> makeVanillaOption(
     double strike,
     double maturity,
-    char exerciseType,
-    char optionType
+    char optionTypeChar,
+    char exerciseTypeChar
 ) {
-  
-  std::shared_ptr<Exercise> exercisePtr;
-  std::shared_ptr<Payoff> payoffPtr;
-  VanillaOption::OptionType tp;
 
-  switch(exerciseType) {
-    case 'a':
-      exercisePtr  = std::make_shared<AmericanExercise>();
-      break;
-    case 'e':
-      exercisePtr  = std::make_shared<EuropeanExercise>();
-      break;
-    default:
-      throw std::invalid_argument("Invalid exercise input.");
-  }
+  VanillaOption::ExerciseType exerciseType;
+  VanillaOption::OptionType optionType;
 
-  switch(optionType) {
+  switch(optionTypeChar) {
     case 'c':
-      payoffPtr  = std::make_shared<CallPayoff>();
-      tp = VanillaOption::OptionType::call;
+      optionType = VanillaOption::OptionType::call;
       break;
     case 'p':
-      payoffPtr  = std::make_shared<PutPayoff>();
-      tp = VanillaOption::OptionType::put;
+      optionType = VanillaOption::OptionType::put;
       break;
     default:
-      throw std::invalid_argument("Invalid optionType input.");
+      throw std::invalid_argument("Invalid option type input.");
   }
+
+  switch(exerciseTypeChar) {
+    case 'a':
+      exerciseType = VanillaOption::ExerciseType::american;
+      break;
+    case 'e':
+      exerciseType = VanillaOption::ExerciseType::european;
+      break;
+    default:
+      throw std::invalid_argument("Invalid option exercise type input.");
+  }
+
   
   // VanillaOption::OptionType optType2 = VanillaOption::OptionType::put;
-  auto vanillaOptPtr = std::make_shared<VanillaOption>(
+  auto vanillaOptionPtr = std::make_shared<VanillaOption>(
       strike,
       maturity,
-      exercisePtr,
-      payoffPtr,
-      tp
+      optionType,
+      exerciseType
       );
 
-  return vanillaOptPtr;
+  return vanillaOptionPtr;
 };

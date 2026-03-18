@@ -31,8 +31,8 @@ PYBIND11_MODULE(pricer, m) {
         &makeVanillaOption,
         py::arg("strike"),
         py::arg("maturity"),
-        py::arg("exerciseType")="e",
         py::arg("optionType")="p",
+        py::arg("exerciseType")="e",
         "Factory function for VanillaOption."
     );
 
