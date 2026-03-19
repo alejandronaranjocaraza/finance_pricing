@@ -462,9 +462,10 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o: \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/models/../../include/instruments/../payoffs/callPayoff.h \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/models/../../include/instruments/stock.h \
  /usr/include/c++/14/iostream \
- /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/models/../algorithms/rootFind/newtonRaphson.h \
- /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/models/binomial.h \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/models/../../include/instruments/dividend.h \
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/models/../algorithms/rootFind/newtonRaphson.h \
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/models/../algorithms/rootFind/bisection.h \
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/models/binomial.h \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/../include/models/parameterization.h \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBSM.h \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBinomial.h \

@@ -167,6 +167,7 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/option.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/stock.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/vanillaOption.h
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/bisection.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/newtonRaphson.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/binomial.h
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/bsm.h

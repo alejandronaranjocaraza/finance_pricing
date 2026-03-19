@@ -3,7 +3,9 @@
 #include "../../include/instruments/option.h"
 #include "../../include/instruments/vanillaOption.h"
 #include "../../include/instruments/stock.h"
+#include "../../include/instruments/dividend.h"
 #include "../algorithms/rootFind/newtonRaphson.h"
+#include "../algorithms/rootFind/bisection.h"
 
 #include <memory>
 
@@ -46,12 +48,15 @@ public:
 
   Greeks greeks() const;
 
+  double corradoMiller(double targetPrice) const;
+
   double impliedVol(double targetPrice);
 
 private:
     std::shared_ptr<const VanillaOption> optionPtr_;
     std::shared_ptr<const Stock> stockPtr_;
     double r_;
+    double q_;
     double sigma_;
     double T_;
     double K_;

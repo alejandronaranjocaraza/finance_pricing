@@ -216,6 +216,10 @@ CMakeFiles/core.dir/src/models/bsm.cpp.o: \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/models/../../include/models/../../include/instruments/stock.h \
  /usr/include/c++/14/iostream /usr/include/c++/14/istream \
  /usr/include/c++/14/bits/istream.tcc \
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/models/../../include/models/../../include/instruments/dividend.h \
+ /usr/include/c++/14/vector /usr/include/c++/14/bits/stl_vector.h \
+ /usr/include/c++/14/bits/stl_bvector.h \
+ /usr/include/c++/14/bits/vector.tcc \
  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/models/../../include/models/../algorithms/rootFind/newtonRaphson.h \
  /usr/include/c++/14/cmath /usr/include/math.h \
  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
@@ -240,8 +244,15 @@ CMakeFiles/core.dir/src/models/bsm.cpp.o: \
  /usr/include/c++/14/tr1/modified_bessel_func.tcc \
  /usr/include/c++/14/tr1/poly_hermite.tcc \
  /usr/include/c++/14/tr1/poly_laguerre.tcc \
- /usr/include/c++/14/tr1/riemann_zeta.tcc /usr/include/c++/14/iomanip \
- /usr/include/c++/14/locale \
+ /usr/include/c++/14/tr1/riemann_zeta.tcc /usr/include/c++/14/algorithm \
+ /usr/include/c++/14/bits/stl_algo.h \
+ /usr/include/c++/14/bits/algorithmfwd.h \
+ /usr/include/c++/14/bits/stl_heap.h \
+ /usr/include/c++/14/bits/uniform_int_dist.h \
+ /usr/include/c++/14/bits/ranges_algo.h \
+ /usr/include/c++/14/pstl/glue_algorithm_defs.h \
+ /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/models/../../include/models/../algorithms/rootFind/bisection.h \
+ /usr/include/c++/14/iomanip /usr/include/c++/14/locale \
  /usr/include/c++/14/bits/locale_facets_nonio.h /usr/include/c++/14/ctime \
  /usr/include/x86_64-linux-gnu/c++/14/bits/time_members.h \
  /usr/include/x86_64-linux-gnu/c++/14/bits/messages_members.h \

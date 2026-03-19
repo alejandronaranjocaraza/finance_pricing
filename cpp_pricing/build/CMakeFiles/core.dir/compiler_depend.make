@@ -8,10 +8,12 @@ CMakeFiles/core.dir/bindings/buildBSM.cpp.o: /home/zapatinb/pers_repos/finance_p
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/callPayoff.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/payoff.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/putPayoff.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/dividend.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/instrument.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/option.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/stock.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/vanillaOption.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/bisection.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/newtonRaphson.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/bsm.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBSM.h \
@@ -22,9 +24,11 @@ CMakeFiles/core.dir/bindings/buildBSM.cpp.o: /home/zapatinb/pers_repos/finance_p
   /usr/include/asm-generic/int-ll64.h \
   /usr/include/asm-generic/posix_types.h \
   /usr/include/asm-generic/types.h \
+  /usr/include/c++/14/algorithm \
   /usr/include/c++/14/backward/auto_ptr.h \
   /usr/include/c++/14/backward/binders.h \
   /usr/include/c++/14/bit \
+  /usr/include/c++/14/bits/algorithmfwd.h \
   /usr/include/c++/14/bits/align.h \
   /usr/include/c++/14/bits/alloc_traits.h \
   /usr/include/c++/14/bits/allocated_ptr.h \
@@ -69,6 +73,7 @@ CMakeFiles/core.dir/bindings/buildBSM.cpp.o: /home/zapatinb/pers_repos/finance_p
   /usr/include/c++/14/bits/predefined_ops.h \
   /usr/include/c++/14/bits/ptr_traits.h \
   /usr/include/c++/14/bits/range_access.h \
+  /usr/include/c++/14/bits/ranges_algo.h \
   /usr/include/c++/14/bits/ranges_algobase.h \
   /usr/include/c++/14/bits/ranges_base.h \
   /usr/include/c++/14/bits/ranges_cmp.h \
@@ -82,9 +87,12 @@ CMakeFiles/core.dir/bindings/buildBSM.cpp.o: /home/zapatinb/pers_repos/finance_p
   /usr/include/c++/14/bits/specfun.h \
   /usr/include/c++/14/bits/std_abs.h \
   /usr/include/c++/14/bits/std_mutex.h \
+  /usr/include/c++/14/bits/stl_algo.h \
   /usr/include/c++/14/bits/stl_algobase.h \
+  /usr/include/c++/14/bits/stl_bvector.h \
   /usr/include/c++/14/bits/stl_construct.h \
   /usr/include/c++/14/bits/stl_function.h \
+  /usr/include/c++/14/bits/stl_heap.h \
   /usr/include/c++/14/bits/stl_iterator.h \
   /usr/include/c++/14/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/14/bits/stl_iterator_base_types.h \
@@ -92,14 +100,17 @@ CMakeFiles/core.dir/bindings/buildBSM.cpp.o: /home/zapatinb/pers_repos/finance_p
   /usr/include/c++/14/bits/stl_raw_storage_iter.h \
   /usr/include/c++/14/bits/stl_tempbuf.h \
   /usr/include/c++/14/bits/stl_uninitialized.h \
+  /usr/include/c++/14/bits/stl_vector.h \
   /usr/include/c++/14/bits/streambuf.tcc \
   /usr/include/c++/14/bits/streambuf_iterator.h \
   /usr/include/c++/14/bits/string_view.tcc \
   /usr/include/c++/14/bits/stringfwd.h \
+  /usr/include/c++/14/bits/uniform_int_dist.h \
   /usr/include/c++/14/bits/unique_ptr.h \
   /usr/include/c++/14/bits/uses_allocator.h \
   /usr/include/c++/14/bits/uses_allocator_args.h \
   /usr/include/c++/14/bits/utility.h \
+  /usr/include/c++/14/bits/vector.tcc \
   /usr/include/c++/14/bits/version.h \
   /usr/include/c++/14/cctype \
   /usr/include/c++/14/cerrno \
@@ -135,6 +146,7 @@ CMakeFiles/core.dir/bindings/buildBSM.cpp.o: /home/zapatinb/pers_repos/finance_p
   /usr/include/c++/14/numbers \
   /usr/include/c++/14/ostream \
   /usr/include/c++/14/pstl/execution_defs.h \
+  /usr/include/c++/14/pstl/glue_algorithm_defs.h \
   /usr/include/c++/14/pstl/glue_memory_defs.h \
   /usr/include/c++/14/pstl/pstl_config.h \
   /usr/include/c++/14/stdexcept \
@@ -157,6 +169,7 @@ CMakeFiles/core.dir/bindings/buildBSM.cpp.o: /home/zapatinb/pers_repos/finance_p
   /usr/include/c++/14/tuple \
   /usr/include/c++/14/type_traits \
   /usr/include/c++/14/typeinfo \
+  /usr/include/c++/14/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
   /usr/include/errno.h \
@@ -2602,10 +2615,12 @@ CMakeFiles/core.dir/src/models/bsm.cpp.o: /home/zapatinb/pers_repos/finance_pric
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/callPayoff.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/payoff.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/putPayoff.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/dividend.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/instrument.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/option.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/stock.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/vanillaOption.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/bisection.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/newtonRaphson.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/bsm.h \
   /usr/include/alloca.h \
@@ -2615,9 +2630,11 @@ CMakeFiles/core.dir/src/models/bsm.cpp.o: /home/zapatinb/pers_repos/finance_pric
   /usr/include/asm-generic/int-ll64.h \
   /usr/include/asm-generic/posix_types.h \
   /usr/include/asm-generic/types.h \
+  /usr/include/c++/14/algorithm \
   /usr/include/c++/14/backward/auto_ptr.h \
   /usr/include/c++/14/backward/binders.h \
   /usr/include/c++/14/bit \
+  /usr/include/c++/14/bits/algorithmfwd.h \
   /usr/include/c++/14/bits/align.h \
   /usr/include/c++/14/bits/alloc_traits.h \
   /usr/include/c++/14/bits/allocated_ptr.h \
@@ -2667,6 +2684,7 @@ CMakeFiles/core.dir/src/models/bsm.cpp.o: /home/zapatinb/pers_repos/finance_pric
   /usr/include/c++/14/bits/ptr_traits.h \
   /usr/include/c++/14/bits/quoted_string.h \
   /usr/include/c++/14/bits/range_access.h \
+  /usr/include/c++/14/bits/ranges_algo.h \
   /usr/include/c++/14/bits/ranges_algobase.h \
   /usr/include/c++/14/bits/ranges_base.h \
   /usr/include/c++/14/bits/ranges_cmp.h \
@@ -2681,9 +2699,12 @@ CMakeFiles/core.dir/src/models/bsm.cpp.o: /home/zapatinb/pers_repos/finance_pric
   /usr/include/c++/14/bits/sstream.tcc \
   /usr/include/c++/14/bits/std_abs.h \
   /usr/include/c++/14/bits/std_mutex.h \
+  /usr/include/c++/14/bits/stl_algo.h \
   /usr/include/c++/14/bits/stl_algobase.h \
+  /usr/include/c++/14/bits/stl_bvector.h \
   /usr/include/c++/14/bits/stl_construct.h \
   /usr/include/c++/14/bits/stl_function.h \
+  /usr/include/c++/14/bits/stl_heap.h \
   /usr/include/c++/14/bits/stl_iterator.h \
   /usr/include/c++/14/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/14/bits/stl_iterator_base_types.h \
@@ -2691,14 +2712,17 @@ CMakeFiles/core.dir/src/models/bsm.cpp.o: /home/zapatinb/pers_repos/finance_pric
   /usr/include/c++/14/bits/stl_raw_storage_iter.h \
   /usr/include/c++/14/bits/stl_tempbuf.h \
   /usr/include/c++/14/bits/stl_uninitialized.h \
+  /usr/include/c++/14/bits/stl_vector.h \
   /usr/include/c++/14/bits/streambuf.tcc \
   /usr/include/c++/14/bits/streambuf_iterator.h \
   /usr/include/c++/14/bits/string_view.tcc \
   /usr/include/c++/14/bits/stringfwd.h \
+  /usr/include/c++/14/bits/uniform_int_dist.h \
   /usr/include/c++/14/bits/unique_ptr.h \
   /usr/include/c++/14/bits/uses_allocator.h \
   /usr/include/c++/14/bits/uses_allocator_args.h \
   /usr/include/c++/14/bits/utility.h \
+  /usr/include/c++/14/bits/vector.tcc \
   /usr/include/c++/14/bits/version.h \
   /usr/include/c++/14/cctype \
   /usr/include/c++/14/cerrno \
@@ -2737,6 +2761,7 @@ CMakeFiles/core.dir/src/models/bsm.cpp.o: /home/zapatinb/pers_repos/finance_pric
   /usr/include/c++/14/numbers \
   /usr/include/c++/14/ostream \
   /usr/include/c++/14/pstl/execution_defs.h \
+  /usr/include/c++/14/pstl/glue_algorithm_defs.h \
   /usr/include/c++/14/pstl/glue_memory_defs.h \
   /usr/include/c++/14/pstl/pstl_config.h \
   /usr/include/c++/14/sstream \
@@ -2760,6 +2785,7 @@ CMakeFiles/core.dir/src/models/bsm.cpp.o: /home/zapatinb/pers_repos/finance_pric
   /usr/include/c++/14/tuple \
   /usr/include/c++/14/type_traits \
   /usr/include/c++/14/typeinfo \
+  /usr/include/c++/14/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
   /usr/include/errno.h \
@@ -3450,8 +3476,6 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/models/bsm.cpp:
 
-/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/instruments/vanillaOption.cpp:
-
 /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/instruments/stock.cpp:
 
 /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/instruments/dividend.cpp:
@@ -3464,17 +3488,9 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildStock.cpp:
 
-/usr/include/c++/14/vector:
-
-/usr/include/c++/14/bits/stl_heap.h:
-
-/usr/include/c++/14/algorithm:
-
 /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBinomial.h:
 
 /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/binomial.h:
-
-/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/dividend.h:
 
 /usr/lib/linux/uapi/x86/asm/unistd_64.h:
 
@@ -3512,49 +3528,31 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/include/x86_64-linux-gnu/c++/14/bits/c++allocator.h:
 
-/usr/include/c++/14/bits/ranges_algo.h:
-
-/usr/lib/linux/uapi/x86/asm/types.h:
-
-/usr/include/x86_64-linux-gnu/c++/14/bits/atomic_word.h:
-
 /usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
 
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
 
 /usr/include/x86_64-linux-gnu/bits/waitstatus.h:
 
-/usr/include/c++/14/bits/vector.tcc:
-
-/usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h:
-
-/usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
-
 /usr/include/x86_64-linux-gnu/bits/uio_lim.h:
 
-/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildStock.h:
+/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
-/usr/include/c++/14/iostream:
+/usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
-/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildVanillaOption.h:
+/usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
-/usr/include/c++/14/bits/requires_hosted.h:
-
-/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBSM.h:
-
-/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
-
-/usr/include/c++/14/iosfwd:
+/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/time_t.h:
 
-/usr/include/c++/14/ext/type_traits.h:
+/usr/include/x86_64-linux-gnu/c++/14/bits/gthr.h:
 
-/usr/include/limits.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
 
-/usr/include/c++/14/ext/string_conversions.h:
+/usr/include/c++/14/bits/stl_relops.h:
 
-/usr/include/c++/14/ext/alloc_traits.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
 
 /usr/include/c++/14/debug/assertions.h:
 
@@ -3578,7 +3576,9 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/include/c++/14/bits/unique_ptr.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
+/usr/include/c++/14/vector:
+
+/usr/include/x86_64-linux-gnu/bits/cpu-set.h:
 
 /usr/lib/linux/uapi/x86/asm/posix_types_64.h:
 
@@ -3604,13 +3604,19 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/include/c++/14/pstl/pstl_config.h:
 
-/usr/include/x86_64-linux-gnu/bits/cpu-set.h:
-
 /usr/include/c++/14/bits/shared_ptr_atomic.h:
 
-/usr/include/c++/14/bits/stl_relops.h:
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildVanillaOption.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+/usr/include/c++/14/bits/requires_hosted.h:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildBSM.h:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/bindings/buildStock.h:
+
+/usr/include/c++/14/iostream:
+
+/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
@@ -3626,9 +3632,25 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/include/c++/14/bits/ranges_base.h:
 
+/usr/lib/linux/uapi/x86/asm/types.h:
+
+/usr/include/x86_64-linux-gnu/c++/14/bits/atomic_word.h:
+
+/usr/include/c++/14/bits/ranges_algo.h:
+
+/usr/include/c++/14/numbers:
+
+/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
+
 /usr/include/c++/14/bits/stl_construct.h:
 
 /usr/include/c++/14/bits/predefined_ops.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
+
+/usr/include/asm-generic/errno.h:
 
 /usr/include/syscall.h:
 
@@ -3636,23 +3658,23 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/include/c++/14/tr1/beta_function.tcc:
 
-/usr/include/c++/14/bits/stl_pair.h:
+/usr/include/c++/14/bits/memoryfwd.h:
 
-/usr/include/c++/14/bits/ostream_insert.h:
+/usr/include/c++/14/bits/memory_resource.h:
 
-/usr/include/c++/14/bits/atomic_wait.h:
+/usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h:
 
-/usr/include/c++/14/bits/stl_uninitialized.h:
+/usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
 
-/usr/include/x86_64-linux-gnu/bits/endianness.h:
+/usr/include/c++/14/bits/vector.tcc:
 
-/usr/include/c++/14/bits/atomic_base.h:
+/usr/include/c++/14/bits/max_size_type.h:
 
-/usr/include/x86_64-linux-gnu/bits/long-double.h:
+/usr/include/c++/14/new:
 
-/usr/include/c++/14/bits/alloc_traits.h:
+/usr/include/c++/14/bits/stl_tempbuf.h:
 
-/usr/include/c++/14/ext/concurrence.h:
+/usr/include/linux/stddef.h:
 
 /usr/include/c++/14/cwchar:
 
@@ -3666,35 +3688,9 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/include/stdc-predef.h:
 
-/usr/include/c++/14/bits/memory_resource.h:
+/usr/include/c++/14/bits/stl_heap.h:
 
-/usr/include/c++/14/cctype:
-
-/usr/include/c++/14/bits/exception.h:
-
-/usr/include/c++/14/bits/char_traits.h:
-
-/usr/include/x86_64-linux-gnu/bits/waitflags.h:
-
-/usr/include/c++/14/bits/hash_bytes.h:
-
-/usr/include/c++/14/climits:
-
-/usr/include/c++/14/string:
-
-/usr/include/c++/14/cstdio:
-
-/usr/include/c++/14/bits/utility.h:
-
-/usr/include/c++/14/backward/auto_ptr.h:
-
-/usr/include/libintl.h:
-
-/usr/include/c++/14/bits/locale_classes.tcc:
-
-/usr/include/linux/posix_types.h:
-
-/usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
+/usr/include/features.h:
 
 /usr/include/x86_64-linux-gnu/c++/14/bits/ctype_inline.h:
 
@@ -3728,6 +3724,8 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/include/c++/14/bits/cxxabi_forced.h:
 
+/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
+
 /usr/include/c++/14/cstdint:
 
 /usr/include/c++/14/bits/string_view.tcc:
@@ -3742,7 +3740,9 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/payoffs/putPayoff.h:
 
-/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
+/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/newtonRaphson.h:
 
 /usr/include/c++/14/bits/locale_facets_nonio.tcc:
 
@@ -3778,7 +3778,61 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/include/asm-generic/int-ll64.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/option.h:
+
 /usr/include/c++/14/concepts:
+
+/usr/include/c++/14/bits/exception.h:
+
+/usr/include/c++/14/cctype:
+
+/usr/include/c++/14/bits/stl_pair.h:
+
+/usr/include/c++/14/bits/ostream_insert.h:
+
+/usr/include/c++/14/bits/atomic_wait.h:
+
+/usr/include/c++/14/algorithm:
+
+/usr/include/c++/14/istream:
+
+/usr/include/stdlib.h:
+
+/usr/include/c++/14/bits/char_traits.h:
+
+/usr/include/x86_64-linux-gnu/bits/waitflags.h:
+
+/usr/include/c++/14/bits/hash_bytes.h:
+
+/usr/include/c++/14/climits:
+
+/usr/include/c++/14/string:
+
+/usr/include/c++/14/cstdio:
+
+/usr/include/c++/14/bits/utility.h:
+
+/usr/include/c++/14/backward/auto_ptr.h:
+
+/usr/include/libintl.h:
+
+/usr/include/c++/14/bits/locale_classes.tcc:
+
+/usr/include/linux/posix_types.h:
+
+/usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/dividend.h:
+
+/usr/include/c++/14/bits/cxxabi_init_exception.h:
+
+/usr/include/x86_64-linux-gnu/bits/syscall.h:
+
+/usr/include/c++/14/string_view:
+
+/usr/include/c++/14/tr1/poly_laguerre.tcc:
 
 /usr/include/c++/14/backward/binders.h:
 
@@ -3786,13 +3840,11 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/include/unistd.h:
 
-/usr/include/c++/14/bits/max_size_type.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
 
-/usr/include/c++/14/new:
+/usr/include/c++/14/bits/uniform_int_dist.h:
 
-/usr/include/c++/14/bits/stl_tempbuf.h:
-
-/usr/include/linux/stddef.h:
+/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
 
 /usr/include/c++/14/bit:
 
@@ -3804,17 +3856,47 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
-/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/parameterization.h:
+/usr/include/c++/14/bits/uses_allocator.h:
 
-/usr/include/c++/14/bits/allocator.h:
+/usr/include/c++/14/bits/localefwd.h:
+
+/usr/include/stdint.h:
+
+/usr/include/endian.h:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/src/instruments/vanillaOption.cpp:
+
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/bisection.h:
+
+/usr/include/c++/14/bits/cpp_type_traits.h:
+
+/usr/include/c++/14/bits/ostream.tcc:
+
+/usr/include/c++/14/ext/aligned_buffer.h:
+
+/usr/include/c++/14/bits/align.h:
+
+/usr/include/c++/14/bits/concept_check.h:
+
+/usr/include/x86_64-linux-gnu/bits/timesize.h:
+
+/usr/include/c++/14/bits/alloc_traits.h:
 
 /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/stock.h:
 
 /usr/include/linux/close_range.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/parameterization.h:
 
-/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/newtonRaphson.h:
+/usr/include/c++/14/bits/allocator.h:
+
+/usr/include/c++/14/bits/stl_uninitialized.h:
+
+/usr/include/x86_64-linux-gnu/bits/endianness.h:
+
+/usr/include/c++/14/bits/atomic_base.h:
+
+/usr/include/x86_64-linux-gnu/bits/long-double.h:
 
 /usr/include/linux/limits.h:
 
@@ -3840,37 +3922,9 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/include/c++/14/pstl/glue_memory_defs.h:
 
-/usr/include/c++/14/bits/uniform_int_dist.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
-
 /usr/include/c++/14/bits/stl_raw_storage_iter.h:
 
 /usr/include/c++/14/bits/basic_ios.h:
-
-/usr/include/c++/14/bits/cpp_type_traits.h:
-
-/usr/include/c++/14/bits/ostream.tcc:
-
-/usr/include/c++/14/bits/align.h:
-
-/usr/include/c++/14/ext/aligned_buffer.h:
-
-/usr/include/c++/14/bits/concept_check.h:
-
-/usr/include/x86_64-linux-gnu/bits/timesize.h:
-
-/usr/include/c++/14/bits/cxxabi_init_exception.h:
-
-/usr/include/x86_64-linux-gnu/bits/syscall.h:
-
-/usr/include/c++/14/string_view:
-
-/usr/include/c++/14/tr1/poly_laguerre.tcc:
-
-/usr/include/c++/14/ext/atomicity.h:
 
 /usr/include/c++/14/iomanip:
 
@@ -3910,33 +3964,23 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/include/stdio.h:
 
-/usr/include/c++/14/bits/uses_allocator.h:
+/usr/include/c++/14/ext/alloc_traits.h:
 
-/usr/include/c++/14/bits/localefwd.h:
+/usr/include/c++/14/ext/atomicity.h:
 
-/usr/include/stdint.h:
+/usr/include/c++/14/ext/concurrence.h:
 
-/usr/include/endian.h:
+/usr/include/c++/14/ext/string_conversions.h:
 
-/usr/include/c++/14/bits/memoryfwd.h:
+/usr/include/c++/14/ext/type_traits.h:
 
-/usr/include/c++/14/istream:
+/usr/include/limits.h:
 
-/usr/include/stdlib.h:
+/usr/include/c++/14/iosfwd:
 
 /usr/include/c++/14/bits/stl_function.h:
 
 /usr/include/c++/14/memory:
-
-/usr/include/c++/14/numbers:
-
-/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
-
-/usr/include/c++/14/bits/move.h:
-
-/usr/include/c++/14/tr1/ell_integral.tcc:
 
 /usr/include/c++/14/utility:
 
@@ -3944,13 +3988,21 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
+
 /usr/include/asm-generic/types.h:
 
 /usr/include/asm-generic/bitsperlong.h:
 
 /usr/include/c++/14/pstl/execution_defs.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
+/usr/include/c++/14/debug/debug.h:
+
+/usr/include/c++/14/tr1/hypergeometric.tcc:
+
+/usr/include/c++/14/bits/move.h:
+
+/usr/include/c++/14/tr1/ell_integral.tcc:
 
 /usr/include/x86_64-linux-gnu/c++/14/bits/messages_members.h:
 
@@ -3961,10 +4013,6 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
 /usr/include/c++/14/tr1/gamma.tcc:
-
-/usr/include/c++/14/debug/debug.h:
-
-/usr/include/c++/14/tr1/hypergeometric.tcc:
 
 /usr/include/c++/14/tr1/modified_bessel_func.tcc:
 
@@ -3985,8 +4033,6 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 /usr/include/ctype.h:
 
 /usr/include/features-time64.h:
-
-/usr/include/features.h:
 
 /usr/include/linux/errno.h:
 
@@ -4018,10 +4064,6 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
-/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/option.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
-
 /usr/include/x86_64-linux-gnu/bits/fp-fast.h:
 
 /usr/include/x86_64-linux-gnu/bits/fp-logb.h:
@@ -4033,6 +4075,12 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 /usr/include/x86_64-linux-gnu/bits/getopt_core.h:
 
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
+
+/usr/include/c++/14/bits/ranges_algobase.h:
+
+/usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-macros.h:
 
@@ -4046,9 +4094,9 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 
 /usr/include/x86_64-linux-gnu/bits/posix_opt.h:
 
-/usr/include/c++/14/initializer_list:
-
 /usr/include/c++/14/bits/postypes.h:
+
+/usr/include/c++/14/initializer_list:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
@@ -4061,8 +4109,6 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 /usr/include/c++/14/locale:
 
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
-
-/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
 /usr/include/x86_64-linux-gnu/c++/14/bits/cpu_defines.h:
 
@@ -4095,21 +4141,3 @@ CMakeFiles/core.dir/src/payoffs/putPayoff.cpp.o: /home/zapatinb/pers_repos/finan
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
-
-/usr/include/c++/14/bits/ranges_algobase.h:
-
-/usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
-
-/usr/include/asm-generic/errno.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
-
-/usr/include/x86_64-linux-gnu/c++/14/bits/gthr.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/typesizes.h:

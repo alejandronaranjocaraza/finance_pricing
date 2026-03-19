@@ -166,6 +166,7 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o: /home/zapatinb/pers_repos/finance_p
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/option.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/stock.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/instruments/vanillaOption.h \
+  /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/bisection.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/newtonRaphson.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/binomial.h \
   /home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/models/bsm.h \
@@ -608,11 +609,7 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 
 /usr/include/x86_64-linux-gnu/sys/time.h:
 
-/usr/include/c++/14/bits/semaphore_base.h:
-
-/usr/include/c++/14/bit:
-
-/home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/floatobject.h:
+/usr/include/x86_64-linux-gnu/sys/syscall.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/genericaliasobject.h:
 
@@ -643,10 +640,6 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 /usr/include/c++/14/bits/localefwd.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/lock.h:
-
-/usr/include/c++/14/bits/chrono.h:
-
-/usr/include/c++/14/bits/locale_facets.tcc:
 
 /usr/include/c++/14/variant:
 
@@ -713,6 +706,16 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 /usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/pythread.h:
+
+/usr/include/c++/14/bits/locale_facets.tcc:
+
+/usr/include/c++/14/bits/chrono.h:
+
+/usr/include/c++/14/bit:
+
+/home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/floatobject.h:
+
+/usr/include/c++/14/bits/semaphore_base.h:
 
 /usr/include/c++/14/bits/ptr_traits.h:
 
@@ -970,6 +973,8 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/context.h:
 
+/home/zapatinb/pers_repos/finance_pricing/cpp_pricing/include/algorithms/rootFind/bisection.h:
+
 /home/zapatinb/miniconda3/envs/cpp-python/include/pybind11/attr.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/code.h:
@@ -1139,8 +1144,6 @@ CMakeFiles/pricer.dir/bindings/module.cpp.o:
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/lock.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/monitoring.h:
-
-/usr/include/x86_64-linux-gnu/sys/syscall.h:
 
 /home/zapatinb/miniconda3/envs/cpp-python/include/python3.14/cpython/longintrepr.h:
 
