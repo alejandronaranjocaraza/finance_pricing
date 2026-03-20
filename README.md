@@ -1,6 +1,7 @@
 # Description
 
 Implementation of pricing algorithms and volatility analysis in Python and C++.
+
 Index
 -----
 

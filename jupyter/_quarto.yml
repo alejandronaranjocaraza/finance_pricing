@@ -1,0 +1,16 @@
+project:
+  type: website
+
+website:
+  sidebar:
+    style: docked
+    search: true
+    contents:
+      - text: "Introduction"
+        href: index.ipynb
+      - section: "Black-Scholes-Merton and Binomial Trees"
+        contents:
+          - text: "Test Cases"
+            href: testCases.ipynb
+          - text: "Implied Volatility, Volatility Smiles and Volatility Surfaces"
+            href: volSmile.ipynb

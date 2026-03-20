@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Implied Volatility, Volatility Smiles / Surfaces</title>
+<title>Implied Volatility, Volatility Smiles and Volatility Surfaces</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,18 +58,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="volSmile_files/libs/clipboard/clipboard.min.js"></script>
-<script src="volSmile_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="volSmile_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="volSmile_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="volSmile_files/libs/quarto-html/popper.min.js"></script>
-<script src="volSmile_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="volSmile_files/libs/quarto-html/anchor.min.js"></script>
-<link href="volSmile_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="volSmile_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="volSmile_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="volSmile_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="volSmile_files/libs/bootstrap/bootstrap-57e7a6453fef67e512deba9dde7d28e2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9aaaed8813066b36e81a20faa74a54fb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -120,11 +153,71 @@ window.Quarto = {
 
 </head>
 
-<body class="quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./testCases.html">Black-Scholes-Merton and Binomial Trees</a></li><li class="breadcrumb-item"><a href="./volSmile.html">Implied Volatility, Volatility Smiles and Volatility Surfaces</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Black-Scholes-Merton and Binomial Trees</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./testCases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Test Cases</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./volSmile.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Implied Volatility, Volatility Smiles and Volatility Surfaces</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Contents</h2>
    
   <ul>
@@ -138,17 +231,18 @@ window.Quarto = {
   <li><a href="#put-option-volatility-surface" id="toc-put-option-volatility-surface" class="nav-link" data-scroll-target="#put-option-volatility-surface">Put Option Volatility Surface</a></li>
   </ul>
 </nav>
-</div>
-<main class="content column-page-left" id="quarto-document-content">
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./testCases.html">Black-Scholes-Merton and Binomial Trees</a></li><li class="breadcrumb-item"><a href="./volSmile.html">Implied Volatility, Volatility Smiles and Volatility Surfaces</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Implied Volatility, Volatility Smiles / Surfaces</h1>
+<h1 class="title">Implied Volatility, Volatility Smiles and Volatility Surfaces</h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta column-body">
 
     
   
@@ -187,12 +281,12 @@ P_{\min} &amp;= \max \big(K e^{-r T} - F,\ 0 \big) &amp;\quad&amp; P_{\max} = K 
 </section>
 <section id="library-import" class="level4">
 <h4 class="anchored" data-anchor-id="library-import">Library Import</h4>
-<div id="3c2ab511-fe89-40e7-aae4-a958d7037bda" class="cell" data-execution_count="2">
+<div id="3c2ab511-fe89-40e7-aae4-a958d7037bda" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime <span class="im">as</span> dt</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">'../build'</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">'../cpp_pricing/build'</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pricer</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -202,12 +296,12 @@ P_{\min} &amp;= \max \big(K e^{-r T} - F,\ 0 \big) &amp;\quad&amp; P_{\max} = K 
 </section>
 <section id="import-options-data" class="level4">
 <h4 class="anchored" data-anchor-id="import-options-data">Import Options Data</h4>
-<div id="fedbc84a-6cf4-4bd7-a140-7ae54d71ee25" class="cell" data-execution_count="4">
+<div id="fedbc84a-6cf4-4bd7-a140-7ae54d71ee25" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>aapl <span class="op">=</span> yf.Ticker(<span class="st">"AAPL"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>expiries <span class="op">=</span> <span class="bu">list</span>(aapl.options)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>current_price <span class="op">=</span> aapl.fast_info[<span class="st">'lastPrice'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="9e116b5f-c9cc-4931-b924-d3a7289b89df" class="cell" data-execution_count="17">
+<div id="9e116b5f-c9cc-4931-b924-d3a7289b89df" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Expiry dates:'</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> exp <span class="kw">in</span> expiries:</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="ch">\t</span><span class="st">'</span>,exp)</span>
@@ -241,7 +335,7 @@ P_{\min} &amp;= \max \big(K e^{-r T} - F,\ 0 \big) &amp;\quad&amp; P_{\max} = K 
 Current price:   248.96</code></pre>
 </div>
 </div>
-<div id="2f1e8dca-e05b-469a-af24-d4ab86ef1ef0" class="cell" data-execution_count="31">
+<div id="2f1e8dca-e05b-469a-af24-d4ab86ef1ef0" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>today <span class="op">=</span> dt.datetime.today().replace(hour<span class="op">=</span><span class="dv">0</span>, minute<span class="op">=</span><span class="dv">0</span>, second<span class="op">=</span><span class="dv">0</span>, microsecond<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>S0 <span class="op">=</span> current_price</span>
@@ -283,7 +377,7 @@ Current price:   248.96</code></pre>
 <span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>all_calls <span class="op">=</span> pd.concat(calls_lst, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>all_puts <span class="op">=</span> pd.concat(puts_lst, ignore_index<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="130d5819-31cd-4e55-ba7a-dd4cc5bca116" class="cell" data-execution_count="32">
+<div id="130d5819-31cd-4e55-ba7a-dd4cc5bca116" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>all_calls.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.DataFrame'&gt;
@@ -295,11 +389,11 @@ Data columns (total 18 columns):
  1   lastTradeDate      1355 non-null   datetime64[s, UTC]
  2   strike             1355 non-null   float64           
  3   lastPrice          1355 non-null   float64           
- 4   bid                1350 non-null   float64           
+ 4   bid                1352 non-null   float64           
  5   ask                1355 non-null   float64           
  6   change             1355 non-null   float64           
  7   percentChange      1355 non-null   float64           
- 8   volume             1321 non-null   float64           
+ 8   volume             1325 non-null   float64           
  9   openInterest       1355 non-null   int64             
  10  impliedVolatility  1355 non-null   float64           
  11  inTheMoney         1355 non-null   bool              
@@ -313,9 +407,9 @@ dtypes: bool(1), datetime64[s, UTC](1), float64(12), int64(1), str(3)
 memory usage: 181.4 KB</code></pre>
 </div>
 </div>
-<div id="1b058045-4fac-4896-9cc5-9e9a41e0b4e7" class="cell" data-execution_count="33">
+<div id="1b058045-4fac-4896-9cc5-9e9a41e0b4e7" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>all_calls.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="33">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
@@ -356,7 +450,7 @@ memory usage: 181.4 KB</code></pre>
 <td>0.0</td>
 <td>13.0</td>
 <td>59</td>
-<td>8.189458</td>
+<td>11.582034</td>
 <td>True</td>
 <td>REGULAR</td>
 <td>USD</td>
@@ -377,7 +471,7 @@ memory usage: 181.4 KB</code></pre>
 <td>0.0</td>
 <td>7.0</td>
 <td>1</td>
-<td>12.858400</td>
+<td>18.184575</td>
 <td>True</td>
 <td>REGULAR</td>
 <td>USD</td>
@@ -398,7 +492,7 @@ memory usage: 181.4 KB</code></pre>
 <td>0.0</td>
 <td>5.0</td>
 <td>53</td>
-<td>7.501954</td>
+<td>10.609378</td>
 <td>True</td>
 <td>REGULAR</td>
 <td>USD</td>
@@ -419,7 +513,7 @@ memory usage: 181.4 KB</code></pre>
 <td>0.0</td>
 <td>1.0</td>
 <td>27</td>
-<td>11.710940</td>
+<td>16.561528</td>
 <td>True</td>
 <td>REGULAR</td>
 <td>USD</td>
@@ -440,7 +534,7 @@ memory usage: 181.4 KB</code></pre>
 <td>0.0</td>
 <td>345.0</td>
 <td>244</td>
-<td>6.798830</td>
+<td>9.613285</td>
 <td>True</td>
 <td>REGULAR</td>
 <td>USD</td>
@@ -455,7 +549,7 @@ memory usage: 181.4 KB</code></pre>
 </div>
 </div>
 </div>
-<div id="14e801b3-392a-4a47-bf9c-a206eb6da4bd" class="cell" data-execution_count="34">
+<div id="14e801b3-392a-4a47-bf9c-a206eb6da4bd" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>all_puts.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.DataFrame'&gt;
@@ -467,11 +561,11 @@ Data columns (total 18 columns):
  1   lastTradeDate      1200 non-null   datetime64[s, UTC]
  2   strike             1200 non-null   float64           
  3   lastPrice          1200 non-null   float64           
- 4   bid                1196 non-null   float64           
+ 4   bid                1197 non-null   float64           
  5   ask                1200 non-null   float64           
  6   change             1200 non-null   float64           
  7   percentChange      1200 non-null   float64           
- 8   volume             1142 non-null   float64           
+ 8   volume             1144 non-null   float64           
  9   openInterest       1195 non-null   float64           
  10  impliedVolatility  1200 non-null   float64           
  11  inTheMoney         1200 non-null   bool              
@@ -485,9 +579,9 @@ dtypes: bool(1), datetime64[s, UTC](1), float64(13), str(3)
 memory usage: 160.7 KB</code></pre>
 </div>
 </div>
-<div id="2a623427-c445-4997-be9a-4b124b154942" class="cell" data-execution_count="35">
+<div id="2a623427-c445-4997-be9a-4b124b154942" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>all_puts.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="35">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -528,7 +622,7 @@ memory usage: 160.7 KB</code></pre>
 <td>0.0</td>
 <td>50.0</td>
 <td>1749.0</td>
-<td>4.125005</td>
+<td>5.750003</td>
 <td>False</td>
 <td>REGULAR</td>
 <td>USD</td>
@@ -549,7 +643,7 @@ memory usage: 160.7 KB</code></pre>
 <td>0.0</td>
 <td>1.0</td>
 <td>262.0</td>
-<td>3.875000</td>
+<td>5.500003</td>
 <td>False</td>
 <td>REGULAR</td>
 <td>USD</td>
@@ -570,7 +664,7 @@ memory usage: 160.7 KB</code></pre>
 <td>0.0</td>
 <td>100.0</td>
 <td>867.0</td>
-<td>3.750001</td>
+<td>5.250003</td>
 <td>False</td>
 <td>REGULAR</td>
 <td>USD</td>
@@ -591,7 +685,7 @@ memory usage: 160.7 KB</code></pre>
 <td>0.0</td>
 <td>106.0</td>
 <td>536.0</td>
-<td>3.500001</td>
+<td>5.000004</td>
 <td>False</td>
 <td>REGULAR</td>
 <td>USD</td>
@@ -612,7 +706,7 @@ memory usage: 160.7 KB</code></pre>
 <td>0.0</td>
 <td>25.0</td>
 <td>437.0</td>
-<td>3.375002</td>
+<td>4.750004</td>
 <td>False</td>
 <td>REGULAR</td>
 <td>USD</td>
@@ -630,7 +724,7 @@ memory usage: 160.7 KB</code></pre>
 </section>
 <section id="get-implied-volatility-through-pricing-engine" class="level4">
 <h4 class="anchored" data-anchor-id="get-implied-volatility-through-pricing-engine">Get Implied Volatility Through Pricing Engine</h4>
-<div id="ecfce2fd-37e0-46ee-9c5a-50ed220c8113" class="cell" data-execution_count="36">
+<div id="ecfce2fd-37e0-46ee-9c5a-50ed220c8113" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> getVol(data,optType):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    ivs <span class="op">=</span> [] <span class="co"># Implied vol</span></span>
@@ -708,17 +802,15 @@ memory usage: 160.7 KB</code></pre>
 </section>
 <section id="call-option-volatility-smile" class="level4">
 <h4 class="anchored" data-anchor-id="call-option-volatility-smile">Call Option Volatility Smile</h4>
-<div id="ed754267-fcd2-4143-aaf0-2713a40f432a" class="cell" data-execution_count="37">
+<div id="ed754267-fcd2-4143-aaf0-2713a40f432a" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ivs, moneyness, log_moneyness, dtes <span class="op">=</span> getVol(all_calls, <span class="st">'c'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning. Incompatible vol found. Vol =  4.99999999996362
 Warning. Incompatible vol found. Vol =  4.99999999996362
-Warning. Incompatible vol found. Vol =  4.99999999996362
-Warning. Incompatible vol found. Vol =  4.99999999996362
 Warning. Incompatible vol found. Vol =  4.99999999996362</code></pre>
 </div>
 </div>
-<div id="9ff532a5-e4ce-4101-aada-020200447172" class="cell" data-execution_count="38">
+<div id="9ff532a5-e4ce-4101-aada-020200447172" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"x"</span>: log_moneyness, <span class="st">"iv"</span>: ivs})</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.sort_values(<span class="st">"x"</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"iv_smooth"</span>] <span class="op">=</span> df[<span class="st">"iv"</span>].rolling(<span class="dv">30</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
@@ -738,7 +830,7 @@ Warning. Incompatible vol found. Vol =  4.99999999996362</code></pre>
 </section>
 <section id="call-option-volatility-surface" class="level4">
 <h4 class="anchored" data-anchor-id="call-option-volatility-surface">Call Option Volatility Surface</h4>
-<div id="43d91a4b-be58-4eae-8e4f-ebae590387a5" class="cell" data-execution_count="41">
+<div id="43d91a4b-be58-4eae-8e4f-ebae590387a5" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline  </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(</span>
@@ -778,14 +870,13 @@ Warning. Incompatible vol found. Vol =  4.99999999996362</code></pre>
 </section>
 <section id="put-option-volatility-smile" class="level4">
 <h4 class="anchored" data-anchor-id="put-option-volatility-smile">Put Option Volatility Smile</h4>
-<div id="d5d90bb4-5ef5-47e1-8984-349666328032" class="cell" data-execution_count="42">
+<div id="d5d90bb4-5ef5-47e1-8984-349666328032" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ivs, moneyness, log_moneyness, dtes <span class="op">=</span> getVol(all_puts, <span class="st">'p'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Warning. Incompatible vol found. Vol =  4.99999999996362
-Warning. Incompatible vol found. Vol =  4.99999999996362</code></pre>
+<pre><code>Warning. Incompatible vol found. Vol =  4.99999999996362</code></pre>
 </div>
 </div>
-<div id="a1c4a8e2-1b84-4b29-93eb-dae25f9dc694" class="cell" data-execution_count="43">
+<div id="a1c4a8e2-1b84-4b29-93eb-dae25f9dc694" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"x"</span>: log_moneyness, <span class="st">"iv"</span>: ivs})</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.sort_values(<span class="st">"x"</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"iv_smooth"</span>] <span class="op">=</span> df[<span class="st">"iv"</span>].rolling(<span class="dv">30</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
@@ -805,7 +896,7 @@ Warning. Incompatible vol found. Vol =  4.99999999996362</code></pre>
 </section>
 <section id="put-option-volatility-surface" class="level4">
 <h4 class="anchored" data-anchor-id="put-option-volatility-surface">Put Option Volatility Surface</h4>
-<div id="6fec2e09-fc0a-4a80-92ae-d762908f1ed0" class="cell" data-execution_count="44">
+<div id="6fec2e09-fc0a-4a80-92ae-d762908f1ed0" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline  </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(</span>
@@ -842,10 +933,11 @@ Warning. Incompatible vol found. Vol =  4.99999999996362</code></pre>
 </div>
 </div>
 </div>
+
+
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
