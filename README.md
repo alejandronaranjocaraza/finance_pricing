@@ -1,3 +1,12 @@
+# Description
+
+Implementation of pricing algorithms and volatility analysis in Python and C++.
+Index
+-----
+
+- [C++ pricing engine for python](./cpp_pricing/jupyter/volSmile.html)
+
+
 # LINKS AND REFERENCES
 
 ## Books
