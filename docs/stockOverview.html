@@ -263,7 +263,7 @@ window.Quarto = {
 </section>
 <section id="load-libraries" class="level4">
 <h4 class="anchored" data-anchor-id="load-libraries">Load Libraries</h4>
-<div id="8fc4572e-4071-4b4e-b7c8-dcea559df5b2" class="cell" data-execution_count="1">
+<div id="8fc4572e-4071-4b4e-b7c8-dcea559df5b2" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">'../cpp_pricing/build'</span>)</span>
@@ -400,7 +400,7 @@ For t ← 0 to T-1 do
 
 End For</code></pre>
 <p><u><strong>Stock Simulation Through GBM | Python Implementation</strong></u></p>
-<div id="84d4a477-f61c-444c-bd1d-2e9bec8d6fb2" class="cell" data-execution_count="2">
+<div id="84d4a477-f61c-444c-bd1d-2e9bec8d6fb2" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stockGbmEuler(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    S0,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    T,</span>
@@ -441,7 +441,7 @@ End For</code></pre>
 <span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    prices[:,<span class="dv">1</span>:] <span class="op">=</span> S0 <span class="op">*</span> np.cumprod(np.exp((r<span class="op">-</span>sigma<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="dv">2</span>)<span class="op">*</span>dt <span class="op">+</span> (sigma<span class="op">*</span>sqrt_dt<span class="op">*</span>eps)),axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="7b0b6b89-22c6-482b-b04b-e011b2a2faa2" class="cell" data-execution_count="3">
+<div id="7b0b6b89-22c6-482b-b04b-e011b2a2faa2" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>S0 <span class="op">=</span> <span class="dv">50</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.1</span></span>
@@ -483,8 +483,8 @@ End For</code></pre>
 </div>
 </div>
 </div>
-<p>Using our C++ implementation of the random walk process:<br> <em>(The source code is available at https://www.wikipedia.org/.)</em></p>
-<div id="718574b1-1b06-4541-8835-b2073cc24cec" class="cell" data-execution_count="4">
+<p>Using our C++ implementation of the random walk process:<br> <em>( Source code: <a href="https://github.com/alejandronaranjocaraza/finance_pricing/blob/main/cpp_stocksim/src/geometricBrownian.cpp">geometricBrownian.cpp</a>, <a href="https://github.com/alejandronaranjocaraza/finance_pricing/blob/main/cpp_stocksim/include/geometricBrownian.h">geometricBrownian.h</a>. )</em></p>
+<div id="718574b1-1b06-4541-8835-b2073cc24cec" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>gbmExactCPP <span class="op">=</span> stocksim.geometricBrownian(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    S0,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    T,</span>
@@ -560,7 +560,7 @@ For t ← 0 to T-1 do
 End For</code></pre>
 <p><u><strong>Stock Simulation Through Binomial Model | Python Implementation</strong></u></p>
 <p>The following is a simple simulation of stock price behaviour with a multiplicative random walk (CRR parameterization).</p>
-<div id="3c128a77-ad5d-41ed-9882-d18e4a939aa1" class="cell" data-execution_count="13">
+<div id="3c128a77-ad5d-41ed-9882-d18e4a939aa1" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stockRandomWalk(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    S0,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    T,</span>
@@ -588,7 +588,7 @@ End For</code></pre>
 <span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="2e2957c2-8b86-4b34-a368-76de9188c99b" class="cell" data-execution_count="14">
+<div id="2e2957c2-8b86-4b34-a368-76de9188c99b" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>S0 <span class="op">=</span> <span class="dv">50</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.1</span></span>
@@ -598,7 +598,7 @@ End For</code></pre>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>binomial <span class="op">=</span> stockRandomWalk(S0,T,r,sigma,n_paths,n_steps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="5d723c3b-a681-4209-a625-094a9e74e61c" class="cell" data-execution_count="15">
+<div id="5d723c3b-a681-4209-a625-094a9e74e61c" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> np.linspace(<span class="dv">0</span>, T, n_steps <span class="op">+</span> <span class="dv">1</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
@@ -616,8 +616,8 @@ End For</code></pre>
 </div>
 </div>
 </div>
-<p>Using our C++ implementation of the random walk process:<br> <em>(The source code is available at <a href="../cpp_stocksim">repo</a></em>.)</p>
-<div id="a61acfba-ac72-4a4b-928b-2a11f553cfe8" class="cell" data-execution_count="16">
+<p>Using our C++ implementation of the random walk process:<br> <em>( Source code: <a href="https://github.com/alejandronaranjocaraza/finance_pricing/blob/main/cpp_stocksim/src/randomWalk.cpp">randomWalk.cpp</a>, <a href="https://github.com/alejandronaranjocaraza/finance_pricing/blob/main/cpp_stocksim/include/randomWalk.h">randomWalk.h</a>. )</em></p>
+<div id="a61acfba-ac72-4a4b-928b-2a11f553cfe8" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>binomialCPP <span class="op">=</span> stocksim.randomWalk(S0,T,r,sigma,n_paths,n_steps)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>

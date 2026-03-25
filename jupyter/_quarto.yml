@@ -12,7 +12,7 @@ website:
       - section: "Black-Scholes-Merton and Binomial Trees"
         contents:
           - text: "Stock Price Behaviour and Assumptions Under BSM and Binomial Models"
-            href: "stockOverview.ipynb"
+            href: stockOverview.ipynb
           - text: "Test Cases for BSM and Binomial C++ Pricing Library"
             href: testCases.ipynb
           - text: "Implied Volatility, Volatility Smiles and Volatility Surfaces"
