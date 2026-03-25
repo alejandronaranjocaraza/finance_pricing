@@ -19,7 +19,7 @@
 namespace py = pybind11;
 
 PYBIND11_MODULE(pricer, m) {
-    m.doc() = "Quant options module";
+    m.doc() = "Quant option pricing module";
 
     py::class_<VanillaOption, std::shared_ptr<VanillaOption>>(m, "VanillaOption")
         .def("maturity", &VanillaOption::maturity)

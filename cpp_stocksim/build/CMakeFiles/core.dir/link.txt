@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcore.a CMakeFiles/core.dir/src/geometricBrownian.cpp.o CMakeFiles/core.dir/src/randomWalk.cpp.o
+/usr/bin/ranlib libcore.a

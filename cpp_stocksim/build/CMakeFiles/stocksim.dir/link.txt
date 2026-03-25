@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -flto=auto -Wl,--dependency-file=CMakeFiles/stocksim.dir/link.d -shared  -o stocksim.cpython-314-x86_64-linux-gnu.so CMakeFiles/stocksim.dir/bindings/module.cpp.o  libcore.a

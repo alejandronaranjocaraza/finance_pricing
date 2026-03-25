@@ -225,6 +225,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#load-libraries" id="toc-load-libraries" class="nav-link" data-scroll-target="#load-libraries">Load Libraries</a></li>
   <li><a href="#relevant-models" id="toc-relevant-models" class="nav-link" data-scroll-target="#relevant-models">Relevant Models</a></li>
   <li><a href="#stock-price-behaviour-and-assumptions-in-black-scholes-merton-model" id="toc-stock-price-behaviour-and-assumptions-in-black-scholes-merton-model" class="nav-link" data-scroll-target="#stock-price-behaviour-and-assumptions-in-black-scholes-merton-model">Stock Price Behaviour and Assumptions in Black-Scholes-Merton Model</a></li>
   <li><a href="#stock-price-simulation-with-geometric-brownian-motion-gbm" id="toc-stock-price-simulation-with-geometric-brownian-motion-gbm" class="nav-link" data-scroll-target="#stock-price-simulation-with-geometric-brownian-motion-gbm">Stock Price Simulation with Geometric Brownian Motion (GBM)</a></li>
@@ -258,22 +259,49 @@ window.Quarto = {
 <section id="overview" class="level4">
 <h4 class="anchored" data-anchor-id="overview">Overview</h4>
 <p>The following presents the basic assumptions regarding stock price behaviour in option valuation. The Black-Scholes-Merton (BSM) model and the Binomial Tree model propose similar ideas regarding stock price fluctuations, but, while BSM is based on a continuous process (a Geometric Brownian Motion, specifically), the Binomial Model follows a discrete-time, discrete-state random walk.</p>
+<hr>
+</section>
+<section id="load-libraries" class="level4">
+<h4 class="anchored" data-anchor-id="load-libraries">Load Libraries</h4>
+<div id="8fc4572e-4071-4b4e-b7c8-dcea559df5b2" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">'../cpp_pricing/build'</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">'../cpp_stocksim/build'</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pricer</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> stocksim</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
 </section>
 <section id="relevant-models" class="level4">
 <h4 class="anchored" data-anchor-id="relevant-models">Relevant Models</h4>
-<p><u>Stochastic Process</u></p>
+<p><u><strong>Stochastic Process</strong></u></p>
 <p>A stochastic process is a family of random variables</p>
 <p><span class="math display">
 \{X(t) : t \in T\}
 </span></p>
 <p>defined on a probability space, where the index set <span class="math inline">T</span> typically represents time.</p>
 <p>A stochastic process is called a <em>continuous-time, continuous-state stochastic process</em> if the index set <span class="math inline">T</span> is continuous (e.g., <span class="math inline">T \subseteq \mathbb{R}</span>) and each random variable <span class="math inline">X(t)</span> takes values in a continuous state space (e.g., <span class="math inline">\mathbb{R}</span>).</p>
-<p><u>Random Walk</u></p>
-<p>A <em>discrete-time</em> random walk can be defined as a stochastic process <span class="math inline">\{S_n : n=0,1,2,..\}</span> where <span class="math inline">S_n</span> is the sum of random independant and identically distributed random variables (steps) <span class="math inline">X_i</span>: <span class="math display">
+<p><u><strong>Random Walk</strong></u></p>
+<p>A <em>discrete-time</em> random walk can be defined as a stochastic process <span class="math inline">\{S_n : n=0,1,2,..\}</span> where <span class="math inline">S_n</span> is the sum of independant and identically distributed (i.i.d.) random variables (steps) <span class="math inline">X_i</span>: <span class="math display">
 S_n = S_0 + \sum_{i=1}^{n}X_i
 </span></p>
-<p>Note the the next position depends only on the previous one (Markov property): <span class="math inline">S_{n+1} = S_n + X_{n+1}</span>.</p>
-<p><u>Wiener Process / Brownian Motion</u></p>
+<p>Alternatively, a multiplicative version can be defined as a process <span class="math inline">\{V_n : n=0,1,2,..\}</span> where <span class="math inline">V_n</span> is the product of i.i.d. random variables: <span class="math display">
+V_n = V_0 \prod_{i=1}^{n}X_i
+</span></p>
+<p>Note the the next position depends only on the previous one (Markov property): <span class="math display">
+\begin{align*}
+S_{n+1} &amp;= S_n + X_{n+1}\\
+V_{n+1} &amp;= V_n X_{n+1}
+\end{align*}
+</span></p>
+<p><u><strong>Wiener Process / Brownian Motion</strong></u></p>
 <p>Real-valued continuous-time stochastic process <span class="math inline">\{W_t\}_{t \ge 0}</span> with the following properties:</p>
 <ol type="1">
 <li><span class="math inline">W_0 = 0</span> almost surely.</li>
@@ -281,19 +309,20 @@ S_n = S_0 + \sum_{i=1}^{n}X_i
 <li><span class="math inline">W</span> has Gaussian increments. For all <span class="math inline">u,t \ge 0</span>, <span class="math inline">W_{t+u} - W_t \sim \mathcal{N}(0,u)</span>.<br> That is, a time step <span class="math inline">u</span> results in an increment that is normally distributed with mean <span class="math inline">0</span> and variance <span class="math inline">u</span>.</li>
 <li><span class="math inline">W</span> has almost surely continuous paths: <span class="math inline">W_t</span> is almost surely continuous in <span class="math inline">t</span>.</li>
 </ol>
-<p><u>Generalized Weiner Process</u></p>
+<p><u><strong>Generalized Weiner Process</strong></u></p>
 <p>A <em>Generalized Weiner Process</em> for a variable <span class="math inline">x</span> can be defined <span class="math display">
 dx = a dt + b dz
 </span> where - <span class="math inline">z</span> follows a Weiner Process - <span class="math inline">a</span> and <span class="math inline">b</span> are constants - The mean change per unit change in time (<em>drift rate</em>) is <span class="math inline">a</span> - The variance per unit time is (<em>variance rate</em>) is <span class="math inline">b²</span></p>
-<p><u>Ito’s Process</u></p>
+<p><u><strong>Ito’s Process</strong></u></p>
 <p>Generalization of <em>Generalized Weiner Process</em>: <span class="math display">
 dx = a(x,t) dt + b(x,t) dz
 </span> where <span class="math inline">a=a(x,t)</span> and <span class="math inline">b=b(x,t)</span> are deterministic function of <span class="math inline">(x,t)</span>.</p>
-<p><u>Geometric Brownian Motion</u></p>
+<p><u><strong>Geometric Brownian Motion</strong></u></p>
 <p>A stochastic process for a variable <span class="math inline">x</span> follows a <em>Geometric Brownian Motion</em> if it satisfies the following stochastic differential equation (SDE):</p>
 <p><span class="math display">
 dx = \mu x dt + \sigma x dz
 </span> where <span class="math inline">z</span> follows a <em>Weiner Process</em> and <span class="math inline">\mu</span>, <span class="math inline">\sigma</span> are constants.<br> Notice that the left side of the equation models a determinstic trend while the right side models uncertainty.</p>
+<hr>
 </section>
 <section id="stock-price-behaviour-and-assumptions-in-black-scholes-merton-model" class="level4">
 <h4 class="anchored" data-anchor-id="stock-price-behaviour-and-assumptions-in-black-scholes-merton-model">Stock Price Behaviour and Assumptions in Black-Scholes-Merton Model</h4>
@@ -322,6 +351,7 @@ dS &amp;= \mu S dt + \sigma S dz \\
 </span> where <span class="math inline">\epsilon</span> follows a standard normal distribution.</p>
 <p><span class="math inline">\Delta S / S</span> is approximately normal: <span class="math display">\Delta S / S \approx N (\mu \Delta t, \sigma² \Delta t)</span></p>
 <p>It can be shown that the log return is exactly normal: <span class="math display">\ln(\dfrac{S + \Delta S}{S}) \sim N ((\mu - \dfrac{1}{2}\sigma²)\Delta t, \sigma² \Delta t)</span></p>
+<hr>
 </section>
 <section id="stock-price-simulation-with-geometric-brownian-motion-gbm" class="level4">
 <h4 class="anchored" data-anchor-id="stock-price-simulation-with-geometric-brownian-motion-gbm">Stock Price Simulation with Geometric Brownian Motion (GBM)</h4>
@@ -335,7 +365,7 @@ S_t = S_0 \exp((\mu - \dfrac{\sigma²}{2})t + \sigma z_t)
 </span> where <span class="math inline">S_0 = S(0)</span> is the initial condition and <span class="math inline">z</span> is the underlying <em>Wiener Process</em><br> or, in the discretized case <span class="math display">
 S_{t+\Delta t} = S_t \exp((\mu - \dfrac{\sigma²}{2}) \Delta t + \sigma \epsilon_t \sqrt{\Delta t})
 </span> where <span class="math inline">\epsilon_t \sim N(0,1)</span>.</p>
-<p><u>Stock Simulation Thorugh GBM (Euler-Maruyama) | Pseudocode</u></p>
+<p><u><strong>Stock Simulation Thorugh GBM (Euler-Maruyama) | Pseudocode</strong></u></p>
 <pre class="text"><code>Given
     S0      Initial stock price
     dt      Time step size
@@ -352,7 +382,7 @@ For t ← 0 to T-1 do
     S[t+1] &lt;- S[t] * (1 + r * dt + sigma * eps * sqrt(dt))
 
 End For</code></pre>
-<p><u>Stock Simulation Thorugh GBM (Exact Solution) | Pseudocode</u></p>
+<p><u><strong>Stock Simulation Thorugh GBM (Exact Solution) | Pseudocode</strong></u></p>
 <pre class="text"><code>Given
     S0      Initial stock price
     dt      Time step size
@@ -369,100 +399,124 @@ For t ← 0 to T-1 do
     S[t+1] &lt;- S[t] * exp[(r - sigma²/2) * dt + sigma * eps * sqrt(dt)]
 
 End For</code></pre>
-<p><u>Stock Simulation Through GBM | Python Implementation</u></p>
-<div id="84d4a477-f61c-444c-bd1d-2e9bec8d6fb2" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stockGbmEuler(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    S0,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    T,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    r,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    sigma,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    n_paths <span class="op">=</span> <span class="dv">1</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    n_steps <span class="op">=</span> <span class="dv">100</span>,</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    seed <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>):</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> seed <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        np.random.seed(seed)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    dt <span class="op">=</span> T<span class="op">/</span>n_steps</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    sqrt_dt <span class="op">=</span> np.sqrt(dt)</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    eps <span class="op">=</span> np.random.normal(loc<span class="op">=</span><span class="dv">0</span>,scale<span class="op">=</span><span class="dv">1</span>,size<span class="op">=</span>(n_paths,n_steps))</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    prices <span class="op">=</span> np.zeros((n_paths,n_steps<span class="op">+</span><span class="dv">1</span>))</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    prices[:,<span class="dv">0</span>] <span class="op">=</span> S0</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    prices[:,<span class="dv">1</span>:] <span class="op">=</span> S0 <span class="op">*</span> np.cumprod(<span class="dv">1</span> <span class="op">+</span> r<span class="op">*</span>dt <span class="op">+</span> sigma<span class="op">*</span>eps<span class="op">*</span>sqrt_dt,axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prices</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stockGbmExact(</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    S0,</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    T,</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    r,</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    sigma,</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    n_paths <span class="op">=</span> <span class="dv">1</span>,</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    n_steps <span class="op">=</span> <span class="dv">100</span>,</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    seed <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>):</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> seed <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        np.random.seed(seed)</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    dt <span class="op">=</span> T<span class="op">/</span>n_steps</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    sqrt_dt <span class="op">=</span> np.sqrt(dt)</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    eps <span class="op">=</span> np.random.normal(loc<span class="op">=</span><span class="dv">0</span>,scale<span class="op">=</span><span class="dv">1</span>,size<span class="op">=</span>(n_paths,n_steps))</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    prices <span class="op">=</span> np.zeros((n_paths,n_steps <span class="op">+</span> <span class="dv">1</span>))</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    prices[:,<span class="dv">0</span>] <span class="op">=</span> S0</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    prices[:,<span class="dv">1</span>:] <span class="op">=</span> S0 <span class="op">*</span> np.cumprod(np.exp((r<span class="op">-</span>sigma<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="dv">2</span>)<span class="op">*</span>dt <span class="op">+</span> (sigma<span class="op">*</span>sqrt_dt<span class="op">*</span>eps)),axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><u><strong>Stock Simulation Through GBM | Python Implementation</strong></u></p>
+<div id="84d4a477-f61c-444c-bd1d-2e9bec8d6fb2" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stockGbmEuler(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    S0,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    T,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    r,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    sigma,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    n_paths <span class="op">=</span> <span class="dv">1</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    n_steps <span class="op">=</span> <span class="dv">100</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    seed <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> seed <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        np.random.seed(seed)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    dt <span class="op">=</span> T<span class="op">/</span>n_steps</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    sqrt_dt <span class="op">=</span> np.sqrt(dt)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    eps <span class="op">=</span> np.random.normal(loc<span class="op">=</span><span class="dv">0</span>,scale<span class="op">=</span><span class="dv">1</span>,size<span class="op">=</span>(n_paths,n_steps))</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    prices <span class="op">=</span> np.zeros((n_paths,n_steps<span class="op">+</span><span class="dv">1</span>))</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    prices[:,<span class="dv">0</span>] <span class="op">=</span> S0</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    prices[:,<span class="dv">1</span>:] <span class="op">=</span> S0 <span class="op">*</span> np.cumprod(<span class="dv">1</span> <span class="op">+</span> r<span class="op">*</span>dt <span class="op">+</span> sigma<span class="op">*</span>eps<span class="op">*</span>sqrt_dt,axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prices</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stockGbmExact(</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    S0,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    T,</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    r,</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    sigma,</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    n_paths <span class="op">=</span> <span class="dv">1</span>,</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    n_steps <span class="op">=</span> <span class="dv">100</span>,</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    seed <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> seed <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        np.random.seed(seed)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    dt <span class="op">=</span> T<span class="op">/</span>n_steps</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    sqrt_dt <span class="op">=</span> np.sqrt(dt)</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    eps <span class="op">=</span> np.random.normal(loc<span class="op">=</span><span class="dv">0</span>,scale<span class="op">=</span><span class="dv">1</span>,size<span class="op">=</span>(n_paths,n_steps))</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    prices <span class="op">=</span> np.zeros((n_paths,n_steps <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    prices[:,<span class="dv">0</span>] <span class="op">=</span> S0</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    prices[:,<span class="dv">1</span>:] <span class="op">=</span> S0 <span class="op">*</span> np.cumprod(np.exp((r<span class="op">-</span>sigma<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="dv">2</span>)<span class="op">*</span>dt <span class="op">+</span> (sigma<span class="op">*</span>sqrt_dt<span class="op">*</span>eps)),axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="7b0b6b89-22c6-482b-b04b-e011b2a2faa2" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>S0 <span class="op">=</span> <span class="dv">50</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.1</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">0.2</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>n_paths <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>n_steps <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>gbmEuler <span class="op">=</span> stockGbmEuler(S0,T,r,sigma,n_paths,n_steps)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>gbmExact <span class="op">=</span> stockGbmExact(S0,T,r,sigma,n_paths,n_steps)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> np.linspace(<span class="dv">0</span>, T, n_steps <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>plt.plot(time, gbmEuler.T)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Stock Simulation with GBM - Euler Approximation"</span>)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time"</span>)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Stock Price"</span>)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>plt.plot(time, gbmExact.T)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Stock Simulation with GBM - Exact Solution"</span>)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time"</span>)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Stock Price"</span>)</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="7b0b6b89-22c6-482b-b04b-e011b2a2faa2" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>S0 <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>n_paths <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>n_steps <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>gbmEuler <span class="op">=</span> stockGbmEuler(S0,T,r,sigma,n_paths,n_steps)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>gbmExact <span class="op">=</span> stockGbmExact(S0,T,r,sigma,n_paths,n_steps)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> np.linspace(<span class="dv">0</span>, T, n_steps <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.plot(time, gbmEuler.T)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Stock Simulation with GBM - Euler Approximation"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Stock Price"</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>plt.plot(time, gbmExact.T)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Stock Simulation with GBM - Exact Solution"</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time"</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Stock Price"</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stockOverview_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="stockOverview_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stockOverview_files/figure-html/cell-3-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="stockOverview_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>Using our C++ implementation of the random walk process:<br> <em>(The source code is available at https://www.wikipedia.org/.)</em></p>
+<div id="718574b1-1b06-4541-8835-b2073cc24cec" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>gbmExactCPP <span class="op">=</span> stocksim.geometricBrownian(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    S0,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    T,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    r,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    sigma,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    n_paths,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    n_steps</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> path <span class="kw">in</span> gbmExactCPP:</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    plt.plot(time,path)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Stock Simulation with GBM - Exact Solution</span><span class="ch">\n</span><span class="st">C++ Implementation"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time"</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Stock Price"</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="stockOverview_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
 </section>
 <section id="stock-price-behaviour-under-binomial-model" class="level4">
 <h4 class="anchored" data-anchor-id="stock-price-behaviour-under-binomial-model">Stock Price Behaviour Under Binomial Model</h4>
-<p>Under the Binomial Model, stock price follows a <em>discrete-time</em> <em>discrete-spce</em> random walk. At each time step, the stock price <span class="math inline">S_n</span> can either move up to <span class="math inline">S_{n+1}=u S_n</span> or down to <span class="math inline">S_{n+1}=d S_n</span> (with <span class="math inline">d&lt;1</span>, <span class="math inline">u&gt;1</span>). The probability of a price increase is <span class="math inline">p</span>, while the probability of a decrease is <span class="math inline">1-p</span>.</p>
+<p>Under the Binomial Model, stock price follows a <em>discrete-time</em> <em>discrete-spce</em> multiplicative random walk. At each time step, the stock price <span class="math inline">S_n</span> can either move up to <span class="math inline">S_{n+1}=u S_n</span> or down to <span class="math inline">S_{n+1}=d S_n</span> (with <span class="math inline">d&lt;1</span>, <span class="math inline">u&gt;1</span>). The probability of a price increase is <span class="math inline">p</span>, while the probability of a decrease is <span class="math inline">1-p</span>.</p>
 <p>This results in the following expected price at each time step: <span class="math inline">E[S_{n+1}] = p (u S_n) + (1-p) (d S_n)</span>.<br> Under the no-arbitrage assumption in the binomial model, the probability <span class="math inline">p</span> in a <em>risk-neutral framework</em> is determined by <span class="math display">p = \dfrac{e^{rT}-d}{u-d}</span> where <span class="math inline">r</span> is the risk-free rate.</p>
-<p><u> John C. Cox, Stephen A. Ross, and Mark Rubinstein (CRR) Parameterization</u></p>
+<p><u><strong>John C. Cox, Stephen A. Ross, and Mark Rubinstein (CRR) Parameterization</strong></u></p>
 <p>The following parameterization is commonly adopted because it matches the volatility of the underlying asset and guarantees convergence of the binomial model to the Black–Scholes–Merton framework as <span class="math inline">\Delta t</span> tends to zero. <span class="math display">
 \begin{align*}
 p &amp;= \dfrac{a-d}{u-d}\\
@@ -477,7 +531,7 @@ a &amp;= e^{r\Delta t}
 <li><span class="math inline">\sigma</span> is the stock return volatility</li>
 <li><span class="math inline">a</span> is the discount rate</li>
 </ul>
-<p><u>Stock Simulation with Binomial Model | Pseudocode</u></p>
+<p><u><strong>Stock Simulation with Binomial Model | Pseudocode</strong></u></p>
 <pre class="text"><code>Given
     S0      Initial stock price
     dt      Time step size
@@ -504,59 +558,80 @@ For t ← 0 to T-1 do
         S[t+1] ← S[t] * d
 
 End For</code></pre>
-<p><u>Stock Simulation Through Binomial Model | Python Implementation</u></p>
-<div id="3c128a77-ad5d-41ed-9882-d18e4a939aa1" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stockRandomWalk(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    S0,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    T,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    r,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    sigma,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    n_paths <span class="op">=</span> <span class="dv">1</span>,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    n_steps <span class="op">=</span> <span class="dv">100</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    seed <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>):</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> seed <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        np.random.seed(seed)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    dt <span class="op">=</span> T<span class="op">/</span>n_steps</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> np.exp(sigma <span class="op">*</span> np.sqrt(dt))</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>u</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> np.exp(r<span class="op">*</span>dt)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> (a<span class="op">-</span>d) <span class="op">/</span> (u<span class="op">-</span>d)</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    bernoulli <span class="op">=</span> np.random.binomial(n<span class="op">=</span><span class="dv">1</span>,p<span class="op">=</span>p,size<span class="op">=</span>(n_paths,n_steps))</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    moves <span class="op">=</span> bernoulli <span class="op">*</span> u <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> bernoulli) <span class="op">*</span> d</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    prices <span class="op">=</span> np.empty((n_paths,n_steps <span class="op">+</span> <span class="dv">1</span>))</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    prices[:,<span class="dv">0</span>] <span class="op">=</span> S0</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    prices[:,<span class="dv">1</span>:] <span class="op">=</span> S0 <span class="op">*</span> np.cumprod(moves,axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><u><strong>Stock Simulation Through Binomial Model | Python Implementation</strong></u></p>
+<p>The following is a simple simulation of stock price behaviour with a multiplicative random walk (CRR parameterization).</p>
+<div id="3c128a77-ad5d-41ed-9882-d18e4a939aa1" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stockRandomWalk(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    S0,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    T,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    r,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    sigma,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    n_paths <span class="op">=</span> <span class="dv">1</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    n_steps <span class="op">=</span> <span class="dv">100</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    seed <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> seed <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        np.random.seed(seed)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    dt <span class="op">=</span> T<span class="op">/</span>n_steps</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> np.exp(sigma <span class="op">*</span> np.sqrt(dt))</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>u</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> np.exp(r<span class="op">*</span>dt)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> (a<span class="op">-</span>d) <span class="op">/</span> (u<span class="op">-</span>d)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    bernoulli <span class="op">=</span> np.random.binomial(n<span class="op">=</span><span class="dv">1</span>,p<span class="op">=</span>p,size<span class="op">=</span>(n_paths,n_steps))</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    moves <span class="op">=</span> bernoulli <span class="op">*</span> u <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> bernoulli) <span class="op">*</span> d</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    prices <span class="op">=</span> np.empty((n_paths,n_steps <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    prices[:,<span class="dv">0</span>] <span class="op">=</span> S0</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    prices[:,<span class="dv">1</span>:] <span class="op">=</span> S0 <span class="op">*</span> np.cumprod(moves,axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="2e2957c2-8b86-4b34-a368-76de9188c99b" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>S0 <span class="op">=</span> <span class="dv">50</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.1</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">0.2</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>n_paths <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>n_steps <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>binomial <span class="op">=</span> stockRandomWalk(S0,T,r,sigma,n_paths,n_steps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="2e2957c2-8b86-4b34-a368-76de9188c99b" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>S0 <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>n_paths <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>n_steps <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>binomial <span class="op">=</span> stockRandomWalk(S0,T,r,sigma,n_paths,n_steps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="5d723c3b-a681-4209-a625-094a9e74e61c" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> np.linspace(<span class="dv">0</span>, T, n_steps <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>plt.plot(time, binomial.T)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Random Walk Sample Paths"</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time"</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Stock Price"</span>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="5d723c3b-a681-4209-a625-094a9e74e61c" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> np.linspace(<span class="dv">0</span>, T, n_steps <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>plt.plot(time, binomial.T)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Stock Simulation with Random Walk"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Stock Price"</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stockOverview_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="stockOverview_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Using our C++ implementation of the random walk process:<br> <em>(The source code is available at <a href="../cpp_stocksim">repo</a></em>.)</p>
+<div id="a61acfba-ac72-4a4b-928b-2a11f553cfe8" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>binomialCPP <span class="op">=</span> stocksim.randomWalk(S0,T,r,sigma,n_paths,n_steps)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> path <span class="kw">in</span> binomialCPP:</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    plt.plot(time,path)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Stock Simulation with Random Walk</span><span class="ch">\n</span><span class="st">C++ Implementation"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time"</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Stock Price"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="stockOverview_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
