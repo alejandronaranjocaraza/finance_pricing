@@ -20,10 +20,45 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -68,7 +103,53 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -147,6 +228,8 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#binomial-model" id="toc-binomial-model" class="nav-link" data-scroll-target="#binomial-model">Binomial Model</a></li>
+  <li><a href="#black-scholes-merton" id="toc-black-scholes-merton" class="nav-link" data-scroll-target="#black-scholes-merton">Black-Scholes-Merton</a></li>
   </ul>
 </nav>
     </div>
@@ -175,6 +258,120 @@ ul.task-list li input[type="checkbox"] {
 <p>CPP Pricing Engine<br> Alejandro Naranjo Caraza<br> 2026-03-01</p>
 <section id="overview" class="level4">
 <h4 class="anchored" data-anchor-id="overview">Overview</h4>
+<div id="fc3f640a-52ae-4b67-a7a9-28244c30638f" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, HTML</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="binomial-model" class="level4">
+<h4 class="anchored" data-anchor-id="binomial-model">Binomial Model</h4>
+<p><u>General Overview of Option Valuation</u></p>
+<p>The binomial model for option valuation proposes a multiplicative random walk as a model for stock price behaviour (see <em>insert link</em>). Under this model, the stock price at time <i>t+1</i> is</p>
+<p><span class="math display">
+S_{t+1} =
+\begin{cases}
+u S_t &amp; \text{with probability } p, \quad (u &gt; 1) \\
+d S_t &amp; \text{with probability } 1-p, \quad (d &lt; 1)
+\end{cases}
+</span></p>
+<p>That is, if the stock moves up, its value becomes <span class="math inline">S_u = u S_t</span>, and if it moves down, its value becomes <span class="math inline">S_d = d S_t</span>.</p>
+<p>An option with underlying stock price <span class="math inline">S_t</span> is considered. The option’s payoff if the stock moves to <span class="math inline">S_u</span> is <span class="math inline">f_u</span>. If the stock moves to <span class="math inline">S_d</span>, the payoff is <span class="math inline">f_d</span>. An investor can construct a riskless portfolio consisting of a long position in <span class="math inline">\Delta</span> shares of stock and a short position in one option.</p>
+<p>The value of the portfolio at time <i>t+1</i> is</p>
+<p><span class="math display">
+\begin{align*}
+\Delta S_t u - f_u &amp; \quad \text{if the stock price moves up} \\
+\Delta S_t d - f_d &amp; \quad \text{if the stock price moves down}
+\end{align*}
+</span></p>
+<p>The cost of setting up the portfolio at time <span class="math inline">t</span> is <span class="math display">
+\Delta S_t - f
+</span></p>
+<p>Notice that the following conditions hold:</p>
+<ul>
+<li>The portfolio is riskless if</li>
+</ul>
+<p><span class="math display">
+\Delta S_t u - f_u = \Delta S_t d - f_d
+</span> <span class="math display">
+\Delta =
+\frac{f_u - f_d}
+{S_t (u - d)}
+</span></p>
+<ul>
+<li>The current cost of setting up the portfolio is equal to the present value of the portfolio at time <i>t+1</i> if</li>
+</ul>
+<span class="math display">
+e^{-r \, dt} (\Delta S_t u - f_u) = e^{-r \, dt} (\Delta S_t d - f_d) = \Delta S_t - f
+</span> <span class="math display">
+f = e^{-r dt} (p f_u + (1-p) f_d)
+</span>
+<div style="margin-left: 2em;">
+<p>where <span class="math inline">p = \dfrac{a - d}{u - d}</span> is the risk-neutral probability, <span class="math inline">a = e^{r dt}</span>, <span class="math inline">dt</span> is the length of each time step, and <span class="math inline">r</span> is the risk-free interest rate.</p>
+</div>
+<p><br></p>
+<p><u>Interpretation of the Risk-Neutral Probability</u></p>
+<p>The probability <span class="math inline">p</span> used in the binomial pricing formula is called the <em>risk-neutral probability</em>. It does not represent the real-world probability that the stock price will move up.</p>
+<p>Instead, this probability arises from the requirement that arbitrage opportunities must not exist. Because it is possible to construct a hedged portfolio consisting of the stock and the option that eliminates risk, the return on this portfolio must equal the risk-free rate. This condition uniquely determines the risk-neutral probability.</p>
+<p>As a result, the option price can be interpreted as the discounted expected payoff computed using the risk-neutral probability. This does not imply that investors are risk-neutral in reality; rather, prices behave <em>as if</em> investors were risk-neutral because arbitrage prevents any alternative pricing.</p>
+<div id="f754636c-e1a6-4f6c-8f38-c34c55569985" class="cell" data-execution_count="39">
+<div class="cell-output cell-output-display">
+
+<div style="text-align: center;">
+    <p style="font-size: 17px; text-align: center; font-weight: bold; margin-top: 8px;">
+    <i>
+       Example of a Binomial Tree
+    </i>
+    </p>
+    <img src="./assets/binomialTree.png" width="500">
+</div>
+</div>
+</div>
+<p><u>Implementation Details</u></p>
+<p>From the equations derived above, the option price at time <span class="math inline">t=t_0</span> (present value) can be calculated by constructing a binomial tree with backward induction:</p>
+<ul>
+<li>First, calculate the stock prices and option payoffs at the final nodes, that is, at maturity (<span class="math inline">t=T</span>).</li>
+<li>Move backwards through the tree. Consider the nodes at <span class="math inline">t = T - dt</span> and calculate the option value using<br>
+<span class="math display">
+f = e^{-r dt} (p f_u + (1-p) f_d)
+</span></li>
+<li>Continue moving backwards through the binomial tree until reaching the node at <span class="math inline">t=0</span>.</li>
+</ul>
+</section>
+<section id="black-scholes-merton" class="level4">
+<h4 class="anchored" data-anchor-id="black-scholes-merton">Black-Scholes-Merton</h4>
+<p>From <em>insert link</em>, the Black-Scholes-Merton (BSM) assumes stock price follows a <em>Geometric Brownian Motion</em>:</p>
+<p><span class="math display">
+dS = \mu S dt + \sigma S dz
+</span></p>
+<p>If <span class="math inline">f</span> is the price of an option contingent on <span class="math inline">S</span>, if it must be some function of <span class="math inline">S</span> and <span class="math inline">t</span>: <span class="math inline">f=f(S,t)</span>.<br> From Ito’s lemma (see <em>insert link</em>)</p>
+<p><span class="math display">
+df = (\dfrac{\partial f}{\partial S}\mu S + \dfrac{\partial f}{\partial t} + \dfrac{1}{2} \dfrac{\partial² f}{\partial S²}\sigma²S²)dt + \dfrac{\partial f}{\partial S} \sigma S dz
+</span></p>
+<p>Notice that the <em>Winer process</em> underlying <span class="math inline">f</span> and <span class="math inline">S</span> is the same. This means that a portfolio of the stock and the option can be constructed in such a way that the process is eliminated, therefore eliminating risk.</p>
+<p>Taking a short position in one option and a long position in <span class="math inline">\dfrac{\partial f}{\partial S}</span> shares results in a portfolio of value</p>
+<p><span class="math display">
+\Pi = -f + \dfrac{\partial f}{\partial S}S
+</span></p>
+<p>Notice the following is true:</p>
+<p><span class="math display">
+d\Pi = -df + \dfrac{\partial f}{\partial S}dS + S d(\dfrac{\partial f}{\partial S})
+</span></p>
+<p>Since <span class="math inline">\dfrac{\partial f}{\partial S}</span> is held constant over <span class="math inline">dt</span>:</p>
+<p><span class="math display">
+d\Pi = -df + \dfrac{\partial f}{\partial S}dS
+</span></p>
+<p>Substituting in the previous equations:</p>
+<p><span class="math display">
+d\Pi = (-\dfrac{\partial f}{\partial t} - \dfrac{1}{2}\dfrac{\partial² f}{\partial S²}\sigma² S²)dt
+</span></p>
+<p>Under no riskless arbitrage opportunities:</p>
+<p><span class="math display">
+d\Pi = r \Pi dt
+</span> <span class="math display">
+(\dfrac{\partial f}{\partial t} + \dfrac{1}{2}\dfrac{\partial² f}{\partial S²}\sigma² S²)dt = r(f - \dfrac{\partial f}{\partial S}S)dt
+</span> <span class="math display">
+\dfrac{\partial f}{\partial t} + rS\dfrac{\partial f}{\partial S} + \dfrac{1}{2}\sigma²S²\dfrac{\partial² f}{\partial S²} = rf
+</span></p>
+<p>is the Black-Scholes-Merton differential equation.</p>
 
 
 </section>
