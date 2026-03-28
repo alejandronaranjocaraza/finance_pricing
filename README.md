@@ -46,6 +46,7 @@ https://alejandronaranjocaraza.github.io/finance_pricing/index.html
 
 ## Repository Structure
 
+```text
 ├── assets/               # README and repo-wide static assets
 │
 ├── cpp_pricing/          # Pricing engine (C++)
@@ -76,6 +77,7 @@ https://alejandronaranjocaraza.github.io/finance_pricing/index.html
 ├── tests/                # Integration tests
 │
 └── README.md
+```
 
 ## Technology Used
 
