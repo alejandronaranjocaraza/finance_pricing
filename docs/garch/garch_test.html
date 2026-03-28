@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>GARCH(2,2): Expanded Notes and Data-Generating Process</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-639d40d65713d3bc1aaf438096d2e89a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">GARCH(2,2): Expanded Notes and Data-Generating Process</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Black-Scholes-Merton and Binomial Pricing Models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stockOverview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Stock Price Behaviour and Assumptions Under BSM and Binomial Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modsOverview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Binomial Tree and BSM Overview and Implementation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../testCases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Test Cases for BSM and Binomial C++ Pricing Library</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../volSmile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Implied Volatility, Volatility Smiles and Volatility Surfaces</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">GARCH(2,2): Expanded Notes and Data-Generating Process</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="cada5e82-38b7-4bef-946b-3d17edae0ee5" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> random <span class="im">import</span> gauss</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> arch <span class="im">import</span> arch_model</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.graphics.tsaplots <span class="im">import</span> plot_acf, plot_pacf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Let <span class="math inline">\(P_t\)</span> denote the asset price. The log-return is defined as <span class="math display">\[
+r_t = \log P_t - \log P_{t-1}.
+\]</span></p>
+<hr>
+<section id="return-data-generating-equation" class="level3">
+<h3 class="anchored" data-anchor-id="return-data-generating-equation">Return (data-generating) equation</h3>
+<p>The log-return follows <span class="math display">\[
+r_t = \mu + \sigma_t z_t,
+\qquad z_t \sim \text{i.i.d. } (0,1),
+\]</span> where <span class="math inline">\(\sigma_t^2\)</span> is the conditional variance given information <span class="math inline">\(\mathcal{F}_{t-1}\)</span>.</p>
+<hr>
+</section>
+<section id="conditional-variance-dynamics-garch22" class="level3">
+<h3 class="anchored" data-anchor-id="conditional-variance-dynamics-garch22">Conditional variance dynamics (GARCH(2,2))</h3>
+<p>The conditional variance evolves according to <span class="math display">\[
+\sigma_t^2
+= \omega
++ \alpha_1 (r_{t-1} - \mu)^2
++ \alpha_2 (r_{t-2} - \mu)^2
++ \beta_1 \sigma_{t-1}^2
++ \beta_2 \sigma_{t-2}^2.
+\]</span></p>
+<hr>
+</section>
+<section id="fully-expanded-return-equation" class="level3">
+<h3 class="anchored" data-anchor-id="fully-expanded-return-equation">Fully expanded return equation</h3>
+<p>Substituting the variance equation into the return equation yields the explicit nonlinear dynamics <span class="math display">\[
+r_t
+= \mu
++ z_t \sqrt{
+\omega
++ \alpha_1 (r_{t-1} - \mu)^2
++ \alpha_2 (r_{t-2} - \mu)^2
++ \beta_1 \sigma_{t-1}^2
++ \beta_2 \sigma_{t-2}^2
+}.
+\]</span></p>
+<p>Thus, current returns depend on past returns only through their squared deviations from the mean.</p>
+<p>Considering zero mean:</p>
+<p><span class="math display">\[
+r_t
+= z_t \sqrt{
+\omega
++ \alpha_1 r_{t-1}^2
++ \alpha_2 r_{t-2}^2
++ \beta_1 \sigma_{t-1}^2
++ \beta_2 \sigma_{t-2}^2
+}.
+\]</span></p>
+<hr>
+</section>
+<section id="parameter-restrictions" class="level3">
+<h3 class="anchored" data-anchor-id="parameter-restrictions">Parameter restrictions</h3>
+<p>To ensure positivity of the conditional variance, <span class="math display">\[
+\omega &gt; 0, \qquad
+\alpha_i \ge 0, \qquad
+\beta_j \ge 0.
+\]</span></p>
+<p>For covariance stationarity, <span class="math display">\[
+\alpha_1 + \alpha_2 + \beta_1 + \beta_2 &lt; 1.
+\]</span></p>
+<hr>
+</section>
+<section id="unconditional-variance" class="level3">
+<h3 class="anchored" data-anchor-id="unconditional-variance">Unconditional variance</h3>
+<p>If the stationarity condition holds, the unconditional variance exists and is given by <span class="math display">\[
+\mathbb{E}[\sigma_t^2]
+= \frac{\omega}
+{1 - (\alpha_1 + \alpha_2 + \beta_1 + \beta_2)}.
+\]</span></p>
+<hr>
+</section>
+<section id="key-properties" class="level3">
+<h3 class="anchored" data-anchor-id="key-properties">Key properties</h3>
+<ul>
+<li><p>Returns are conditionally heteroskedastic but serially uncorrelated: <span class="math display">\[
+\mathbb{E}[r_t \mid \mathcal{F}_{t-1}] = \mu.
+\]</span></p></li>
+<li><p>Squared returns exhibit serial dependence (volatility clustering).</p></li>
+<li><p>The model can be viewed as a nonlinear autoregression in variance, equivalent to an ARCH(<span class="math inline">\(\infty\)</span>) process.</p></li>
+</ul>
+<hr>
+</section>
+<section id="practical-remarks" class="level3">
+<h3 class="anchored" data-anchor-id="practical-remarks">Practical remarks</h3>
+<ul>
+<li>In practice, GARCH(1,1) often captures most volatility persistence.</li>
+<li>Heavy-tailed innovations (Student-<span class="math inline">\(t\)</span>) are commonly used.</li>
+<li>GARCH models are primarily used for volatility forecasting rather than direct option pricing.</li>
+</ul>
+</section>
+<section id="model-simulation" class="level1">
+<h1>Model Simulation</h1>
+<div id="92feadaa-25a2-4ccf-835b-28507ac3b9d8" class="cell" data-execution_count="87">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>alpha_1 <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>alpha_2 <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>beta_1 <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>beta_2 <span class="op">=</span> <span class="fl">0.4</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>test_size <span class="op">=</span> <span class="bu">int</span>(n<span class="op">*</span><span class="fl">0.1</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>series <span class="op">=</span> [gauss(<span class="dv">0</span>,<span class="dv">1</span>), gauss(<span class="dv">0</span>,<span class="dv">1</span>)]</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>vols <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    vol <span class="op">=</span> np.sqrt(omega <span class="op">+</span> alpha_1 <span class="op">*</span> series[<span class="op">-</span><span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> alpha_2 <span class="op">*</span> series[<span class="op">-</span><span class="dv">2</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> beta_1 <span class="op">*</span> vols[<span class="op">-</span><span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> beta_2 <span class="op">*</span> vols[<span class="op">-</span><span class="dv">2</span>]<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> gauss(<span class="dv">0</span>,<span class="dv">1</span>) <span class="op">*</span> vol</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    vols.append(vol)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    series.append(val)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="f0ae3136-6cbc-492d-8e30-de5c82085892" class="cell" data-execution_count="88">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">4</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>plt.plot(series,color<span class="op">=</span><span class="st">'grey'</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>plt.plot(vols,color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Simulated log returns - GARCH(2,2)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="88">
+<pre><code>Text(0.5, 1.0, 'Simulated log returns - GARCH(2,2)')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="garch_test_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="pacf-and-acf-of-squared-model" class="level1">
+<h1>PACF and ACF of Squared Model</h1>
+<div id="3b628326-2f2f-4bed-84c6-b26da226d367" class="cell" data-execution_count="89">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plot_pacf(np.array(series)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"PACF of squared series"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="garch_test_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><i> Note that squaring a series genereated by a GARCH(2,2) model yields one where values are directly dependant on vals shifted by h=1 and h=2.<br> </i></p>
+<div id="1707d658-14fa-4577-8608-46876812b8f1" class="cell" data-execution_count="90">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plot_acf(np.array(series)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"ACF of squared series"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="garch_test_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><i> The autocorrelation, however, also reflects the indirect effect of the lagged variances.<br> Variances are serially autocorrelated (<span class="math inline">\(\sigma_t^2 = \omega + \alpha_1 \varepsilon_{t-1}^2 + \alpha_2 \varepsilon_{t-2}^2 + \beta_1 \sigma_{t-1}^2 + \beta_2 \sigma_{t-2}^2\)</span> ), resulting in slowly decaying ACF.<br> </i></p>
+</section>
+<section id="fitted-garch-model" class="level1">
+<h1>Fitted Garch Model</h1>
+<div id="9e71cf7b-c82d-42b1-bc36-2f11e31c2635" class="cell" data-execution_count="91">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>train, test <span class="op">=</span> series[:<span class="op">-</span>test_size], series[<span class="op">-</span>test_size:]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> arch_model(train, p<span class="op">=</span><span class="dv">2</span>, q<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="86b417f8-cbb8-4a6b-8aa9-de593a66ed1a" class="cell" data-execution_count="92">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model_fit <span class="op">=</span> model.fit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Iteration:      1,   Func. Count:      8,   Neg. LLF: 753431117.7051901
+Iteration:      2,   Func. Count:     17,   Neg. LLF: 18450.91507561129
+Iteration:      3,   Func. Count:     26,   Neg. LLF: 3152.6112581154075
+Iteration:      4,   Func. Count:     34,   Neg. LLF: 2734.752786393626
+Iteration:      5,   Func. Count:     42,   Neg. LLF: 2672.2249549015505
+Iteration:      6,   Func. Count:     50,   Neg. LLF: 2650.6621664584354
+Iteration:      7,   Func. Count:     58,   Neg. LLF: 2638.719214678481
+Iteration:      8,   Func. Count:     66,   Neg. LLF: 2635.2922043738663
+Iteration:      9,   Func. Count:     73,   Neg. LLF: 2635.0756794260697
+Iteration:     10,   Func. Count:     80,   Neg. LLF: 2634.8350829654723
+Iteration:     11,   Func. Count:     87,   Neg. LLF: 2634.6789114928215
+Iteration:     12,   Func. Count:     94,   Neg. LLF: 2634.6571845445424
+Iteration:     13,   Func. Count:    101,   Neg. LLF: 2634.652524483841
+Iteration:     14,   Func. Count:    108,   Neg. LLF: 2634.6516705931317
+Iteration:     15,   Func. Count:    115,   Neg. LLF: 2634.651582096965
+Iteration:     16,   Func. Count:    122,   Neg. LLF: 2634.6515809395405
+Iteration:     17,   Func. Count:    128,   Neg. LLF: 2634.6515803129532
+Optimization terminated successfully    (Exit mode 0)
+            Current function value: 2634.6515809395405
+            Iterations: 17
+            Function evaluations: 128
+            Gradient evaluations: 17</code></pre>
+</div>
+</div>
+<div id="b39fc2f0-8762-459a-bd1e-a937774aa4da" class="cell" data-execution_count="93">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model_fit.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="93">
+<table class="simpletable caption-top table table-sm table-striped small">
+<caption>Constant Mean - GARCH Model Results</caption>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Dep. Variable:</th>
+<td>y</td>
+<th data-quarto-table-cell-role="th">R-squared:</th>
+<td>0.000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Mean Model:</th>
+<td>Constant Mean</td>
+<th data-quarto-table-cell-role="th">Adj. R-squared:</th>
+<td>0.000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Vol Model:</th>
+<td>GARCH</td>
+<th data-quarto-table-cell-role="th">Log-Likelihood:</th>
+<td>-2634.65</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Distribution:</th>
+<td>Normal</td>
+<th data-quarto-table-cell-role="th">AIC:</th>
+<td>5281.30</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Method:</th>
+<td>Maximum Likelihood</td>
+<th data-quarto-table-cell-role="th">BIC:</th>
+<td>5310.13</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<td></td>
+<th data-quarto-table-cell-role="th">No. Observations:</th>
+<td>902</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Date:</th>
+<td>Tue, Dec 23 2025</td>
+<th data-quarto-table-cell-role="th">Df Residuals:</th>
+<td>901</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Time:</th>
+<td>22:53:36</td>
+<th data-quarto-table-cell-role="th">Df Model:</th>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="simpletable caption-top table table-sm table-striped small">
+<caption>Mean Model</caption>
+<tbody>
+<tr class="odd">
+<td></td>
+<th data-quarto-table-cell-role="th">coef</th>
+<th data-quarto-table-cell-role="th">std err</th>
+<th data-quarto-table-cell-role="th">t</th>
+<th data-quarto-table-cell-role="th">P&gt;|t|</th>
+<th data-quarto-table-cell-role="th">95.0% Conf. Int.</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">mu</th>
+<td>-0.0121</td>
+<td>0.102</td>
+<td>-0.118</td>
+<td>0.906</td>
+<td>[ -0.213, 0.188]</td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="simpletable caption-top table table-sm table-striped small">
+<caption>Volatility Model</caption>
+<tbody>
+<tr class="odd">
+<td></td>
+<th data-quarto-table-cell-role="th">coef</th>
+<th data-quarto-table-cell-role="th">std err</th>
+<th data-quarto-table-cell-role="th">t</th>
+<th data-quarto-table-cell-role="th">P&gt;|t|</th>
+<th data-quarto-table-cell-role="th">95.0% Conf. Int.</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">omega</th>
+<td>0.4406</td>
+<td>0.221</td>
+<td>1.993</td>
+<td>4.623e-02</td>
+<td>[7.373e-03, 0.874]</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">alpha[1]</th>
+<td>0.1292</td>
+<td>3.914e-02</td>
+<td>3.301</td>
+<td>9.621e-04</td>
+<td>[5.251e-02, 0.206]</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">alpha[2]</th>
+<td>0.1317</td>
+<td>7.960e-02</td>
+<td>1.654</td>
+<td>9.812e-02</td>
+<td>[-2.435e-02, 0.288]</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">beta[1]</th>
+<td>0.6269</td>
+<td>0.312</td>
+<td>2.011</td>
+<td>4.436e-02</td>
+<td>[1.580e-02, 1.238]</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">beta[2]</th>
+<td>0.1122</td>
+<td>0.253</td>
+<td>0.444</td>
+<td>0.657</td>
+<td>[ -0.384, 0.608]</td>
+</tr>
+</tbody>
+</table>
+<br><br>Covariance estimator: robust
+</div>
+</div>
+<p><i>Notice beta_1 is not significant (P&gt;|t| : H0: beta_2=0 not rejected) !</i></p>
+<div id="a3deba95-4d89-4476-b28c-dec207fb313c" class="cell" data-execution_count="96">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> model_fit.forecast(horizon<span class="op">=</span>test_size)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="c7d2eb3b-5172-4c87-8b56-6b14c68f9b31" class="cell" data-execution_count="167">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">4</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>true, <span class="op">=</span> plt.plot(vols[<span class="op">-</span>test_size:],color<span class="op">=</span><span class="st">'grey'</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>preds, <span class="op">=</span> plt.plot(np.sqrt(predictions.variance.values[<span class="op">-</span><span class="dv">1</span>,:]), color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'True vol'</span>,<span class="st">'Predicted vol'</span>])</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="garch_test_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="stock-forecastign-with-garch-model" class="level1">
+<h1>Stock Forecastign with GARCH Model</h1>
+<div id="07bc9d2c-ef75-4d75-b54a-0a4d838f66cf" class="cell" data-execution_count="100">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="ea5d439c-d889-435d-b8ef-9a6333ad1a0f" class="cell" data-execution_count="138">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ticker_symbol <span class="op">=</span> <span class="st">"AAPL"</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Ticker object</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>ticker <span class="op">=</span> yf.Ticker(ticker_symbol)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch historical market data</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>historical_data <span class="op">=</span> ticker.history(period<span class="op">=</span><span class="st">"5y"</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Get returns</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>returns <span class="op">=</span> historical_data.Close.pct_change().dropna()</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>log_returns <span class="op">=</span> np.log(returns<span class="op">+</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="a2e26bd3-508a-4034-9f8b-e45b83998483" class="cell" data-execution_count="142">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">4</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plt.plot(returns,color<span class="op">=</span><span class="st">'grey'</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"AAPL Returns"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">4</span>))</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>plt.plot(log_returns,color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"AAPL Log Returns"</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="garch_test_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="garch_test_files/figure-html/cell-14-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="a226d72f-3ffc-4b09-b7c0-a033babf853f" class="cell" data-execution_count="143">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plot_pacf(returns<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plot_acf(returns<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="garch_test_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="garch_test_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="bede739e-6867-4a78-a91e-8b36b8e12032" class="cell" data-execution_count="144">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plot_pacf(log_returns<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plot_acf(log_returns<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="garch_test_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="garch_test_files/figure-html/cell-16-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="fit-returns---garch11" class="level1">
+<h1>Fit Returns - GARCH(1,1)</h1>
+<div id="f08e793b-7a09-426f-969f-0d09e2eb772d" class="cell" data-execution_count="152">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> arch_model(<span class="dv">100</span><span class="op">*</span>returns, p<span class="op">=</span><span class="dv">1</span>, q<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>model_fit <span class="op">=</span> model.fit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Iteration:      1,   Func. Count:      6,   Neg. LLF: 156059559015.8227
+Iteration:      2,   Func. Count:     14,   Neg. LLF: 4846.474998876214
+Iteration:      3,   Func. Count:     22,   Neg. LLF: 3233.152075714213
+Iteration:      4,   Func. Count:     29,   Neg. LLF: 2556.170228929119
+Iteration:      5,   Func. Count:     37,   Neg. LLF: 2407.635431784043
+Iteration:      6,   Func. Count:     43,   Neg. LLF: 2402.4773508353956
+Iteration:      7,   Func. Count:     48,   Neg. LLF: 2402.473997552952
+Iteration:      8,   Func. Count:     53,   Neg. LLF: 2402.4739102120466
+Iteration:      9,   Func. Count:     58,   Neg. LLF: 2402.4739079759584
+Iteration:     10,   Func. Count:     62,   Neg. LLF: 2402.4739079796523
+Optimization terminated successfully    (Exit mode 0)
+            Current function value: 2402.4739079759584
+            Iterations: 10
+            Function evaluations: 62
+            Gradient evaluations: 10</code></pre>
+</div>
+</div>
+<div id="f4d63081-8a22-485b-b076-0a79fbf55b2d" class="cell" data-execution_count="153">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>model_fit.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="153">
+<table class="simpletable caption-top table table-sm table-striped small">
+<caption>Constant Mean - GARCH Model Results</caption>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Dep. Variable:</th>
+<td>Close</td>
+<th data-quarto-table-cell-role="th">R-squared:</th>
+<td>0.000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Mean Model:</th>
+<td>Constant Mean</td>
+<th data-quarto-table-cell-role="th">Adj. R-squared:</th>
+<td>0.000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Vol Model:</th>
+<td>GARCH</td>
+<th data-quarto-table-cell-role="th">Log-Likelihood:</th>
+<td>-2402.47</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Distribution:</th>
+<td>Normal</td>
+<th data-quarto-table-cell-role="th">AIC:</th>
+<td>4812.95</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Method:</th>
+<td>Maximum Likelihood</td>
+<th data-quarto-table-cell-role="th">BIC:</th>
+<td>4833.48</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<td></td>
+<th data-quarto-table-cell-role="th">No. Observations:</th>
+<td>1254</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Date:</th>
+<td>Wed, Dec 24 2025</td>
+<th data-quarto-table-cell-role="th">Df Residuals:</th>
+<td>1253</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Time:</th>
+<td>13:55:43</td>
+<th data-quarto-table-cell-role="th">Df Model:</th>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="simpletable caption-top table table-sm table-striped small">
+<caption>Mean Model</caption>
+<tbody>
+<tr class="odd">
+<td></td>
+<th data-quarto-table-cell-role="th">coef</th>
+<th data-quarto-table-cell-role="th">std err</th>
+<th data-quarto-table-cell-role="th">t</th>
+<th data-quarto-table-cell-role="th">P&gt;|t|</th>
+<th data-quarto-table-cell-role="th">95.0% Conf. Int.</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">mu</th>
+<td>0.1232</td>
+<td>4.655e-02</td>
+<td>2.647</td>
+<td>8.132e-03</td>
+<td>[3.196e-02, 0.214]</td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="simpletable caption-top table table-sm table-striped small">
+<caption>Volatility Model</caption>
+<tbody>
+<tr class="odd">
+<td></td>
+<th data-quarto-table-cell-role="th">coef</th>
+<th data-quarto-table-cell-role="th">std err</th>
+<th data-quarto-table-cell-role="th">t</th>
+<th data-quarto-table-cell-role="th">P&gt;|t|</th>
+<th data-quarto-table-cell-role="th">95.0% Conf. Int.</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">omega</th>
+<td>0.0931</td>
+<td>4.716e-02</td>
+<td>1.974</td>
+<td>4.840e-02</td>
+<td>[6.527e-04, 0.186]</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">alpha[1]</th>
+<td>0.0676</td>
+<td>2.100e-02</td>
+<td>3.217</td>
+<td>1.295e-03</td>
+<td>[2.640e-02, 0.109]</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">beta[1]</th>
+<td>0.9010</td>
+<td>3.070e-02</td>
+<td>29.349</td>
+<td>2.432e-189</td>
+<td>[ 0.841, 0.961]</td>
+</tr>
+</tbody>
+</table>
+<br><br>Covariance estimator: robust
+</div>
+</div>
+</section>
+<section id="fit-log-returns---garch11" class="level1">
+<h1>Fit Log Returns - GARCH(1,1)</h1>
+<div id="01eb7b19-2532-40eb-88f5-aac55fbadc7e" class="cell" data-execution_count="155">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> arch_model(<span class="dv">100</span><span class="op">*</span>log_returns, p<span class="op">=</span><span class="dv">1</span>, q<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>model_fit <span class="op">=</span> model.fit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Iteration:      1,   Func. Count:      6,   Neg. LLF: 165281512402.9082
+Iteration:      2,   Func. Count:     14,   Neg. LLF: 5944.128676881067
+Iteration:      3,   Func. Count:     23,   Neg. LLF: 3069.7090415119787
+Iteration:      4,   Func. Count:     31,   Neg. LLF: 2582.3995287282733
+Iteration:      5,   Func. Count:     39,   Neg. LLF: 2399.485143759859
+Iteration:      6,   Func. Count:     44,   Neg. LLF: 2399.4842489426505
+Iteration:      7,   Func. Count:     49,   Neg. LLF: 2399.4841429671355
+Iteration:      8,   Func. Count:     54,   Neg. LLF: 2399.48413754622
+Iteration:      9,   Func. Count:     59,   Neg. LLF: 2399.48413693164
+Optimization terminated successfully    (Exit mode 0)
+            Current function value: 2399.48413693164
+            Iterations: 9
+            Function evaluations: 59
+            Gradient evaluations: 9</code></pre>
+</div>
+</div>
+<div id="d780b256-2528-461c-b270-1393ec3135a6" class="cell" data-execution_count="156">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>model_fit.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="156">
+<table class="simpletable caption-top table table-sm table-striped small">
+<caption>Constant Mean - GARCH Model Results</caption>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Dep. Variable:</th>
+<td>Close</td>
+<th data-quarto-table-cell-role="th">R-squared:</th>
+<td>0.000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Mean Model:</th>
+<td>Constant Mean</td>
+<th data-quarto-table-cell-role="th">Adj. R-squared:</th>
+<td>0.000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Vol Model:</th>
+<td>GARCH</td>
+<th data-quarto-table-cell-role="th">Log-Likelihood:</th>
+<td>-2399.48</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Distribution:</th>
+<td>Normal</td>
+<th data-quarto-table-cell-role="th">AIC:</th>
+<td>4806.97</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Method:</th>
+<td>Maximum Likelihood</td>
+<th data-quarto-table-cell-role="th">BIC:</th>
+<td>4827.50</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<td></td>
+<th data-quarto-table-cell-role="th">No. Observations:</th>
+<td>1254</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Date:</th>
+<td>Wed, Dec 24 2025</td>
+<th data-quarto-table-cell-role="th">Df Residuals:</th>
+<td>1253</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Time:</th>
+<td>13:56:30</td>
+<th data-quarto-table-cell-role="th">Df Model:</th>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="simpletable caption-top table table-sm table-striped small">
+<caption>Mean Model</caption>
+<tbody>
+<tr class="odd">
+<td></td>
+<th data-quarto-table-cell-role="th">coef</th>
+<th data-quarto-table-cell-role="th">std err</th>
+<th data-quarto-table-cell-role="th">t</th>
+<th data-quarto-table-cell-role="th">P&gt;|t|</th>
+<th data-quarto-table-cell-role="th">95.0% Conf. Int.</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">mu</th>
+<td>0.1080</td>
+<td>4.581e-02</td>
+<td>2.358</td>
+<td>1.836e-02</td>
+<td>[1.825e-02, 0.198]</td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="simpletable caption-top table table-sm table-striped small">
+<caption>Volatility Model</caption>
+<tbody>
+<tr class="odd">
+<td></td>
+<th data-quarto-table-cell-role="th">coef</th>
+<th data-quarto-table-cell-role="th">std err</th>
+<th data-quarto-table-cell-role="th">t</th>
+<th data-quarto-table-cell-role="th">P&gt;|t|</th>
+<th data-quarto-table-cell-role="th">95.0% Conf. Int.</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">omega</th>
+<td>0.0887</td>
+<td>4.365e-02</td>
+<td>2.033</td>
+<td>4.205e-02</td>
+<td>[3.190e-03, 0.174]</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">alpha[1]</th>
+<td>0.0650</td>
+<td>1.825e-02</td>
+<td>3.560</td>
+<td>3.712e-04</td>
+<td>[2.920e-02, 0.101]</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">beta[1]</th>
+<td>0.9047</td>
+<td>2.744e-02</td>
+<td>32.969</td>
+<td>2.296e-238</td>
+<td>[ 0.851, 0.958]</td>
+</tr>
+</tbody>
+</table>
+<br><br>Covariance estimator: robust
+</div>
+</div>
+</section>
+<section id="retuers---garch11-validation" class="level1">
+<h1>Retuers - GARCH(1,1) Validation</h1>
+<div id="353efbcb-2d1e-4ca6-bc03-57497af6dc3f" class="cell" data-execution_count="162">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>rolling_predictions <span class="op">=</span> []</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>test_size <span class="op">=</span> <span class="dv">365</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span> (test_size):</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    train <span class="op">=</span> returns[:<span class="op">-</span>(test_size<span class="op">-</span>i)]</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> arch_model(<span class="dv">100</span><span class="op">*</span>train, p<span class="op">=</span><span class="dv">1</span>, q<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    model_fit <span class="op">=</span> model.fit(disp<span class="op">=</span><span class="st">'off'</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> model_fit.forecast(horizon<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    rolling_predictions.append(np.sqrt(pred.variance.values[<span class="op">-</span><span class="dv">1</span>,:][<span class="dv">0</span>])<span class="op">/</span><span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="46f4fb5d-3cc9-4613-b479-0a96da7f12d4" class="cell" data-execution_count="163">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>rolling_predictions <span class="op">=</span> pd.Series(rolling_predictions, index<span class="op">=</span>returns.index[<span class="op">-</span><span class="dv">365</span>:])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="195a60bb-0da8-40b0-848c-1a7ef1f5532e" class="cell" data-execution_count="172">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">4</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>plt.plot(returns[<span class="op">-</span><span class="dv">365</span>:],color<span class="op">=</span><span class="st">'grey'</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plt.plot(rolling_predictions, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'Returns'</span>,<span class="st">'Predicted vol'</span>])</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="garch_test_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
