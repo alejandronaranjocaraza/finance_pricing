@@ -162,7 +162,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Binomial Tree and Black-Scholes-Merton Overview and Implementation</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stockOverview.html">Black-Scholes-Merton and Binomial Pricing Models</a></li><li class="breadcrumb-item"><a href="./modsOverview.html">Binomial Tree and BSM Overview and Implementation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -191,7 +191,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Black-Scholes-Merton and Binomial Trees</span></a>
+ <span class="menu-text">Black-Scholes-Merton and Binomial Pricing Models</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -201,6 +201,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./stockOverview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Stock Price Behaviour and Assumptions Under BSM and Binomial Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modsOverview.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Binomial Tree and BSM Overview and Implementation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -228,15 +234,18 @@ window.Quarto = {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#load-libraries" id="toc-load-libraries" class="nav-link" data-scroll-target="#load-libraries">Load Libraries</a></li>
+  <li><a href="#a-note-on-option-payoffs" id="toc-a-note-on-option-payoffs" class="nav-link" data-scroll-target="#a-note-on-option-payoffs">A Note on Option Payoffs</a></li>
   <li><a href="#binomial-model" id="toc-binomial-model" class="nav-link" data-scroll-target="#binomial-model">Binomial Model</a></li>
   <li><a href="#black-scholes-merton" id="toc-black-scholes-merton" class="nav-link" data-scroll-target="#black-scholes-merton">Black-Scholes-Merton</a></li>
+  <li><a href="#put-call-parity-for-european-options" id="toc-put-call-parity-for-european-options" class="nav-link" data-scroll-target="#put-call-parity-for-european-options">Put-Call Parity for European Options</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stockOverview.html">Black-Scholes-Merton and Binomial Pricing Models</a></li><li class="breadcrumb-item"><a href="./modsOverview.html">Binomial Tree and BSM Overview and Implementation</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Binomial Tree and Black-Scholes-Merton Overview and Implementation</h1>
 </div>
@@ -258,16 +267,62 @@ window.Quarto = {
 <p>CPP Pricing Engine<br> Alejandro Naranjo Caraza<br> 2026-03-01</p>
 <section id="overview" class="level4">
 <h4 class="anchored" data-anchor-id="overview">Overview</h4>
-<div id="fc3f640a-52ae-4b67-a7a9-28244c30638f" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, HTML</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The binomial and Black-Scholes-Merton (BSM) models are two fundamental option valuation frameworks. Each has its own advantages and disadvantages. The BSM model has an exact analytic solution for option price and, consequently, can be implemented with exceedingly low runtime (<span class="math inline">O(1)</span>). However, the model does not provide acces to the underlying stock price or option price in the time periods before option maturity. This is especially problematic when working with american options with dividend paying unerlying stock. The binomial model has much greater runtime (<span class="math inline">O(n²)</span>), but calculations are done on a priod-by-perdiod basis, allowing access to the internal dynamics of the process. For this reason, the binomial model is often preferred when working with complex stock payoff structures.</p>
+<p>Both models operate under the following assumptions:</p>
+<ol type="1">
+<li>No-arbitrage: No risk-free profit is possible.</li>
+<li>Constant risk-free rates: The market’s risk-free rate <span class="math inline">r</span> ramains constant during the option’s life.</li>
+<li>Constant volatility: Underlying asset volatility <span class="math inline">\sigma</span> remains constant throughout the life of the option.</li>
+<li>Short selling of securities with full use of proceeds is permitted.</li>
+<li>No transaction costs or taxes</li>
+</ol>
+<p>This document describes the general framework behind the binomial and Black-Scholes-Merton option pricing models. Both models are implemented within the custom C++ option pricing library. A few examples of the library’s usage in Python are aslo provided.</p>
+<p><strong>Notation</strong></p>
+<p>The following notation is used throughout this document:</p>
+<ul>
+<li><span class="math inline">K</span>: Option strike price</li>
+<li><span class="math inline">T</span>: Option maturity</li>
+<li><span class="math inline">f</span>: Option value</li>
+<li><span class="math inline">S_0</span>: Initial (current) stock price</li>
+<li><span class="math inline">S_t</span>: Stock price at time <span class="math inline">t</span></li>
+<li><span class="math inline">u</span>: Growth factor when stock price moves up</li>
+<li><span class="math inline">d</span>: Decrease factor when stock price moves down</li>
+<li><span class="math inline">dt</span>: Continuous time sift</li>
+<li><span class="math inline">\Delta t</span>: Discrete time shift</li>
+</ul>
+<p><strong>Related Material</strong></p>
+<ul>
+<li>Additional test cases (in Python) for the custom implementation of C++ pricing library can be found in <em>insert link</em></li>
+<li><em>Black-Scholes-Merton</em> pricing implementation can be found in <em>insert link</em></li>
+<li><em>Binomial</em> pricing implementation can be found in <em>insert link</em></li>
+<li>The underlying assumptions regarding stock price behaviour can be found in <em>insert link</em></li>
+</ul>
+<hr>
+</section>
+<section id="load-libraries" class="level4">
+<h4 class="anchored" data-anchor-id="load-libraries">Load Libraries</h4>
+<div id="fc3f640a-52ae-4b67-a7a9-28244c30638f" class="cell" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">'../cpp_pricing/build'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pricer</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, HTML</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<hr>
+</section>
+<section id="a-note-on-option-payoffs" class="level4">
+<h4 class="anchored" data-anchor-id="a-note-on-option-payoffs">A Note on Option Payoffs</h4>
+<p>An <em>option</em> is a contract which conveys its holder the right, but not the obligation, to buy or sell a specific quantity of a given asset or instrument. A <em>european option</em> can only be exercised at maturity, meaning the transaction of the underlying asset can occur only at a previously agreed upon time. An <em>american option</em> can be exercised at any time during the life of the option: the transaction can occur before or at maturity. A <em>call option</em> gives the holder the right to buy, while a <em>put option</em> give the holder the right to sell.</p>
+<p>Pyoff from a long position in a call option is <span class="math display">\max(S_0-K,0)</span> Payoff from a long position in a put option is <span class="math display">\max(K-S_0,0)</span> Where <span class="math inline">t=T</span> for a European option and <span class="math inline">t&lt;T</span> for an american option.</p>
+<hr>
 </section>
 <section id="binomial-model" class="level4">
 <h4 class="anchored" data-anchor-id="binomial-model">Binomial Model</h4>
-<p><u>General Overview of Option Valuation</u></p>
-<p>The binomial model for option valuation proposes a multiplicative random walk as a model for stock price behaviour (see <em>insert link</em>). Under this model, the stock price at time <i>t+1</i> is</p>
+<p><strong>General Overview of Option Valuation</strong></p>
+<p>The binomial model for option valuation proposes a multiplicative random walk as a model for stock price behaviour (see <em>insert link</em>). This method was proposed by Cox, Ross and Rubinstein in 1979. The model converges to the Black-Scholes-Merton model as time steps become smaller.</p>
+<p>Under this model, the stock price at time <span class="math inline">t+\Delta t</span> is</p>
 <p><span class="math display">
-S_{t+1} =
+S_{t+\Delta t} =
 \begin{cases}
 u S_t &amp; \text{with probability } p, \quad (u &gt; 1) \\
 d S_t &amp; \text{with probability } 1-p, \quad (d &lt; 1)
@@ -275,7 +330,7 @@ d S_t &amp; \text{with probability } 1-p, \quad (d &lt; 1)
 </span></p>
 <p>That is, if the stock moves up, its value becomes <span class="math inline">S_u = u S_t</span>, and if it moves down, its value becomes <span class="math inline">S_d = d S_t</span>.</p>
 <p>An option with underlying stock price <span class="math inline">S_t</span> is considered. The option’s payoff if the stock moves to <span class="math inline">S_u</span> is <span class="math inline">f_u</span>. If the stock moves to <span class="math inline">S_d</span>, the payoff is <span class="math inline">f_d</span>. An investor can construct a riskless portfolio consisting of a long position in <span class="math inline">\Delta</span> shares of stock and a short position in one option.</p>
-<p>The value of the portfolio at time <i>t+1</i> is</p>
+<p>The value of the portfolio at time <span class="math inline">t+\Delta t</span> is</p>
 <p><span class="math display">
 \begin{align*}
 \Delta S_t u - f_u &amp; \quad \text{if the stock price moves up} \\
@@ -297,22 +352,22 @@ d S_t &amp; \text{with probability } 1-p, \quad (d &lt; 1)
 {S_t (u - d)}
 </span></p>
 <ul>
-<li>The current cost of setting up the portfolio is equal to the present value of the portfolio at time <i>t+1</i> if</li>
+<li>The current cost of setting up the portfolio is equal to the present value of the portfolio at time <span class="math inline">t+\Delta t</span> if</li>
 </ul>
 <span class="math display">
-e^{-r \, dt} (\Delta S_t u - f_u) = e^{-r \, dt} (\Delta S_t d - f_d) = \Delta S_t - f
+e^{-r \, \Delta t} (\Delta S_t u - f_u) = e^{-r \, \Delta t} (\Delta S_t d - f_d) = \Delta S_t - f
 </span> <span class="math display">
-f = e^{-r dt} (p f_u + (1-p) f_d)
+f = e^{-r \Delta t} (p f_u + (1-p) f_d)
 </span>
 <div style="margin-left: 2em;">
-<p>where <span class="math inline">p = \dfrac{a - d}{u - d}</span> is the risk-neutral probability, <span class="math inline">a = e^{r dt}</span>, <span class="math inline">dt</span> is the length of each time step, and <span class="math inline">r</span> is the risk-free interest rate.</p>
+<p>where <span class="math inline">p = \dfrac{a - d}{u - d}</span> is the risk-neutral probability, <span class="math inline">a = e^{r \Delta t}</span> is the risk-free growth factor, <span class="math inline">\Delta t</span> is the length of each time step, and <span class="math inline">r</span> is the risk-free interest rate.</p>
 </div>
 <p><br></p>
-<p><u>Interpretation of the Risk-Neutral Probability</u></p>
+<p><strong>Interpretation of the Risk-Neutral Probability</strong></p>
 <p>The probability <span class="math inline">p</span> used in the binomial pricing formula is called the <em>risk-neutral probability</em>. It does not represent the real-world probability that the stock price will move up.</p>
 <p>Instead, this probability arises from the requirement that arbitrage opportunities must not exist. Because it is possible to construct a hedged portfolio consisting of the stock and the option that eliminates risk, the return on this portfolio must equal the risk-free rate. This condition uniquely determines the risk-neutral probability.</p>
 <p>As a result, the option price can be interpreted as the discounted expected payoff computed using the risk-neutral probability. This does not imply that investors are risk-neutral in reality; rather, prices behave <em>as if</em> investors were risk-neutral because arbitrage prevents any alternative pricing.</p>
-<div id="f754636c-e1a6-4f6c-8f38-c34c55569985" class="cell" data-execution_count="39">
+<div id="f754636c-e1a6-4f6c-8f38-c34c55569985" class="cell" data-execution_count="34">
 <div class="cell-output cell-output-display">
 
 <div style="text-align: center;">
@@ -325,16 +380,97 @@ f = e^{-r dt} (p f_u + (1-p) f_d)
 </div>
 </div>
 </div>
-<p><u>Implementation Details</u></p>
+<p><strong>Pricing Algorithm Overview</strong></p>
 <p>From the equations derived above, the option price at time <span class="math inline">t=t_0</span> (present value) can be calculated by constructing a binomial tree with backward induction:</p>
 <ul>
 <li>First, calculate the stock prices and option payoffs at the final nodes, that is, at maturity (<span class="math inline">t=T</span>).</li>
-<li>Move backwards through the tree. Consider the nodes at <span class="math inline">t = T - dt</span> and calculate the option value using<br>
+<li>Move backwards through the tree. Consider the nodes at <span class="math inline">t = T - \Delta t</span> and calculate the option value using<br>
 <span class="math display">
-f = e^{-r dt} (p f_u + (1-p) f_d)
+f = e^{-r \Delta t} (p f_u + (1-p) f_d)
 </span></li>
 <li>Continue moving backwards through the binomial tree until reaching the node at <span class="math inline">t=0</span>.</li>
 </ul>
+<p><strong>Binomial Pricing Model for American Options</strong></p>
+<p>American options can be exercised at any time prior to maturity <span class="math inline">T</span>. Consequently, when working backwards through the binomial tree, the continuation value at each node is compared with the intrinsic value from immediate exercise. The option value <span class="math inline">f</span> at each node is the maximum of these two quantities.</p>
+<p><strong>Binomial Pricing with Continuous Dividend Yield</strong></p>
+<p>For a stock paying a continuous dividend yield <span class="math inline">q</span>, the expected growth rate under the risk-neutral measure is <span class="math inline">r - q</span>. Accordingly, the expected growth factor per time step is <span class="math inline">a = e^{(r - q)\Delta t}</span>. This adjustment must be incorporated into the binomial pricing model, particularly when computing the risk-neutral probability.</p>
+<p><strong>Binomial Pricing with Known Discrete Dividend Cash Schedule</strong></p>
+<p>When an option’s underlying stock has a known discrete dividend cash schedule, subtracting the dollar amount from the stock’s value at each node at or after the ex-dividend dates results in a non-recombining tree (see <em>insert link</em>).</p>
+<p>An alternative method is to separate the stock price <span class="math inline">S_t</span> into an uncertain component <span class="math inline">S_t^*</span> (used to model the <em>random walk</em>) and a certain component (the present value of future dividends paid during the life of the option).</p>
+<p>For a stock with a single dividend payment <span class="math inline">D</span> and ex-dividend date <span class="math inline">\tau</span>, <span class="math inline">S^*</span> is given by</p>
+<p><span class="math display">
+S^* =
+\begin{cases}
+S &amp; \text{when } i\Delta t &gt; \tau \\[6pt]
+S - D e^{-r(\tau - i\Delta t)} &amp; \text{when } i\Delta t \le \tau
+\end{cases}
+</span></p>
+<p>For a set of dividend payments <span class="math inline">\{D_j : j = 1,2,\ldots,k\}</span> and corresponding ex-dividend dates <span class="math inline">\{\tau_j : j = 1,2,\ldots,k\}</span>:</p>
+<p><span class="math display">
+S^* = S - \sum_{j:\,\tau_j \ge i\Delta t}
+D_j e^{-r(\tau_j - i\Delta t)}
+</span></p>
+<p>Using <span class="math inline">\sigma^*</span>, the volatility of <span class="math inline">S_t^*</span>, a recombining tree that models <span class="math inline">S_t^*</span> can be constructed as before. Adding the corresponding known component at each node results in a tree for <span class="math inline">S_t</span>, and option valuation can then be carried out as before.</p>
+<p>Note: <span class="math inline">\sigma^* = \sigma</span> is sometimes used for model simplicity, while <span class="math inline">\sigma^* = \sigma\dfrac{S}{S^*}</span> is a more accurate approximation.</p>
+<p><strong>Implementation of Binomial Model in C++</strong></p>
+<p>A custom implementation of the binomial model in C++ can be found in <em>insert link</em>. The library supports European and American put and call options, with or without a stock dividend yield, and also accepts a known cash dividend schedule for the underlying stock. Stock objects, option objects, and models are implemented as separate components.</p>
+<p>The following shows an example use case of the library’s binomial pricer in Python.</p>
+<div id="4c086bf9-c54b-4ab1-9bcd-8faebd24c963" class="cell" data-execution_count="35">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define option parameters</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">1</span><span class="co"># Maturity</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="dv">100</span><span class="co">#Strike price</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>optType <span class="op">=</span> <span class="st">'c'</span><span class="co"># Option type (call/put)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>exeType <span class="op">=</span> <span class="st">'e'</span><span class="co"># Exercise type (european/american)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>S0 <span class="op">=</span> <span class="dv">100</span><span class="co"># Start stock price</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.05</span><span class="co"># Risk-free rate</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="fl">0.05</span><span class="co"># Dividend yield</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">0.2</span><span class="co"># Stock volatility</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>divCash <span class="op">=</span> [</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span><span class="op">/</span><span class="dv">12</span>, <span class="dv">1</span>],</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">3</span><span class="op">/</span><span class="dv">12</span>, <span class="fl">0.5</span>],</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">9</span><span class="op">/</span><span class="dv">12</span>, <span class="fl">0.3</span>]</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>]<span class="co"># Dividend cash schedule</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Build option object</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>vanillaOption <span class="op">=</span> pricer.makeVanillaOption(K,T,optType,exeType)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Build stock object</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>stock <span class="op">=</span> pricer.makeStock(S0,<span class="fl">0.0</span>)<span class="co"># Stock with no dividends</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>stockWithYield <span class="op">=</span> pricer.makeStock(S0,q)<span class="co"># Stock with continuous dividend yield</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>stockWithDivCash <span class="op">=</span> pricer.makeStock(S0,<span class="fl">0.0</span>,divCash)<span class="co"># Stock with dividend cash schedule</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Build binomial models</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>binomial <span class="op">=</span> pricer.makeBinomial(vanillaOption,stock,r,sigma)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>binomialWithYield <span class="op">=</span> pricer.makeBinomial(vanillaOption,stockWithYield,r,sigma)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>binomialWithDivCash <span class="op">=</span> pricer.makeBinomial(vanillaOption,stockWithDivCash,r,sigma)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Get price through binomial tree</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Price - Underlying Stock with No Dividends"</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(binomial.getPrice(),<span class="dv">2</span>),<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Price - Underlying Stock with Continuous Yield"</span>)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(binomialWithYield.getPrice(),<span class="dv">2</span>),<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Price - Underlying Stock with Dividend Cash Schedule"</span>)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(binomialWithDivCash.getPrice(),<span class="dv">2</span>),<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Price - Underlying Stock with No Dividends
+10.43 
+
+Price - Underlying Stock with Continuous Yield
+7.56 
+
+Price - Underlying Stock with Dividend Cash Schedule
+9.37 
+</code></pre>
+</div>
+</div>
+<hr>
 </section>
 <section id="black-scholes-merton" class="level4">
 <h4 class="anchored" data-anchor-id="black-scholes-merton">Black-Scholes-Merton</h4>
@@ -371,7 +507,165 @@ d\Pi = r \Pi dt
 </span> <span class="math display">
 \dfrac{\partial f}{\partial t} + rS\dfrac{\partial f}{\partial S} + \dfrac{1}{2}\sigma²S²\dfrac{\partial² f}{\partial S²} = rf
 </span></p>
-<p>is the Black-Scholes-Merton differential equation.</p>
+<p>is the Black-Scholes-Merton differential equation.<br> The equation has the following analytic solution (see <em>insert link</em>):</p>
+<p><span class="math display">
+\begin{align*}
+c &amp;= S_0 N(d_1) - K e^{-rT} N(d_2) \\
+p &amp;= K e^{-rT} N(-d_2) - S_0 N(-d_1)
+\end{align*}
+</span></p>
+<p>with</p>
+<p><span class="math display">
+\begin{align*}
+d_1 &amp;= \dfrac{\ln(S_0/K) + \left(r + \frac{\sigma^2}{2}\right)T}
+{\sigma \sqrt{T}} \\
+d_2 &amp;= \dfrac{\ln(S_0/K) + \left(r - \frac{\sigma^2}{2}\right)T}
+{\sigma \sqrt{T}}
+= d_1 - \sigma \sqrt{T}
+\end{align*}
+</span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">c</span> is the call option’s price</li>
+<li><span class="math inline">p</span> is a put option’s price</li>
+<li><span class="math inline">N(.)</span> is the cumulative distribution function of a standard normal random variable.</li>
+</ul>
+<p><strong>Implementation Details</strong></p>
+<p>Since the Black–Scholes–Merton (BSM) differential equation admits a closed-form analytic solution under standard model assumptions, implementation of the model for option valuation reduces to a direct calculation given the required input variables.</p>
+<p><strong>BSM Pricing Model for American Options</strong></p>
+<p>Notice that BSM’s closed form solution assumes exercise at maturity <span class="math inline">T</span>. Methods for taking into account early exercise have been proposed, but are generally discarded in favour of other modeling methods.</p>
+<p>However, american call options with no dividends should never be exercised early, in which case, BSM does yield the correct price. In general,</p>
+<ul>
+<li>American call with dividends -&gt; can be exercised early (BSM not optimal)</li>
+<li>American call without dividends -&gt; should not be exercised early (BSM works)</li>
+<li>American put with dividends -&gt; can be exercised early (BSM not optimal)</li>
+<li>American put without dividends -&gt; can be exercised early (BSM not optimal)</li>
+</ul>
+<p>Note that, in the case of american put options with dividends, BSM does yield a lower bound: <span class="math display">
+P_{American} \geq P_{European}
+</span></p>
+<p><strong>BSM Pricing Model with Continuous Dividend Yield</strong></p>
+<p>In similar fashion to the binomial model, under the risk-neutral measure, a stock paying a continuous dividend yield <span class="math inline">q</span> has expected growth rate <span class="math inline">r − q</span>.</p>
+<p>This results in the following stochastic differential equation:</p>
+<p><span class="math display">
+dS_t = (r - q) S_t \, dt + \sigma S_t \, dW_t
+</span></p>
+<p>With this adjustment, the solution yields:</p>
+<p><span class="math display">
+\begin{align*}
+c &amp;= S_0 e^{-qT} N(d_1) - K e^{-rT} N(d_2) \\
+p &amp;= K e^{-rT} N(-d_2) - S_0 e^{-qT} N(-d_1)
+\end{align*}
+</span></p>
+<p>with</p>
+<p><span class="math display">
+\begin{align*}
+d_1 &amp;= \dfrac{\ln(S_0/K) + \left(r - q + \frac{\sigma^2}{2}\right)T}
+{\sigma \sqrt{T}} \\
+d_2 &amp;= \dfrac{\ln(S_0/K) + \left(r - q - \frac{\sigma^2}{2}\right)T}
+{\sigma \sqrt{T}}
+= d_1 - \sigma \sqrt{T}
+\end{align*}
+</span></p>
+<p><strong>BSM Pricing Model with Known Dividend Cash Schedule</strong></p>
+<p>The method for taking into account a known dividend cash schedule in the Black–Scholes–Merton model is similar to that used in the binomial model: the stock price is separated into a risky component <span class="math inline">S^*</span> and a deterministic component.</p>
+<p>Recall</p>
+<p><span class="math display">
+S^* = S - \sum_{j:\,\tau_j \ge i\Delta t}
+D_j e^{-r(\tau_j - i\Delta t)}
+</span></p>
+<p>However, since the Black–Scholes–Merton model yields a closed-form solution and <span class="math inline">S_T^* = S_T</span> (the stock price at maturity), one can simply compute <span class="math inline">S_0^*</span>, the risky component at <span class="math inline">t=0</span>, with <span class="math inline">\sigma^*</span>, the volatility of <span class="math inline">S^*</span>, and substitute these into the Black–Scholes–Merton formula.</p>
+<p><strong>Implementation of Black-Scholes-Merton Model in C++</strong></p>
+<p>A custom implementation of the BSM model in C++ can be found in <em>insert link</em>. The BSM model only supports American put and call options, with or without a stock dividend yield. It does not support known cash dividend schedules for the underlying stock. Stock objects, option objects, and models are implemented as separate components.</p>
+<p>The following shows an example use case of the library’s BSM pricer in Python. Notice that the prices obtained through BSM are close to those obtained through the binomial model.</p>
+<div id="3a95f9b8-9fcc-4faa-a03c-d4b733440d8f" class="cell" data-execution_count="36">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>optType <span class="op">=</span> <span class="st">'c'</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>exeType <span class="op">=</span> <span class="st">'e'</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>S0 <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Build option object</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>vanillaOption <span class="op">=</span> pricer.makeVanillaOption(K,T,optType,exeType)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Build stock object</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>stock <span class="op">=</span> pricer.makeStock(S0,<span class="fl">0.0</span>)<span class="co"># Stock with no dividends</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>stockWithYield <span class="op">=</span> pricer.makeStock(S0,q)<span class="co"># Stock with continuous dividend yield</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Build BSM models</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>bsm <span class="op">=</span> pricer.makeBSM(vanillaOption,stock,r,sigma)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>bsmWithYield <span class="op">=</span> pricer.makeBSM(vanillaOption,stockWithYield,r,sigma)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Get price through binomial tree</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Price - Underlying Stock with No Dividends"</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(bsm.getPrice(),<span class="dv">2</span>),<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Price - Underlying Stock with Continuous Yield"</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(bsmWithYield.getPrice(),<span class="dv">2</span>),<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Price - Underlying Stock with No Dividends
+10.45 
+
+Price - Underlying Stock with Continuous Yield
+7.58 
+</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="put-call-parity-for-european-options" class="level4">
+<h4 class="anchored" data-anchor-id="put-call-parity-for-european-options">Put-Call Parity for European Options</h4>
+<p>Under the assumptions stated above, put-call parity must be satisfied: a portfolio of a long position in a european call and a short position in a european put should be equivalent and the same value as a single forward contract at the same maturity <span class="math inline">T</span> and strike price <span class="math inline">K</span>. If, at maturity, the stock price is larger than than the strike price, the call option will be exercised; if maturity is larger, the put will be exercised. In both cases, this results in the transaction of one unit of the asset for <span class="math inline">K</span>, same as in a forward contract.</p>
+<p>As such, this means that the following equation must be satisfied:</p>
+<p><span class="math display">
+C - P = S_0 - K e^{-rT}
+</span></p>
+<p>or, if the underlying stock has a continuous dividend yield <span class="math inline">q</span>:</p>
+<p><span class="math display">
+C - P = S_0 e^{-qT} - K e^{-rT}
+</span></p>
+<p>The following code verifies put-call parity for an option with maturity <span class="math inline">T = 1</span> year, strike price <span class="math inline">K = 100</span>, underlying stock price <span class="math inline">S_0 = 100</span>, risk-free rate <span class="math inline">r = 5\%</span>, and stock volatility <span class="math inline">\sigma = 20\%</span>.</p>
+<div id="813e86d2-a2bf-4ba7-a07f-54cdb5a22810" class="cell" data-execution_count="39">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>S0 <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Build option objects</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>callOpt <span class="op">=</span> pricer.makeVanillaOption(K,T,<span class="st">'c'</span>,<span class="st">'e'</span>)<span class="co"># Call option</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>putOpt <span class="op">=</span> pricer.makeVanillaOption(K,T,<span class="st">'p'</span>,<span class="st">'e'</span>)<span class="co"># Put option</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Build stock object</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>stock <span class="op">=</span> pricer.makeStock(S0,q)<span class="co"># Stock with continuous dividend yield</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Build BSM models</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>bsmCall <span class="op">=</span> pricer.makeBSM(callOpt,stock,r,sigma)<span class="co"># BSM with call option</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>bsmPut <span class="op">=</span> pricer.makeBSM(putOpt,stock,r,sigma)<span class="co">#BSM with put option</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Get price</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>callPrice <span class="op">=</span> bsmCall.getPrice()</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>putPrice <span class="op">=</span> bsmPut.getPrice()</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Call - Put : '</span>,<span class="bu">round</span>(callPrice <span class="op">-</span> putPrice,<span class="dv">2</span>))</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Forward Price: '</span>,<span class="bu">round</span>(S0 <span class="op">*</span> np.exp(<span class="op">-</span>q<span class="op">*</span>T) <span class="op">-</span> K <span class="op">*</span> np.exp(<span class="op">-</span>r<span class="op">*</span>T),<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call - Put :  3.88
+Forward Price:  3.88</code></pre>
+</div>
+</div>
 
 
 </section>

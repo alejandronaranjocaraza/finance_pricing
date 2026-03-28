@@ -162,7 +162,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stockOverview.html">Black-Scholes-Merton and Binomial Trees</a></li><li class="breadcrumb-item"><a href="./volSmile.html">Implied Volatility, Volatility Smiles and Volatility Surfaces</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stockOverview.html">Black-Scholes-Merton and Binomial Pricing Models</a></li><li class="breadcrumb-item"><a href="./volSmile.html">Implied Volatility, Volatility Smiles and Volatility Surfaces</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -191,7 +191,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Black-Scholes-Merton and Binomial Trees</span></a>
+ <span class="menu-text">Black-Scholes-Merton and Binomial Pricing Models</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -201,6 +201,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./stockOverview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Stock Price Behaviour and Assumptions Under BSM and Binomial Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modsOverview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Binomial Tree and BSM Overview and Implementation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -241,7 +247,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stockOverview.html">Black-Scholes-Merton and Binomial Trees</a></li><li class="breadcrumb-item"><a href="./volSmile.html">Implied Volatility, Volatility Smiles and Volatility Surfaces</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stockOverview.html">Black-Scholes-Merton and Binomial Pricing Models</a></li><li class="breadcrumb-item"><a href="./volSmile.html">Implied Volatility, Volatility Smiles and Volatility Surfaces</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Implied Volatility, Volatility Smiles and Volatility Surfaces</h1>
 </div>
@@ -284,6 +290,7 @@ P_{\min} &amp;= \max \big(K e^{-r T} - F,\ 0 \big) &amp;\quad&amp; P_{\max} = K 
 <p>with <span class="math display">F = S_0 e^{(r-q) T}</span></p>
 <p>Note that if a Put Option’s price is below the lower bound <span class="math inline">P_{min}</span>, an arbitrageur can buy the underlying forward and buy the Put Option. At maturity, the Put can be exercised to sell the underlying forward at the strike price, generating a risk-free profit.</p>
 <p>If a Put Option’s price exceeds its upper bound <span class="math inline">P_{max}</span>, an arbitrageur can sell the Put Option and sell the underlying forward. At maturity, the Put’s obligation will be offset by the forward position, resulting in a risk-free profit.</p>
+<hr>
 </section>
 <section id="library-import" class="level4">
 <h4 class="anchored" data-anchor-id="library-import">Library Import</h4>
@@ -299,6 +306,7 @@ P_{\min} &amp;= \max \big(K e^{-r T} - F,\ 0 \big) &amp;\quad&amp; P_{\max} = K 
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<hr>
 </section>
 <section id="import-options-data" class="level4">
 <h4 class="anchored" data-anchor-id="import-options-data">Import Options Data</h4>
@@ -314,10 +322,8 @@ P_{\min} &amp;= \max \big(K e^{-r T} - F,\ 0 \big) &amp;\quad&amp; P_{\max} = K 
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Current price:</span><span class="ch">\t</span><span class="st">'</span>,<span class="bu">round</span>(current_price,<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Expiry dates:
-     2026-03-20
-     2026-03-23
-     2026-03-25
-     2026-03-27
+     2026-03-30
+     2026-04-01
      2026-04-02
      2026-04-10
      2026-04-17
@@ -338,7 +344,7 @@ P_{\min} &amp;= \max \big(K e^{-r T} - F,\ 0 \big) &amp;\quad&amp; P_{\max} = K 
      2028-01-21
      2028-03-17
      2028-12-15
-Current price:   248.96</code></pre>
+Current price:   248.8</code></pre>
 </div>
 </div>
 <div id="2f1e8dca-e05b-469a-af24-d4ab86ef1ef0" class="cell" data-execution_count="4">
@@ -387,30 +393,30 @@ Current price:   248.96</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>all_calls.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.DataFrame'&gt;
-RangeIndex: 1355 entries, 0 to 1354
+RangeIndex: 1239 entries, 0 to 1238
 Data columns (total 18 columns):
  #   Column             Non-Null Count  Dtype             
 ---  ------             --------------  -----             
- 0   contractSymbol     1355 non-null   str               
- 1   lastTradeDate      1355 non-null   datetime64[s, UTC]
- 2   strike             1355 non-null   float64           
- 3   lastPrice          1355 non-null   float64           
- 4   bid                1352 non-null   float64           
- 5   ask                1355 non-null   float64           
- 6   change             1355 non-null   float64           
- 7   percentChange      1355 non-null   float64           
- 8   volume             1325 non-null   float64           
- 9   openInterest       1355 non-null   int64             
- 10  impliedVolatility  1355 non-null   float64           
- 11  inTheMoney         1355 non-null   bool              
- 12  contractSize       1355 non-null   str               
- 13  currency           1355 non-null   str               
- 14  T                  1355 non-null   float64           
- 15  F                  1355 non-null   float64           
- 16  moneyness          1355 non-null   float64           
- 17  logMoneyness       1355 non-null   float64           
+ 0   contractSymbol     1239 non-null   str               
+ 1   lastTradeDate      1239 non-null   datetime64[s, UTC]
+ 2   strike             1239 non-null   float64           
+ 3   lastPrice          1239 non-null   float64           
+ 4   bid                1239 non-null   float64           
+ 5   ask                1239 non-null   float64           
+ 6   change             1239 non-null   float64           
+ 7   percentChange      1239 non-null   float64           
+ 8   volume             1213 non-null   float64           
+ 9   openInterest       1239 non-null   int64             
+ 10  impliedVolatility  1239 non-null   float64           
+ 11  inTheMoney         1239 non-null   bool              
+ 12  contractSize       1239 non-null   str               
+ 13  currency           1239 non-null   str               
+ 14  T                  1239 non-null   float64           
+ 15  F                  1239 non-null   float64           
+ 16  moneyness          1239 non-null   float64           
+ 17  logMoneyness       1239 non-null   float64           
 dtypes: bool(1), datetime64[s, UTC](1), float64(12), int64(1), str(3)
-memory usage: 181.4 KB</code></pre>
+memory usage: 165.9 KB</code></pre>
 </div>
 </div>
 <div id="1b058045-4fac-4896-9cc5-9e9a41e0b4e7" class="cell" data-execution_count="6">
@@ -446,108 +452,108 @@ memory usage: 181.4 KB</code></pre>
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
-<td>AAPL260320C00090000</td>
-<td>2026-02-27 19:51:44+00:00</td>
-<td>90.0</td>
-<td>175.67</td>
-<td>157.1</td>
-<td>160.65</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>13.0</td>
-<td>59</td>
-<td>11.582034</td>
+<td>AAPL260330C00200000</td>
+<td>2026-03-23 13:42:46+00:00</td>
+<td>200.0</td>
+<td>53.42</td>
+<td>46.75</td>
+<td>50.65</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>10.0</td>
+<td>16</td>
+<td>1.894532</td>
 <td>True</td>
 <td>REGULAR</td>
 <td>USD</td>
-<td>0.002738</td>
-<td>248.987273</td>
-<td>2.766525</td>
-<td>1.017592</td>
+<td>0.005476</td>
+<td>248.854503</td>
+<td>1.244273</td>
+<td>0.218551</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
-<td>AAPL260320C00095000</td>
-<td>2026-01-14 15:41:07+00:00</td>
-<td>95.0</td>
-<td>165.52</td>
-<td>163.1</td>
-<td>167.00</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>7.0</td>
-<td>1</td>
-<td>18.184575</td>
+<td>AAPL260330C00225000</td>
+<td>2026-03-27 17:31:37+00:00</td>
+<td>225.0</td>
+<td>25.72</td>
+<td>22.15</td>
+<td>25.60</td>
+<td>-3.230001</td>
+<td>-11.157172</td>
+<td>18.0</td>
+<td>22</td>
+<td>0.529302</td>
 <td>True</td>
 <td>REGULAR</td>
 <td>USD</td>
-<td>0.002738</td>
-<td>248.987273</td>
-<td>2.620919</td>
-<td>0.963525</td>
+<td>0.005476</td>
+<td>248.854503</td>
+<td>1.106020</td>
+<td>0.100768</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
-<td>AAPL260320C00100000</td>
-<td>2026-03-16 17:40:08+00:00</td>
-<td>100.0</td>
-<td>153.34</td>
-<td>147.0</td>
-<td>150.75</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>5.0</td>
-<td>53</td>
-<td>10.609378</td>
+<td>AAPL260330C00230000</td>
+<td>2026-03-26 14:20:36+00:00</td>
+<td>230.0</td>
+<td>25.41</td>
+<td>17.60</td>
+<td>20.65</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>4.0</td>
+<td>3</td>
+<td>0.562504</td>
 <td>True</td>
 <td>REGULAR</td>
 <td>USD</td>
-<td>0.002738</td>
-<td>248.987273</td>
-<td>2.489873</td>
-<td>0.912232</td>
+<td>0.005476</td>
+<td>248.854503</td>
+<td>1.081976</td>
+<td>0.078789</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
-<td>AAPL260320C00105000</td>
-<td>2026-01-23 20:05:45+00:00</td>
-<td>105.0</td>
-<td>143.15</td>
-<td>153.1</td>
-<td>157.00</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>1.0</td>
-<td>27</td>
-<td>16.561528</td>
+<td>AAPL260330C00235000</td>
+<td>2026-03-27 19:28:17+00:00</td>
+<td>235.0</td>
+<td>13.92</td>
+<td>12.65</td>
+<td>15.30</td>
+<td>-7.129999</td>
+<td>-33.871730</td>
+<td>26.0</td>
+<td>3</td>
+<td>0.692630</td>
 <td>True</td>
 <td>REGULAR</td>
 <td>USD</td>
-<td>0.002738</td>
-<td>248.987273</td>
-<td>2.371307</td>
-<td>0.863441</td>
+<td>0.005476</td>
+<td>248.854503</td>
+<td>1.058955</td>
+<td>0.057283</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">4</th>
-<td>AAPL260320C00110000</td>
-<td>2026-03-17 13:55:46+00:00</td>
+<td>AAPL260330C00240000</td>
+<td>2026-03-27 19:36:27+00:00</td>
+<td>240.0</td>
+<td>9.26</td>
+<td>8.30</td>
+<td>10.15</td>
+<td>-6.969999</td>
+<td>-42.945160</td>
 <td>110.0</td>
-<td>144.60</td>
-<td>137.0</td>
-<td>140.75</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>345.0</td>
-<td>244</td>
-<td>9.613285</td>
+<td>30</td>
+<td>0.500982</td>
 <td>True</td>
 <td>REGULAR</td>
 <td>USD</td>
-<td>0.002738</td>
-<td>248.987273</td>
-<td>2.263521</td>
-<td>0.816921</td>
+<td>0.005476</td>
+<td>248.854503</td>
+<td>1.036894</td>
+<td>0.036229</td>
 </tr>
 </tbody>
 </table>
@@ -559,30 +565,30 @@ memory usage: 181.4 KB</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>all_puts.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.DataFrame'&gt;
-RangeIndex: 1200 entries, 0 to 1199
+RangeIndex: 1081 entries, 0 to 1080
 Data columns (total 18 columns):
  #   Column             Non-Null Count  Dtype             
 ---  ------             --------------  -----             
- 0   contractSymbol     1200 non-null   str               
- 1   lastTradeDate      1200 non-null   datetime64[s, UTC]
- 2   strike             1200 non-null   float64           
- 3   lastPrice          1200 non-null   float64           
- 4   bid                1197 non-null   float64           
- 5   ask                1200 non-null   float64           
- 6   change             1200 non-null   float64           
- 7   percentChange      1200 non-null   float64           
- 8   volume             1144 non-null   float64           
- 9   openInterest       1195 non-null   float64           
- 10  impliedVolatility  1200 non-null   float64           
- 11  inTheMoney         1200 non-null   bool              
- 12  contractSize       1200 non-null   str               
- 13  currency           1200 non-null   str               
- 14  T                  1200 non-null   float64           
- 15  F                  1200 non-null   float64           
- 16  moneyness          1200 non-null   float64           
- 17  logMoneyness       1200 non-null   float64           
-dtypes: bool(1), datetime64[s, UTC](1), float64(13), str(3)
-memory usage: 160.7 KB</code></pre>
+ 0   contractSymbol     1081 non-null   str               
+ 1   lastTradeDate      1081 non-null   datetime64[s, UTC]
+ 2   strike             1081 non-null   float64           
+ 3   lastPrice          1081 non-null   float64           
+ 4   bid                1081 non-null   float64           
+ 5   ask                1081 non-null   float64           
+ 6   change             1081 non-null   float64           
+ 7   percentChange      1081 non-null   float64           
+ 8   volume             1034 non-null   float64           
+ 9   openInterest       1081 non-null   int64             
+ 10  impliedVolatility  1081 non-null   float64           
+ 11  inTheMoney         1081 non-null   bool              
+ 12  contractSize       1081 non-null   str               
+ 13  currency           1081 non-null   str               
+ 14  T                  1081 non-null   float64           
+ 15  F                  1081 non-null   float64           
+ 16  moneyness          1081 non-null   float64           
+ 17  logMoneyness       1081 non-null   float64           
+dtypes: bool(1), datetime64[s, UTC](1), float64(12), int64(1), str(3)
+memory usage: 144.8 KB</code></pre>
 </div>
 </div>
 <div id="2a623427-c445-4997-be9a-4b124b154942" class="cell" data-execution_count="8">
@@ -618,108 +624,108 @@ memory usage: 160.7 KB</code></pre>
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
-<td>AAPL260320P00090000</td>
-<td>2026-03-06 17:16:58+00:00</td>
-<td>90.0</td>
+<td>AAPL260330P00180000</td>
+<td>2026-03-20 16:21:52+00:00</td>
+<td>180.0</td>
+<td>0.10</td>
+<td>0.00</td>
 <td>0.01</td>
-<td>0.0</td>
-<td>0.01</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>50.0</td>
-<td>1749.0</td>
-<td>5.750003</td>
+<td>0.00</td>
+<td>0.00000</td>
+<td>1.0</td>
+<td>1</td>
+<td>1.125004</td>
 <td>False</td>
 <td>REGULAR</td>
 <td>USD</td>
-<td>0.002738</td>
-<td>248.987273</td>
-<td>2.766525</td>
-<td>1.017592</td>
+<td>0.005476</td>
+<td>248.854503</td>
+<td>1.382525</td>
+<td>0.323912</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
-<td>AAPL260320P00095000</td>
-<td>2026-03-10 14:01:03+00:00</td>
-<td>95.0</td>
-<td>0.02</td>
-<td>0.0</td>
+<td>AAPL260330P00200000</td>
+<td>2026-03-27 19:42:44+00:00</td>
+<td>200.0</td>
+<td>0.05</td>
 <td>0.01</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>1.0</td>
-<td>262.0</td>
-<td>5.500003</td>
+<td>0.04</td>
+<td>0.02</td>
+<td>66.66667</td>
+<td>51.0</td>
+<td>90</td>
+<td>0.914063</td>
 <td>False</td>
 <td>REGULAR</td>
 <td>USD</td>
-<td>0.002738</td>
-<td>248.987273</td>
-<td>2.620919</td>
-<td>0.963525</td>
+<td>0.005476</td>
+<td>248.854503</td>
+<td>1.244273</td>
+<td>0.218551</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
-<td>AAPL260320P00100000</td>
-<td>2026-03-13 18:44:02+00:00</td>
-<td>100.0</td>
-<td>0.01</td>
-<td>0.0</td>
-<td>0.01</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>100.0</td>
-<td>867.0</td>
-<td>5.250003</td>
+<td>AAPL260330P00205000</td>
+<td>2026-03-24 13:30:01+00:00</td>
+<td>205.0</td>
+<td>0.04</td>
+<td>0.00</td>
+<td>0.27</td>
+<td>0.00</td>
+<td>0.00000</td>
+<td>2.0</td>
+<td>1007</td>
+<td>1.017583</td>
 <td>False</td>
 <td>REGULAR</td>
 <td>USD</td>
-<td>0.002738</td>
-<td>248.987273</td>
-<td>2.489873</td>
-<td>0.912232</td>
+<td>0.005476</td>
+<td>248.854503</td>
+<td>1.213924</td>
+<td>0.193858</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
-<td>AAPL260320P00105000</td>
-<td>2026-02-09 19:46:14+00:00</td>
-<td>105.0</td>
-<td>0.02</td>
-<td>0.0</td>
+<td>AAPL260330P00210000</td>
+<td>2026-03-27 18:03:03+00:00</td>
+<td>210.0</td>
 <td>0.01</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>106.0</td>
-<td>536.0</td>
-<td>5.000004</td>
+<td>0.00</td>
+<td>0.22</td>
+<td>-0.07</td>
+<td>-87.50000</td>
+<td>1.0</td>
+<td>6</td>
+<td>0.878907</td>
 <td>False</td>
 <td>REGULAR</td>
 <td>USD</td>
-<td>0.002738</td>
-<td>248.987273</td>
-<td>2.371307</td>
-<td>0.863441</td>
+<td>0.005476</td>
+<td>248.854503</td>
+<td>1.185021</td>
+<td>0.169761</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">4</th>
-<td>AAPL260320P00110000</td>
-<td>2026-03-10 16:32:42+00:00</td>
-<td>110.0</td>
+<td>AAPL260330P00215000</td>
+<td>2026-03-27 17:26:17+00:00</td>
+<td>215.0</td>
 <td>0.01</td>
-<td>0.0</td>
-<td>0.01</td>
-<td>0.0</td>
-<td>0.0</td>
-<td>25.0</td>
-<td>437.0</td>
-<td>4.750004</td>
+<td>0.00</td>
+<td>0.03</td>
+<td>0.00</td>
+<td>0.00000</td>
+<td>2.0</td>
+<td>27</td>
+<td>0.601566</td>
 <td>False</td>
 <td>REGULAR</td>
 <td>USD</td>
-<td>0.002738</td>
-<td>248.987273</td>
-<td>2.263521</td>
-<td>0.816921</td>
+<td>0.005476</td>
+<td>248.854503</td>
+<td>1.157463</td>
+<td>0.146230</td>
 </tr>
 </tbody>
 </table>
@@ -727,6 +733,7 @@ memory usage: 160.7 KB</code></pre>
 </div>
 </div>
 </div>
+<hr>
 </section>
 <section id="get-implied-volatility-through-pricing-engine" class="level4">
 <h4 class="anchored" data-anchor-id="get-implied-volatility-through-pricing-engine">Get Implied Volatility Through Pricing Engine</h4>
@@ -805,26 +812,22 @@ memory usage: 160.7 KB</code></pre>
 <span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>        dtes.append(T)</span>
 <span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ivs, moneyness, log_moneyness, dtes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<hr>
 </section>
 <section id="call-option-volatility-smile" class="level4">
 <h4 class="anchored" data-anchor-id="call-option-volatility-smile">Call Option Volatility Smile</h4>
 <div id="ed754267-fcd2-4143-aaf0-2713a40f432a" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ivs, moneyness, log_moneyness, dtes <span class="op">=</span> getVol(all_calls, <span class="st">'c'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Warning. Incompatible vol found. Vol =  4.99999999996362
-Warning. Incompatible vol found. Vol =  4.99999999996362
-Warning. Incompatible vol found. Vol =  4.99999999996362</code></pre>
-</div>
 </div>
 <div id="9ff532a5-e4ce-4101-aada-020200447172" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"x"</span>: log_moneyness, <span class="st">"iv"</span>: ivs})</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.sort_values(<span class="st">"x"</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"iv_smooth"</span>] <span class="op">=</span> df[<span class="st">"iv"</span>].rolling(<span class="dv">30</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>plt.plot(df[<span class="st">"x"</span>], df[<span class="st">"iv_smooth"</span>])</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"log moneyness (K/S)"</span>)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Implied volatility"</span>)</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"x"</span>: log_moneyness, <span class="st">"iv"</span>: ivs})</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.sort_values(<span class="st">"x"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"iv_smooth"</span>] <span class="op">=</span> df[<span class="st">"iv"</span>].rolling(<span class="dv">30</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>plt.plot(df[<span class="st">"x"</span>], df[<span class="st">"iv_smooth"</span>])</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"log moneyness (K/S)"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Implied volatility"</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -833,38 +836,39 @@ Warning. Incompatible vol found. Vol =  4.99999999996362</code></pre>
 </div>
 </div>
 </div>
+<hr>
 </section>
 <section id="call-option-volatility-surface" class="level4">
 <h4 class="anchored" data-anchor-id="call-option-volatility-surface">Call Option Volatility Surface</h4>
-<div id="43d91a4b-be58-4eae-8e4f-ebae590387a5" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline  </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>),</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    dpi<span class="op">=</span><span class="dv">150</span>,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    subplot_kw<span class="op">=</span>{<span class="st">"projection"</span>: <span class="st">"3d"</span>}</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>surf <span class="op">=</span> ax.plot_trisurf(</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    moneyness,</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    dtes,</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    ivs,</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"viridis"</span>,</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="fl">0.2</span>,</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    antialiased<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.85</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Moneyness (S/K)"</span>, labelpad<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Time to Expiration (T)"</span>, labelpad<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">"Implied Volatility"</span>, labelpad<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>ax.view_init(elev<span class="op">=</span><span class="dv">20</span>, azim<span class="op">=-</span><span class="dv">45</span>)</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>fig.colorbar(surf, ax<span class="op">=</span>ax, shrink<span class="op">=</span><span class="fl">0.6</span>, aspect<span class="op">=</span><span class="dv">10</span>, pad<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="43d91a4b-be58-4eae-8e4f-ebae590387a5" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline  </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    dpi<span class="op">=</span><span class="dv">150</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    subplot_kw<span class="op">=</span>{<span class="st">"projection"</span>: <span class="st">"3d"</span>}</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>surf <span class="op">=</span> ax.plot_trisurf(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    moneyness,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    dtes,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    ivs,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"viridis"</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="fl">0.2</span>,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    antialiased<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.85</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Moneyness (S/K)"</span>, labelpad<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Time to Expiration (T)"</span>, labelpad<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">"Implied Volatility"</span>, labelpad<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>ax.view_init(elev<span class="op">=</span><span class="dv">20</span>, azim<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>fig.colorbar(surf, ax<span class="op">=</span>ax, shrink<span class="op">=</span><span class="fl">0.6</span>, aspect<span class="op">=</span><span class="dv">10</span>, pad<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -873,24 +877,22 @@ Warning. Incompatible vol found. Vol =  4.99999999996362</code></pre>
 </div>
 </div>
 </div>
+<hr>
 </section>
 <section id="put-option-volatility-smile" class="level4">
 <h4 class="anchored" data-anchor-id="put-option-volatility-smile">Put Option Volatility Smile</h4>
 <div id="d5d90bb4-5ef5-47e1-8984-349666328032" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ivs, moneyness, log_moneyness, dtes <span class="op">=</span> getVol(all_puts, <span class="st">'p'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Warning. Incompatible vol found. Vol =  4.99999999996362</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ivs, moneyness, log_moneyness, dtes <span class="op">=</span> getVol(all_puts, <span class="st">'p'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="a1c4a8e2-1b84-4b29-93eb-dae25f9dc694" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"x"</span>: log_moneyness, <span class="st">"iv"</span>: ivs})</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.sort_values(<span class="st">"x"</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"iv_smooth"</span>] <span class="op">=</span> df[<span class="st">"iv"</span>].rolling(<span class="dv">30</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.plot(df[<span class="st">"x"</span>], df[<span class="st">"iv_smooth"</span>])</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"log moneyness (K/S)"</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Implied volatility"</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"x"</span>: log_moneyness, <span class="st">"iv"</span>: ivs})</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.sort_values(<span class="st">"x"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"iv_smooth"</span>] <span class="op">=</span> df[<span class="st">"iv"</span>].rolling(<span class="dv">30</span>, center<span class="op">=</span><span class="va">True</span>).mean()</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>plt.plot(df[<span class="st">"x"</span>], df[<span class="st">"iv_smooth"</span>])</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"log moneyness (K/S)"</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Implied volatility"</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -899,38 +901,39 @@ Warning. Incompatible vol found. Vol =  4.99999999996362</code></pre>
 </div>
 </div>
 </div>
+<hr>
 </section>
 <section id="put-option-volatility-surface" class="level4">
 <h4 class="anchored" data-anchor-id="put-option-volatility-surface">Put Option Volatility Surface</h4>
 <div id="6fec2e09-fc0a-4a80-92ae-d762908f1ed0" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline  </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>),</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    dpi<span class="op">=</span><span class="dv">150</span>,</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    subplot_kw<span class="op">=</span>{<span class="st">"projection"</span>: <span class="st">"3d"</span>}</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>surf <span class="op">=</span> ax.plot_trisurf(</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    moneyness,</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    dtes,</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    ivs,</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"viridis"</span>,</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="fl">0.2</span>,</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    antialiased<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.85</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Moneyness (S/K)"</span>, labelpad<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Time to Expiration (T)"</span>, labelpad<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">"Implied Volatility"</span>, labelpad<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>ax.view_init(elev<span class="op">=</span><span class="dv">20</span>, azim<span class="op">=</span><span class="dv">20</span>)</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>fig.colorbar(surf, ax<span class="op">=</span>ax, shrink<span class="op">=</span><span class="fl">0.6</span>, aspect<span class="op">=</span><span class="dv">10</span>, pad<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline  </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    dpi<span class="op">=</span><span class="dv">150</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    subplot_kw<span class="op">=</span>{<span class="st">"projection"</span>: <span class="st">"3d"</span>}</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>surf <span class="op">=</span> ax.plot_trisurf(</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    moneyness,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    dtes,</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    ivs,</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"viridis"</span>,</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="fl">0.2</span>,</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    antialiased<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.85</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Moneyness (S/K)"</span>, labelpad<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Time to Expiration (T)"</span>, labelpad<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">"Implied Volatility"</span>, labelpad<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>ax.view_init(elev<span class="op">=</span><span class="dv">20</span>, azim<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>fig.colorbar(surf, ax<span class="op">=</span>ax, shrink<span class="op">=</span><span class="fl">0.6</span>, aspect<span class="op">=</span><span class="dv">10</span>, pad<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">

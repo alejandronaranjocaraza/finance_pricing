@@ -159,7 +159,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stockOverview.html">Black-Scholes-Merton and Binomial Trees</a></li><li class="breadcrumb-item"><a href="./stockOverview.html">Stock Price Behaviour and Assumptions Under BSM and Binomial Models</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stockOverview.html">Black-Scholes-Merton and Binomial Pricing Models</a></li><li class="breadcrumb-item"><a href="./stockOverview.html">Stock Price Behaviour and Assumptions Under BSM and Binomial Models</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -188,7 +188,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Black-Scholes-Merton and Binomial Trees</span></a>
+ <span class="menu-text">Black-Scholes-Merton and Binomial Pricing Models</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -198,6 +198,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./stockOverview.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Stock Price Behaviour and Assumptions Under BSM and Binomial Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modsOverview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Binomial Tree and BSM Overview and Implementation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -236,7 +242,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stockOverview.html">Black-Scholes-Merton and Binomial Trees</a></li><li class="breadcrumb-item"><a href="./stockOverview.html">Stock Price Behaviour and Assumptions Under BSM and Binomial Models</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stockOverview.html">Black-Scholes-Merton and Binomial Pricing Models</a></li><li class="breadcrumb-item"><a href="./stockOverview.html">Stock Price Behaviour and Assumptions Under BSM and Binomial Models</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Stock Price Behaviour and Assumptions Under Black-Scholes-Merton and Binomial Tree</h1>
 </div>
@@ -281,14 +287,14 @@ window.Quarto = {
 </section>
 <section id="relevant-models" class="level4">
 <h4 class="anchored" data-anchor-id="relevant-models">Relevant Models</h4>
-<p><u><strong>Stochastic Process</strong></u></p>
+<p><strong>Stochastic Process</strong></p>
 <p>A stochastic process is a family of random variables</p>
 <p><span class="math display">
 \{X(t) : t \in T\}
 </span></p>
 <p>defined on a probability space, where the index set <span class="math inline">T</span> typically represents time.</p>
 <p>A stochastic process is called a <em>continuous-time, continuous-state stochastic process</em> if the index set <span class="math inline">T</span> is continuous (e.g., <span class="math inline">T \subseteq \mathbb{R}</span>) and each random variable <span class="math inline">X(t)</span> takes values in a continuous state space (e.g., <span class="math inline">\mathbb{R}</span>).</p>
-<p><u><strong>Random Walk</strong></u></p>
+<p><strong>Random Walk</strong></p>
 <p>A <em>discrete-time</em> random walk can be defined as a stochastic process <span class="math inline">\{S_n : n=0,1,2,..\}</span> where <span class="math inline">S_n</span> is the sum of independant and identically distributed (i.i.d.) random variables (steps) <span class="math inline">X_i</span>: <span class="math display">
 S_n = S_0 + \sum_{i=1}^{n}X_i
 </span></p>
@@ -301,7 +307,7 @@ S_{n+1} &amp;= S_n + X_{n+1}\\
 V_{n+1} &amp;= V_n X_{n+1}
 \end{align*}
 </span></p>
-<p><u><strong>Wiener Process / Brownian Motion</strong></u></p>
+<p><strong>Wiener Process / Brownian Motion</strong></p>
 <p>Real-valued continuous-time stochastic process <span class="math inline">\{W_t\}_{t \ge 0}</span> with the following properties:</p>
 <ol type="1">
 <li><span class="math inline">W_0 = 0</span> almost surely.</li>
@@ -309,15 +315,15 @@ V_{n+1} &amp;= V_n X_{n+1}
 <li><span class="math inline">W</span> has Gaussian increments. For all <span class="math inline">u,t \ge 0</span>, <span class="math inline">W_{t+u} - W_t \sim \mathcal{N}(0,u)</span>.<br> That is, a time step <span class="math inline">u</span> results in an increment that is normally distributed with mean <span class="math inline">0</span> and variance <span class="math inline">u</span>.</li>
 <li><span class="math inline">W</span> has almost surely continuous paths: <span class="math inline">W_t</span> is almost surely continuous in <span class="math inline">t</span>.</li>
 </ol>
-<p><u><strong>Generalized Weiner Process</strong></u></p>
+<p><strong>Generalized Weiner Process</strong></p>
 <p>A <em>Generalized Weiner Process</em> for a variable <span class="math inline">x</span> can be defined <span class="math display">
 dx = a dt + b dz
 </span> where - <span class="math inline">z</span> follows a Weiner Process - <span class="math inline">a</span> and <span class="math inline">b</span> are constants - The mean change per unit change in time (<em>drift rate</em>) is <span class="math inline">a</span> - The variance per unit time is (<em>variance rate</em>) is <span class="math inline">b²</span></p>
-<p><u><strong>Ito’s Process</strong></u></p>
+<p><strong>Ito’s Process</strong></p>
 <p>Generalization of <em>Generalized Weiner Process</em>: <span class="math display">
 dx = a(x,t) dt + b(x,t) dz
 </span> where <span class="math inline">a=a(x,t)</span> and <span class="math inline">b=b(x,t)</span> are deterministic function of <span class="math inline">(x,t)</span>.</p>
-<p><u><strong>Geometric Brownian Motion</strong></u></p>
+<p><strong>Geometric Brownian Motion</strong></p>
 <p>A stochastic process for a variable <span class="math inline">x</span> follows a <em>Geometric Brownian Motion</em> if it satisfies the following stochastic differential equation (SDE):</p>
 <p><span class="math display">
 dx = \mu x dt + \sigma x dz
@@ -365,7 +371,7 @@ S_t = S_0 \exp((\mu - \dfrac{\sigma²}{2})t + \sigma z_t)
 </span> where <span class="math inline">S_0 = S(0)</span> is the initial condition and <span class="math inline">z</span> is the underlying <em>Wiener Process</em><br> or, in the discretized case <span class="math display">
 S_{t+\Delta t} = S_t \exp((\mu - \dfrac{\sigma²}{2}) \Delta t + \sigma \epsilon_t \sqrt{\Delta t})
 </span> where <span class="math inline">\epsilon_t \sim N(0,1)</span>.</p>
-<p><u><strong>Stock Simulation Thorugh GBM (Euler-Maruyama) | Pseudocode</strong></u></p>
+<p><strong>Stock Simulation Thorugh GBM (Euler-Maruyama) | Pseudocode</strong></p>
 <pre class="text"><code>Given
     S0      Initial stock price
     dt      Time step size
@@ -382,7 +388,7 @@ For t ← 0 to T-1 do
     S[t+1] &lt;- S[t] * (1 + r * dt + sigma * eps * sqrt(dt))
 
 End For</code></pre>
-<p><u><strong>Stock Simulation Thorugh GBM (Exact Solution) | Pseudocode</strong></u></p>
+<p><strong>Stock Simulation Thorugh GBM (Exact Solution) | Pseudocode</strong></p>
 <pre class="text"><code>Given
     S0      Initial stock price
     dt      Time step size
@@ -399,7 +405,7 @@ For t ← 0 to T-1 do
     S[t+1] &lt;- S[t] * exp[(r - sigma²/2) * dt + sigma * eps * sqrt(dt)]
 
 End For</code></pre>
-<p><u><strong>Stock Simulation Through GBM | Python Implementation</strong></u></p>
+<p><strong>Stock Simulation Through GBM | Python Implementation</strong></p>
 <div id="84d4a477-f61c-444c-bd1d-2e9bec8d6fb2" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stockGbmEuler(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    S0,</span>
@@ -516,7 +522,7 @@ End For</code></pre>
 <h4 class="anchored" data-anchor-id="stock-price-behaviour-under-binomial-model">Stock Price Behaviour Under Binomial Model</h4>
 <p>Under the Binomial Model, stock price follows a <em>discrete-time</em> <em>discrete-spce</em> multiplicative random walk. At each time step, the stock price <span class="math inline">S_n</span> can either move up to <span class="math inline">S_{n+1}=u S_n</span> or down to <span class="math inline">S_{n+1}=d S_n</span> (with <span class="math inline">d&lt;1</span>, <span class="math inline">u&gt;1</span>). The probability of a price increase is <span class="math inline">p</span>, while the probability of a decrease is <span class="math inline">1-p</span>.</p>
 <p>This results in the following expected price at each time step: <span class="math inline">E[S_{n+1}] = p (u S_n) + (1-p) (d S_n)</span>.<br> Under the no-arbitrage assumption in the binomial model, the probability <span class="math inline">p</span> in a <em>risk-neutral framework</em> is determined by <span class="math display">p = \dfrac{e^{rT}-d}{u-d}</span> where <span class="math inline">r</span> is the risk-free rate.</p>
-<p><u><strong>John C. Cox, Stephen A. Ross, and Mark Rubinstein (CRR) Parameterization</strong></u></p>
+<p><strong>John C. Cox, Stephen A. Ross, and Mark Rubinstein (CRR) Parameterization</strong></p>
 <p>The following parameterization is commonly adopted because it matches the volatility of the underlying asset and guarantees convergence of the binomial model to the Black–Scholes–Merton framework as <span class="math inline">\Delta t</span> tends to zero. <span class="math display">
 \begin{align*}
 p &amp;= \dfrac{a-d}{u-d}\\
@@ -531,7 +537,7 @@ a &amp;= e^{r\Delta t}
 <li><span class="math inline">\sigma</span> is the stock return volatility</li>
 <li><span class="math inline">a</span> is the discount rate</li>
 </ul>
-<p><u><strong>Stock Simulation with Binomial Model | Pseudocode</strong></u></p>
+<p><strong>Stock Simulation with Binomial Model | Pseudocode</strong></p>
 <pre class="text"><code>Given
     S0      Initial stock price
     dt      Time step size
@@ -558,7 +564,7 @@ For t ← 0 to T-1 do
         S[t+1] ← S[t] * d
 
 End For</code></pre>
-<p><u><strong>Stock Simulation Through Binomial Model | Python Implementation</strong></u></p>
+<p><strong>Stock Simulation Through Binomial Model | Python Implementation</strong></p>
 <p>The following is a simple simulation of stock price behaviour with a multiplicative random walk (CRR parameterization).</p>
 <div id="3c128a77-ad5d-41ed-9882-d18e4a939aa1" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stockRandomWalk(</span>
