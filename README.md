@@ -122,35 +122,8 @@ This project serves as a personal learning platform focused on:
 
 The content is based on the following books:
 
-- Hull, John. Options, Futures, and Other Derivatives. Pearson, 2022.
-- Taylor, Stephen. Modelling Financial Time Series. World Scientific, 2013. 
-
-Index
------
-
-- [C++ pricing engine for python](./docs/volSmile.html)
-
-
-# LINKS AND REFERENCES
-
-## Books
-
-- [Options, Futures and Other Derivatives - Hull](http://lib.ysu.am/disciplines_bk/2b66030e0dd4c77b2bda437f6c1e5e66.pdf)
-    * Instruments basics, prcing and numerical procedures
-
-- [Introduction to Time Series and Forecasting - Brockwell/Davis](https://weblibrary.mila.edu.my/upload/ebook/management%20_and_business/2016_Book_IntroductionToTimeSeriesAndFor.pdf)
-    * Basic Time Series thoery & application (R)
-
-- [Modelling Financial Time Series - Taylor]()
-    * Combines ARMA / GARCH theory & application
-
-- [Francq & Zakoian – GARCH Models]()
-    * Advanced forecasting and model variant
-
-## Websites
-
-- [Quant Guild](https://quantguild.com/)
-
-- [Roman Paolucci YouTube](https://www.youtube.com/@QuantGuild)
-    * [Master Volatility with ARCH & GARCH Models - Roman Paolucci](https://www.youtube.com/watch?v=iImtlBRcczA)
- 
+- Hull, John C. *Options, Futures, and Other Derivatives*. 11th ed., Global Edition Pearson, 2022.
+- Taylor, Stephen. *Modelling Financial Time Series*. World Scientific, 2013.
+- Hamilton, James D. *Time Series Analysis*. Princeton University Press, 1994.
+- Brockwell, Peter J., and Richard A. Davis. *Time Series: Theory and Methods*. Springer, 2009.
+- Enders, Walter. *Applied Econometric Time Series*. Wiley, 2014.
