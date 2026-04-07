@@ -23,7 +23,7 @@ The full documentation, mathematical derivations, model explanations,
 and performance analysis are available in the rendered HTML site:
 
 ➡ **View Documentation:**  
-https://alejandronaranjocaraza.github.io/finance_pricing/index.html
+https://alejandronaranjocaraza.github.io/derivative-pricing/index.html
 
 ![Documentation Preview](assets/projectPreview1.png)
 
